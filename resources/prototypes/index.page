@@ -1,0 +1,23 @@
+::xowiki::Page new -title "XoWf Test Index Page" -text {
+
+<p>
+This is the start page of xowfstoryboard index.</p>
+
+<p>
+Monaco forms defined in this package:
+</p>
+
+ {{form-usages -field_names _name -form en:monaco.form -parent_id * -csv false -with_form_link false}}
+
+<p>Activity Overview:</p>
+
+>>left-col<<
+{{recent -max_entries 25}}
+>><<
+>>right-col<<
+{{last-visited -title "Last Visited" -max_entries 10 }}
+<br>
+{{most-popular -title "Most Popular" -max_entries 10 }}
+>><<
+
+}
