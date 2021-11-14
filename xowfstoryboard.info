@@ -12,9 +12,10 @@
     <version name="0.1d" url="http://openacs.org/repository/download/apm/xowfstoryboard-0.1d.apm">
         <owner url="mailto:michael.feurstein@wu.ac.at">Michael Feurstein</owner>
         <maturity>0</maturity>
-		
-		<extends url="xowf" version="5.10.0"/>
+
         <provides url="xowfstoryboard" version="0.1d"/>
+        <requires url="xowf" version="5.10.0"/>
+        <requires url="xowf-monaco-plugin" version="0.20.1"/>
 
         <callbacks>
         </callbacks>

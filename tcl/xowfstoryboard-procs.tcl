@@ -1,3 +1,4 @@
+::xo::db::require package xowiki
 ::xo::db::require package xowf
 
 namespace eval ::xowfstoryboard {
