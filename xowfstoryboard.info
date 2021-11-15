@@ -9,18 +9,21 @@
     <implements-subsite-p>f</implements-subsite-p>
     <inherit-templates-p>t</inherit-templates-p>
 
-    <version name="0.1d" url="http://openacs.org/repository/download/apm/xowfstoryboard-0.1d.apm">
+    <version name="0.2d" url="http://openacs.org/repository/download/apm/xowfstoryboard-0.2d.apm">
         <owner url="mailto:michael.feurstein@wu.ac.at">Michael Feurstein</owner>
         <maturity>0</maturity>
 
-        <provides url="xowfstoryboard" version="0.1d"/>
+        <provides url="xowfstoryboard" version="0.2d"/>
         <requires url="xowf" version="5.10.0"/>
         <requires url="xowf-monaco-plugin" version="0.20.1"/>
 
         <callbacks>
+            <callback type="after-instantiate"  proc="::xowfstoryboard::after-instantiate"/>
         </callbacks>
-        <parameters>
-        <!-- No version parameters -->
+		<parameters>
+		  <parameter scope="instance" datatype="string"  min_n_values="1"  max_n_values="1"  name="parameter_page"  description="::xowiki::FormPage to search for parameters. The page name has to contain a language prefix and can refer to a different xowiki instance.
+Example: //xowiki/en:xowiki-standard-parameter"/>
+            <parameter scope="instance" datatype="number" min_n_values="1"  max_n_values="1" name="use_hstore"  default="0" description="Use hstore for accessing instance  attributes. Create index for  existing values via  ::xowiki::hstore::update_form_instance_item_index -package_id $package_id"/>
         </parameters>
 
     </version>

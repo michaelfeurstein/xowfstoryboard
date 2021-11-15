@@ -1,0 +1,14 @@
+::xowiki::Form new \
+    -set name en:monaco.form \
+    -title "Monaco Form" \
+    -set anon_instances t \
+    -set form {} \
+	-set text [list {@editor@} text/html] \
+    -set form_constraints {{_name:text,required,label=Storyboard Name}     
+		editor:monaco_storyboard
+       _page_order:hidden
+       _nls_language:hidden
+       _description:hidden
+       _creator:hidden
+       _title:hidden
+   }
