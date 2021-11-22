@@ -3,8 +3,6 @@ source /var/www/oacs-5-10-0/packages/xowfstoryboard/tcl/storyboard-language/pars
 source /var/www/oacs-5-10-0/packages/xowfstoryboard/tcl/storyboard-language/worker.tcl
 source /var/www/oacs-5-10-0/packages/xowfstoryboard/tcl/storyboard-language/expression_builder.tcl
 
-namespace import StoryBoard::*
-
 namespace eval ::xowiki::formfield {
 
   Class create monaco_storyboard -superclass monaco -ad_doc {
@@ -14,6 +12,7 @@ namespace eval ::xowiki::formfield {
   }
 
   monaco_storyboard instproc pretty_value args {
+	namespace path ::StoryBoard
 	StoryBoard::Video new -id video1
     ns_log notice "--- monaco_storyboard videos:[llength [StoryBoard::Video info instances -closure]]"
 	ns_log notice "--- monaco_storyboard value:[:value]"
