@@ -25,6 +25,29 @@ namespace eval ::xowiki::formfield {
 	ns_log notice " - id: [[StoryBoard::Module info instances -closure] id get]"
 	ns_log notice " - title: [[StoryBoard::Module info instances -closure] title get]"
 	ns_log notice " - structure: [[StoryBoard::Module info instances -closure] structure get]"
+	set modules [llength [StoryBoard::Module info instances -closure]]
+
+	template::add_body_handler -event load -script [subst -nocommands {
+
+	var srcDoc = document.getElementById('${:id}-srcdoc');
+	var page = xowf.monaco.b64_to_utf8(srcDoc.innerHTML);
+	console.log("page: " + page);
+
+	}]
+
+	# CONTINUE HERE: inside the below return insert code to display monaco editor (where hello is)
+	set base64 [:value]
+	return [subst -nocommands {
+
+	 <template id="${:id}-srcdoc" style="display:none;">$base64</template>
+
+	 <div>Modules: $modules</div>
+
+	}]
+  }
+
+  monaco_storyboard instproc render_item {} {
+	ns_log notice "--- monaco_storyboard render_item"
 	next
   }
 
