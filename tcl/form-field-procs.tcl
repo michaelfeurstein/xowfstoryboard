@@ -27,21 +27,35 @@ namespace eval ::xowiki::formfield {
 	ns_log notice " - structure: [[StoryBoard::Module info instances -closure] structure get]"
 	set modules [llength [StoryBoard::Module info instances -closure]]
 
+	template::add_body_script -script {var require = { paths: { 'vs': '/resources/xowf-monaco-plugin/monaco-editor/min/vs' } };}
+	template::add_body_script -src urn:ad:js:monaco:min/vs/loader
+	template::add_body_script -src urn:ad:js:monaco:min/vs/editor/editor.main.nls
+	template::add_body_script -src urn:ad:js:monaco:min/vs/editor/editor.main
+
+	set base64 [:value]
 	template::add_body_handler -event load -script [subst -nocommands {
 
 	var srcDoc = document.getElementById('${:id}-srcdoc');
 	var page = xowf.monaco.b64_to_utf8(srcDoc.innerHTML);
 	console.log("page: " + page);
 
+	xowf.monaco.editors.push(monaco.editor.create(document.getElementById('${:id}'), {
+          language: '${:language}', minimap: {enabled: ${:minimap}}, readOnly: true, theme: '${:theme}'
+      }));
+	xowf.monaco.editors[xowf.monaco.editors.length-1].setValue(xowf.monaco.b64_to_utf8('$base64'));
+
+
 	}]
 
-	# CONTINUE HERE: inside the below return insert code to display monaco editor (where hello is)
-	set base64 [:value]
+	# CONTINUE HERE: inside the div class Form-monaco setup a structure for a side by side view of editor and generated preview. Step A: this 2 column structzre and Step B: start visitor to generate preview for the right side
 	return [subst -nocommands {
 
 	 <template id="${:id}-srcdoc" style="display:none;">$base64</template>
 
 	 <div>Modules: $modules</div>
+
+	 <div id="${:id}" classe="${:CSSclass}" style="width: ${:width}; height: ${:height};"></div>
+
 
 	}]
   }
