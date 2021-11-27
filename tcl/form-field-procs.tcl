@@ -4,8 +4,6 @@ source /var/www/oacs-5-10-0/packages/xowfstoryboard/tcl/storyboard-language/visi
 source /var/www/oacs-5-10-0/packages/xowfstoryboard/tcl/storyboard-language/worker.tcl
 source /var/www/oacs-5-10-0/packages/xowfstoryboard/tcl/storyboard-language/expression_builder.tcl
 
-package req tdom
-
 namespace eval ::xowiki::formfield {
 
   Class create monaco_storyboard -superclass monaco -ad_doc {
@@ -32,7 +30,7 @@ namespace eval ::xowiki::formfield {
 	set internalBuilder [StoryBoard::StoryboardBuilder new]
 	set module [$internalBuilder from [$internalParser storyboardDict get]]
 
-	set visitor [HTMLVisitor new]
+	set visitor [::StoryBoardVisitor::HTMLVisitor new]
 	set htmlResult [$visitor evaluate $module]
 
 	set sb_modules [llength [StoryBoard::Module info instances -closure]]
@@ -68,7 +66,6 @@ namespace eval ::xowiki::formfield {
 	# Return HTML preparations
 	#
 
-	# CONTINUE HERE: inside the div class Form-monaco setup a structure for a side by side view of editor and generated preview. Step B: start visitor to generate preview for the right side
 	return [subst -nocommands {
 
 	 <template id="${:id}-srcdoc" style="display:none;">$base64</template>
