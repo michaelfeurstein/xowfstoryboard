@@ -24,22 +24,29 @@ namespace eval ::xowiki::formfield {
 	# StoryBoard preparations
 	#
 
-	namespace path ::StoryBoard
+	#namespace path ::StoryBoard
+	namespace import ::StoryBoard::*
 	ns_log notice "--- monaco_storyboard sb:$storyboard"
 	set internalParser [StoryboardParser new -storyboard $storyboard]
-	set internalBuilder [StoryBoard::StoryboardBuilder new]
+	set internalBuilder [StoryboardBuilder new]
 	set module [$internalBuilder from [$internalParser storyboardDict get]]
 
-	set visitor [::StoryBoardVisitor::HTMLVisitor new]
+	set visitor [HTMLVisitor new]
 	set htmlResult [$visitor evaluate $module]
 
-	set sb_modules [llength [StoryBoard::Module info instances -closure]]
-	set sb_id [[StoryBoard::Module info instances -closure] id get]
-	set sb_title [[StoryBoard::Module info instances -closure] title get]
-	set sb_structure [[StoryBoard::Module info instances -closure] structure get]
+	set sb_modules [llength [Module info instances -closure]]
+	set sb_id [[Module info instances -closure] id get]
+	set sb_title [[Module info instances -closure] title get]
+	set sb_structure [[Module info instances -closure] structure get]
 
 	set htmlPreview [$htmlResult asHTML]
 	#set htmlPreview "something"
+
+	# destroy all instances of type Element
+	# in order to prevent accumulation of zombie modules
+	foreach i [StoryBoard::Element info instances -closure] {
+		$i destroy
+	}
 
 	#
 	# JS preparations
