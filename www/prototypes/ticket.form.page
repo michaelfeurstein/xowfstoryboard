@@ -1,0 +1,19 @@
+::xowiki::Form new \
+    -set name en:ticket.form \
+    -title "Ticket Form" \
+    -set anon_instances t \
+    -set form {<form> 
+		@wf_current_state@ 
+		@_name@ 
+		@_title@ 
+		@_creator@ 
+		@_text@ 
+		@_description@ 
+		</form>} \
+	-set text [list {
+		@text@ 
+		State: @wf_current_state@} text/html] \
+    -set form_constraints {wf_current_state:current_state
+		_page_order:hidden
+		_name:label,help_text=     
+   }
