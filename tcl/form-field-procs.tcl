@@ -12,6 +12,12 @@ namespace eval ::xowiki::formfield {
     {storyboardSyntax key-value}
   }
 
+  monaco_storyboard instproc initialize {} {
+	next
+	#::xo::Page requireCSS "/resources/xowf-monaco-plugin/plugin.css"
+    ::xo::Page requireCSS urn:ad:css:xowfstoryboard:storyboard
+  }
+
   monaco_storyboard instproc pretty_value args {
 	#
 	# Variables
@@ -78,8 +84,8 @@ namespace eval ::xowiki::formfield {
 	 <template id="${:id}-srcdoc" style="display:none;">$base64</template>
 
 	 <div class="row">
-		<div id="${:id}" class="${:CSSclass} col-md-8" style="width: ${:width}; height: ${:height};"></div>
-		<div class="col-md-4">$htmlPreview</div>
+		<div id="${:id}" class="${:CSSclass} col-md-8" style="width: 650px; height: ${:height};"></div>
+		<div class="col-md-4 htmlPreview">$htmlPreview</div>
 	 </div>
 	 <div style="width: ${:width}; height: ${:height};" id="${:id}-status">
 		Modules: $sb_modules

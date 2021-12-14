@@ -1,0 +1,14 @@
+# -*- tcl-*-
+# The variable package_id and parent_id are provided via the caller context
+xowf::Package create_new_workflow_page \
+    -package_id $package_id \
+    -parent_id $parent_id \
+    -name en:storyboard.wf \
+    -title "Storyboard Workflow" \
+    -instance_attributes {
+        workflow_definition {::xowf::include /packages/xowfstoryboard/lib/storyboard.wf}
+        form_constraints {{_name:text,required,label=Storyboard Name} 
+			editor:label,label=Storyboard,style=,disabled=true}
+        return_url {}
+    }
+

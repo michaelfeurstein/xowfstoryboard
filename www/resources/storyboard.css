@@ -1,0 +1,6 @@
+div.htmlPreview {
+    border: 1px solid grey;
+	height: 600px;
+	width: 370px;
+	overflow-y:auto;
+}

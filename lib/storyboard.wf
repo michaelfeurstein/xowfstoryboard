@@ -1,0 +1,15 @@
+set :debug 1
+set :autoname 1
+
+Action save -label {save draft} -title {Save Draft}
+Action submit -next_state submitted -label {submit} -title {Submit}
+Action unsubmit -next_state initial -label {unsubmit} -title {Unsubmit}
+
+State parameter { {form en:storyboard.form} {view_method edit} }
+State initial -actions {save submit} -form_constraints {
+   editor:monaco_storyboard,required
+}
+State submitted -actions {unsubmit} -view_method view -form_constraints {
+   _name:text,disabled=true
+   editor:monaco_storyboard,disabled=true
+}

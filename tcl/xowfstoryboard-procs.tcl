@@ -30,8 +30,8 @@ namespace eval ::xowfstoryboard {
   Package site_wide_pages {
 	monaco.form
 
-	ticket.wf
-	ticket.form
+	storyboard.wf
+	storyboard.form
   }
 
   Package default_package_parameter_page_info {

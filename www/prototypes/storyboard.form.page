@@ -1,0 +1,18 @@
+::xowiki::Form new \
+    -set name en:storyboard.form \
+    -title "Storyboard Form" \
+    -set anon_instances t \
+    -set form {<form>
+		@_name@
+		@editor@
+		</form>} \
+    -set text [list {
+		@name@
+		@editor@} text/html] \
+    -set form_constraints {
+		_page_order:hidden
+		_nls_language:hidden
+		_description:hidden
+		_creator:hidden
+		_title:hidden
+   }
