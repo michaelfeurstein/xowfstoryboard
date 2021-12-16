@@ -1,8 +1,16 @@
-source /var/www/oacs-5-10-0/packages/xowfstoryboard/tcl/storyboard-language/language_model.tcl
-source /var/www/oacs-5-10-0/packages/xowfstoryboard/tcl/storyboard-language/parser.tcl
-source /var/www/oacs-5-10-0/packages/xowfstoryboard/tcl/storyboard-language/visitor.tcl
-source /var/www/oacs-5-10-0/packages/xowfstoryboard/tcl/storyboard-language/worker.tcl
-source /var/www/oacs-5-10-0/packages/xowfstoryboard/tcl/storyboard-language/expression_builder.tcl
+::xo::library doc {
+  The monaco_storyboard FormField
+  Extension of monaco formfield
+
+  @creation-date 2021-11-15
+  @author Michael S. Feurstein
+}
+
+::xo::library require -package xowfstoryboard storyboard-language/language_model
+::xo::library require -package xowfstoryboard storyboard-language/parser
+::xo::library require -package xowfstoryboard storyboard-language/visitor
+::xo::library require -package xowfstoryboard storyboard-language/worker
+::xo::library require -package xowfstoryboard storyboard-language/expression_builder
 
 namespace eval ::xowiki::formfield {
 
@@ -18,7 +26,55 @@ namespace eval ::xowiki::formfield {
     ::xo::Page requireCSS urn:ad:css:xowfstoryboard:storyboard
   }
 
+  monaco_storyboard instproc render_input args {
+	ns_log notice "++++ monaco_html_sandbox private render_input"
+
+	try {
+		set value [:value]
+		set parsed_storyboard [:parse_storyboard [:fromBase64 $value]]
+		set htmlPreview [dict get $parsed_storyboard html]
+	} on error {errorMsg} {
+		set htmlPreview ""
+	}
+
+	# This element is invisible and contains the base64 encoded value
+    # of the formfield, which we use to initialize the previews. One
+    # could also do it using the editor api, but we do not have one in
+    # case of a readonly field or when we render this field in display
+    # mode.
+	ns_log notice "++++ monaco_html_sandbox private render_input value:[:value]"
+    ::html::template -id "${:id}-srcdoc" style "display:none;" {
+      ::html::t [ns_base64encode -- $htmlPreview]
+    }
+
+    ::html::div -id ${:id}-container style "display:flex; flex-wrap:wrap;" {
+      ::html::div -id ${:id}-code {
+        next
+      }
+        ::html::div -id ${:id}-preview {
+          ::html::iframe -id ${:id}-iframe -style "width: ${:width}; height: ${:height};"
+        }
+    }
+
+    template::add_body_handler -event load -script [subst -nocommands {
+      var srcDoc = document.getElementById('${:id}-srcdoc');
+	  console.log("srcDoc: " + srcDoc);
+      var page = xowf.monaco.b64_to_utf8(srcDoc.innerHTML);
+	  console.log("page: " + page);
+
+      var iframe = document.getElementById('${:id}-iframe');
+      if (iframe) {
+        iframe.srcdoc = page;
+      }
+    }]
+  }
+
   monaco_storyboard instproc pretty_value args {
+	# check [${:object} set state]
+	# depending on state
+	# do different stuff inside
+	# :object is handle to the form page
+
 	#
 	# Variables
 	#
@@ -32,27 +88,19 @@ namespace eval ::xowiki::formfield {
 
 	#namespace path ::StoryBoard
 	namespace import ::StoryBoard::*
-	ns_log notice "--- monaco_storyboard sb:$storyboard"
-	set internalParser [StoryboardParser new -storyboard $storyboard]
-	set internalBuilder [StoryboardBuilder new]
-	set module [$internalBuilder from [$internalParser storyboardDict get]]
+	# ad_log for full stack logging
+	# ns_log for "just a message"
+	ad_log notice "--- monaco_storyboard pretty_value sb:$storyboard"
 
-	set visitor [HTMLVisitor new]
-	set htmlResult [$visitor evaluate $module]
+	set parsed_storyboard [:parse_storyboard $storyboard]
+	set htmlPreview [dict get $parsed_storyboard html]
 
-	set sb_modules [llength [Module info instances -closure]]
-	set sb_id [[Module info instances -closure] id get]
-	set sb_title [[Module info instances -closure] title get]
-	set sb_structure [[Module info instances -closure] structure get]
+	set modules [dict get $parsed_storyboard modules]
 
-	set htmlPreview [$htmlResult asHTML]
-	#set htmlPreview "something"
-
-	# destroy all instances of type Element
-	# in order to prevent accumulation of zombie modules
-	foreach i [StoryBoard::Element info instances -closure] {
-		$i destroy
-	}
+	set sb_modules [llength $modules]
+	set sb_id [$modules id get]
+	set sb_title [$modules title get]
+	set sb_structure [$modules structure get]
 
 	#
 	# JS preparations
@@ -79,6 +127,8 @@ namespace eval ::xowiki::formfield {
 	# Return HTML preparations
 	#
 
+	set test [::xowfstoryboard::hello]
+
 	return [subst -nocommands {
 
 	 <template id="${:id}-srcdoc" style="display:none;">$base64</template>
@@ -88,7 +138,7 @@ namespace eval ::xowiki::formfield {
 		<div class="col-md-4 htmlPreview">$htmlPreview</div>
 	 </div>
 	 <div style="width: ${:width}; height: ${:height};" id="${:id}-status">
-		Modules: $sb_modules
+		Modules: $sb_modules $test
 		<br>
 		ID: $sb_id
 		<br>
@@ -97,14 +147,44 @@ namespace eval ::xowiki::formfield {
 		Structure: $sb_structure
 	 </div>
 
-
-
 	}]
   }
 
   monaco_storyboard instproc render_item {} {
 	ns_log notice "--- monaco_storyboard render_item"
 	next
+  }
+
+  monaco_storyboard instproc check=storyboard {value} {
+	ns_log notice "--- monaco_storyboard check=storyboard:$value"
+	# build up logic here
+	# whatever the parser returns
+	# show here
+	#:uplevel [list set errorMsg "This is BS! $value"]
+	upvar errorMsg errorMsg
+	:uplevel [list set __langPkg xowfstoryboard]
+	return [expr {![catch {::StoryBoard::StoryboardParser new -storyboard [:fromBase64 $value]} errorMsg]}]
+  }
+
+  monaco_storyboard instproc parse_storyboard {storyboard} {
+	namespace import ::StoryBoard::*
+
+	# destroy all instances of type Element
+	# in order to prevent accumulation of zombie modules
+	foreach i [StoryBoard::Element info instances -closure] {
+		$i destroy
+	}
+
+	# ad_log for full stack logging
+	# ns_log for "just a message"
+	ad_log notice "--- monaco_storyboard pretty_value sb:$storyboard"
+	set internalParser [StoryboardParser new -storyboard $storyboard]
+	set internalBuilder [StoryboardBuilder new]
+	set module [$internalBuilder from [$internalParser storyboardDict get]]
+
+	set visitor [HTMLVisitor new]
+	set htmlResult [$visitor evaluate $module]
+	return [list html [$htmlResult asHTML] modules [Module info instances -closure]]
   }
 
 }

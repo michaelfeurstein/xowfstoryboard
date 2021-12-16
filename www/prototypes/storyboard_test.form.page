@@ -1,0 +1,17 @@
+::xowiki::Form new \
+    -set name en:storyboard_test.form \
+    -title "Storyboard Test Form" \
+    -set anon_instances t \
+    -set form {<form>
+                @_name@
+                @editor@
+				@preview@
+                </form>} \
+    -set text {} \
+    -set form_constraints {
+                _page_order:hidden
+                _nls_language:hidden
+                _description:hidden
+                _creator:hidden
+                _title:hidden
+   }

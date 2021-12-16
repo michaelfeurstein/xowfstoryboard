@@ -32,6 +32,7 @@ namespace eval ::xowfstoryboard {
 
 	storyboard.wf
 	storyboard.form
+	storyboard_test.form
   }
 
   Package default_package_parameter_page_info {
@@ -43,5 +44,10 @@ namespace eval ::xowfstoryboard {
       ExtraMenuEntries {{clear_menu -menu New} {entry -name New.Storyboard -label {#xowfstoryboard.menu-New-Storyboard#} -form en:monaco.form}}
       with_delicious f with_notifications f security_policy ::xowiki::policy1
     }
+  }
+
+  ad_proc hello {} {
+	ns_log notice "this is a text"
+	return "This is a TEST"
   }
 }
