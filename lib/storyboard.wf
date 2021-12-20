@@ -5,15 +5,15 @@ Action save \
 	-label {save draft} \
 	-title {Save Draft}
 
-Action submit \
-	-next_state submitted \
-	-label {submit} \
-	-title {Submit}
+#Action submit \
+#	-next_state submitted \
+#	-label {submit} \
+#	-title {Submit}
 
-Action unsubmit \
-	-next_state initial \
-	-label {unsubmit} \
-	-title {Unsubmit}
+#Action unsubmit \
+#	-next_state initial \
+#	-label {unsubmit} \
+#	-title {Unsubmit}
 
 Action finish \
 	-next_state finished \
@@ -21,14 +21,20 @@ Action finish \
 	-title {Finished}
 
 State parameter { {form en:storyboard.form} {view_method edit} }
-State initial -actions {save submit} -form_constraints {
+
+State initial -actions {save finish} -form_constraints {
    editor:monaco_storyboard,required,validator=storyboard
 }
-State submitted -actions {unsubmit finish} -form en:storyboard_test.form -form_constraints {
-   _name:text,disabled=true
-   editor:monaco_storyboard,disabled=true
-   preview:text,label=ThisPreview
-}
+
+#
+# State using a different form (trying things out)
+#
+#State submitted -actions {unsubmit finish} -form en:storyboard_test.form -form_constraints {
+#   _name:text,disabled=true
+#   editor:monaco_storyboard,disabled=true
+#   preview:text,label=ThisPreview
+#}
+
 State finished -view_method view -form_constraints {
    _name:text,disabled=true
    editor:monaco_storyboard,disabled=true

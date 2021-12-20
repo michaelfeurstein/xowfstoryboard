@@ -47,24 +47,24 @@ namespace eval ::xowiki::formfield {
       ::html::t [ns_base64encode -- $htmlPreview]
     }
 
-    ::html::div -id ${:id}-container style "display:flex; flex-wrap:wrap;" {
-      ::html::div -id ${:id}-code {
+	::html::div -id ${:id}-container -class storyboardContainer {
+      ::html::div -id ${:id}-code -class "storyboardEditor"  {
         next
       }
-        ::html::div -id ${:id}-preview {
-          ::html::iframe -id ${:id}-iframe -style "width: ${:width}; height: ${:height};"
+        ::html::div -id ${:id}-preview -class "storyboardPreview" {
+          ::html::t $htmlPreview
         }
     }
 
     template::add_body_handler -event load -script [subst -nocommands {
       var srcDoc = document.getElementById('${:id}-srcdoc');
-	  console.log("srcDoc: " + srcDoc);
+	  //console.log("srcDoc: " + srcDoc);
       var page = xowf.monaco.b64_to_utf8(srcDoc.innerHTML);
-	  console.log("page: " + page);
+	  //console.log("page: " + page);
 
-      var iframe = document.getElementById('${:id}-iframe');
-      if (iframe) {
-        iframe.srcdoc = page;
+      var preview = document.getElementById('${:id}-preview');
+      if (preview) {
+        preview.innerHTML = page;
       }
     }]
   }
@@ -134,19 +134,18 @@ namespace eval ::xowiki::formfield {
 	 <template id="${:id}-srcdoc" style="display:none;">$base64</template>
 
 	 <div class="row">
-		<div id="${:id}" class="${:CSSclass} col-md-8" style="width: 650px; height: ${:height};"></div>
-		<div class="col-md-4 htmlPreview">$htmlPreview</div>
+		<div id="${:id}" class="${:CSSclass} storyboardEditor" style="width: ${:width}; height: ${:height};"></div>
+		<div class="storyboardPreview">$htmlPreview</div>
+		<div class="storyboardLog">
+			Modules: $sb_modules $test
+			<br>
+			ID: $sb_id
+			<br>
+			Title: $sb_title
+			<br>
+			Structure: $sb_structure
+		</div>
 	 </div>
-	 <div style="width: ${:width}; height: ${:height};" id="${:id}-status">
-		Modules: $sb_modules $test
-		<br>
-		ID: $sb_id
-		<br>
-		Title: $sb_title
-		<br>
-		Structure: $sb_structure
-	 </div>
-
 	}]
   }
 

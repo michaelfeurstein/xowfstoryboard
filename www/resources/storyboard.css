@@ -1,6 +1,27 @@
-div.htmlPreview {
-    border: 1px solid grey;
+div.storyboardContainer {
+	overflow: hidden;
+	display: inline-block;
+}
+
+div.storyboardEditor {
+	float: left;
+	margin: 1px;
+	display: inline-block;
+}
+
+div.storyboardPreview {
+	border: 1px solid grey;
 	height: 600px;
-	width: 370px;
-	overflow-y:auto;
+	width: 525px;
+	display: inline-block;
+	margin: 1px;
+	overflow-y: auto;
+}
+
+div.storyboardLog {
+	border: 1px solid grey;
+	float: left;
+	width: 100%;
+	margin: 1px;
+	display: inline-block;
 }

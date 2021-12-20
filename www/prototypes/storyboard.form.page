@@ -6,9 +6,9 @@
 		@_name@
 		@editor@
 		</form>} \
-    -set text [list {
+    -set text {
 		@name@
-		@editor@} text/html] \
+		@editor@} \
     -set form_constraints {
 		_page_order:hidden
 		_nls_language:hidden
