@@ -41,7 +41,7 @@ namespace eval ::xowfstoryboard {
     instance_attributes {
       MenuBar t top_includelet none production_mode t with_user_tracking t with_general_comments f
       with_digg f with_tags f
-      ExtraMenuEntries {{clear_menu -menu New} {entry -name New.Storyboard -label {#xowfstoryboard.menu-New-Storyboard#} -form en:monaco.form}}
+      ExtraMenuEntries {{clear_menu -menu New} {entry -name New.Storyboard -label {#xowfstoryboard.menu-New-Storyboard#} -form en:storyboard.wf}}
       with_delicious f with_notifications f security_policy ::xowiki::policy1
     }
   }
