@@ -17,7 +17,7 @@ namespace eval ::xowiki::formfield {
   Class create monaco_storyboard -superclass monaco -ad_doc {
     trying to extend on what antonio did
   } -parameter {
-    {storyboardSyntax key-value}
+    {notation:required empty}
   }
 
   monaco_storyboard instproc initialize {} {
@@ -176,10 +176,19 @@ namespace eval ::xowiki::formfield {
 
 	# ad_log for full stack logging
 	# ns_log for "just a message"
-	ad_log notice "--- monaco_storyboard pretty_value sb:$storyboard"
-	set internalParser [StoryboardParser new -storyboard $storyboard]
-	set internalBuilder [StoryboardBuilder new]
-	set module [$internalBuilder from [$internalParser storyboardDict get]]
+	ad_log notice "--- monaco_storyboard parse_storyboard sb:$storyboard"
+	ad_log notice "--- monaco_storyboard parse_storyboard notation:${:notation}"
+
+	if {${:notation} eq "key-value"} {
+		# kv
+		set internalParser [StoryboardParser new -storyboard $storyboard]
+		set internalBuilder [StoryboardBuilder new -notation ${:notation}]
+		set module [$internalBuilder from [$internalParser storyboardDict get]]
+	} elseif {${:notation} eq "natural-language"} {
+		# nl
+		# CONTINUE HERE
+
+	}
 
 	set visitor [HTMLVisitor new]
 	set htmlResult [$visitor evaluate $module]

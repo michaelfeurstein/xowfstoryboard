@@ -23,7 +23,7 @@ Action finish \
 State parameter { {form en:storyboard.form} {view_method edit} }
 
 State initial -actions {save finish} -form_constraints {
-   editor:monaco_storyboard,required,validator=storyboard
+   editor:monaco_storyboard,required,validator=storyboard,notation=key-value
 }
 
 #
@@ -37,5 +37,5 @@ State initial -actions {save finish} -form_constraints {
 
 State finished -view_method view -form_constraints {
    _name:text,disabled=true
-   editor:monaco_storyboard,disabled=true
+   editor:monaco_storyboard,disabled=true,notation=key-value
 }
