@@ -11,6 +11,8 @@
 ::xo::library require -package xowfstoryboard storyboard-language/visitor
 ::xo::library require -package xowfstoryboard storyboard-language/worker
 ::xo::library require -package xowfstoryboard storyboard-language/expression_builder
+::xo::library require -package xowfstoryboard storyboard-language/definition_builder
+::xo::library require -package xowfstoryboard storyboard-language/step_definitions
 
 namespace eval ::xowiki::formfield {
 
@@ -179,15 +181,17 @@ namespace eval ::xowiki::formfield {
 	ad_log notice "--- monaco_storyboard parse_storyboard sb:$storyboard"
 	ad_log notice "--- monaco_storyboard parse_storyboard notation:${:notation}"
 
+	set internalBuilder [StoryboardBuilder new -notation ${:notation}]
+
 	if {${:notation} eq "key-value"} {
 		# kv
 		set internalParser [StoryboardParser new -storyboard $storyboard]
-		set internalBuilder [StoryboardBuilder new -notation ${:notation}]
 		set module [$internalBuilder from [$internalParser storyboardDict get]]
 	} elseif {${:notation} eq "natural-language"} {
 		# nl
-		# CONTINUE HERE
-
+		set dictBuilder [StepDefinitions setup]
+		set storyboardDict [$dictBuilder get $storyboard]
+		set module [$internalBuilder from $storyboardDict]
 	}
 
 	set visitor [HTMLVisitor new]
