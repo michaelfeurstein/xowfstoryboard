@@ -4,7 +4,7 @@ This is an [OpenACS](https://openacs.org/) package integrating [storyboard-langu
 
 ## Getting Started
 
-Clone xowfstoryboard inside openacs packages. Note, that it uses [git submodules](http://git-scm.com/book/en/v2/Git-Tools-Submodules). Submodule is: [storyboard-language](https://github.com/michaelfeurstein/storyboard-language) (currently private)
+Clone xowfstoryboard inside openacs packages. Note, that it uses [git submodules](http://git-scm.com/book/en/v2/Git-Tools-Submodules). Submodule is: [storyboard-language](https://github.com/michaelfeurstein/storyboard-language)
 
 1. `git clone https://github.com/michaelfeurstein/xowfstoryboard`
 2. `git submodule init`
