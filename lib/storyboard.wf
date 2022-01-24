@@ -1,5 +1,22 @@
 set :debug 1
 set :autoname 1
+set :wf_notation 0
+
+#
+# TODO: pass wf_notation parameter into storyboard.wf
+#
+Action initialize -proc activate {obj} {
+	set :wf_notation [::xo::cc query_parameter wf_notation]
+	ns_log notice "storyboard.wf --> wf_notation:${:wf_notation}"
+
+	set container [[$obj wf_context] wf_container]
+    $container set_notation $obj ${:wf_notation}
+
+    set name [$obj name]
+    if {[$obj is_new_entry $name]} {
+        $obj title "Fresh '${:wf_notation}' storyboard ($name)"
+    }
+}
 
 Action save \
 	-label {save draft} \
@@ -23,7 +40,7 @@ Action finish \
 State parameter { {form en:storyboard.form} {view_method edit} }
 
 State initial -actions {save finish} -form_constraints {
-   editor:monaco_storyboard,required,validator=storyboard,notation=key-value
+   editor:monaco_storyboard,required,validator=storyboard,notation=natural-language
 }
 
 #
@@ -37,5 +54,17 @@ State initial -actions {save finish} -form_constraints {
 
 State finished -view_method view -form_constraints {
    _name:text,disabled=true
-   editor:monaco_storyboard,disabled=true,notation=key-value
+   editor:monaco_storyboard,disabled=true,notation=natural-language
+}
+
+#
+# TODO: pass wf_notation as parameter to storyboard.wf
+# couldn't get this working
+# I think I need a formloader ?
+# The parameter passed via storyboard.wf?wf_notation is not passed through to form
+# It is however there in log via: --WF Instance attributes: {wf_notation key-value}
+#
+:proc set_notation {obj notation} {
+	ns_log notice "set_notation --> notation:$notation"
+    $obj set_property -new 1 wf_notation $notation
 }

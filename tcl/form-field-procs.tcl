@@ -180,6 +180,12 @@ namespace eval ::xowiki::formfield {
 	# ns_log for "just a message"
 	ad_log notice "--- monaco_storyboard parse_storyboard sb:$storyboard"
 	ad_log notice "--- monaco_storyboard parse_storyboard notation:${:notation}"
+	#ns_log notice "--- object set state: [${:object} set state] 1:[[[${:object} wf_context] wf_container] set wf_notation] 2:[[${:object} wf_context] get_property wf_notation]"
+	ns_log notice "--- wf_notation try 01: [[${:object} wf_context] get_property -name wf_notation]"
+	ns_log notice "--- instance_attributes try 01: [${:object} instance_attributes]"
+	ns_log notice "--- instance_attributes try 02: [${:object} get_property -name wf_notation]"
+	ns_log notice "--- wf_notation try 02: [[[${:object} wf_context] wf_container] set wf_notation]"
+
 
 	set internalBuilder [StoryboardBuilder new -notation ${:notation}]
 
