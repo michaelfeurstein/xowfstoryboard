@@ -9,7 +9,6 @@ xowf::Package create_new_workflow_page \
         workflow_definition {::xowf::include /packages/xowfstoryboard/lib/storyboard.wf}
         form_constraints {{_name:text,required,label=Storyboard Name} 
 			editor:label,label=Storyboard,style=,disabled=true}
-		wf_notation {something}
         return_url {}
     }
 

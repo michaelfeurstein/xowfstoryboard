@@ -19,13 +19,21 @@ namespace eval ::xowiki::formfield {
   Class create monaco_storyboard -superclass monaco -ad_doc {
     trying to extend on what antonio did
   } -parameter {
-    {notation:required empty}
+    {notation natural-language}
   }
 
   monaco_storyboard instproc initialize {} {
 	next
 	#::xo::Page requireCSS "/resources/xowf-monaco-plugin/plugin.css"
     ::xo::Page requireCSS urn:ad:css:xowfstoryboard:storyboard
+
+	set wf_notation [${:object} get_property -name wf_notation]
+	if {$wf_notation eq ""} {
+		ns_log notice "--- monaco_storyboard initialize p.wf_notation empty, using notation:${:notation}"
+	} else {
+		ns_log notice "--- monaco_storyboard initialize p.wf_notation available, using notation:$wf_notation"
+		set :notation $wf_notation
+	}
   }
 
   monaco_storyboard instproc render_input args {
@@ -72,10 +80,9 @@ namespace eval ::xowiki::formfield {
   }
 
   monaco_storyboard instproc pretty_value args {
-	# check [${:object} set state]
-	# depending on state
-	# do different stuff inside
 	# :object is handle to the form page
+	# check [${:object} set state]
+	# [${:object} instance_attributes]
 
 	#
 	# Variables
@@ -179,13 +186,7 @@ namespace eval ::xowiki::formfield {
 	# ad_log for full stack logging
 	# ns_log for "just a message"
 	ad_log notice "--- monaco_storyboard parse_storyboard sb:$storyboard"
-	ad_log notice "--- monaco_storyboard parse_storyboard notation:${:notation}"
-	#ns_log notice "--- object set state: [${:object} set state] 1:[[[${:object} wf_context] wf_container] set wf_notation] 2:[[${:object} wf_context] get_property wf_notation]"
-	ns_log notice "--- wf_notation try 01: [[${:object} wf_context] get_property -name wf_notation]"
-	ns_log notice "--- instance_attributes try 01: [${:object} instance_attributes]"
-	ns_log notice "--- instance_attributes try 02: [${:object} get_property -name wf_notation]"
-	ns_log notice "--- wf_notation try 02: [[[${:object} wf_context] wf_container] set wf_notation]"
-
+	ns_log notice "--- monaco_storyboard parse_storyboard notation:${:notation}"
 
 	set internalBuilder [StoryboardBuilder new -notation ${:notation}]
 
