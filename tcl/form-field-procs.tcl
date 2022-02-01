@@ -37,7 +37,7 @@ namespace eval ::xowiki::formfield {
   }
 
   monaco_storyboard instproc render_input args {
-	ns_log notice "++++ monaco_html_sandbox private render_input"
+	ns_log notice "++++ monaco_storyboard private render_input"
 
 	try {
 		set value [:value]
@@ -52,7 +52,7 @@ namespace eval ::xowiki::formfield {
     # could also do it using the editor api, but we do not have one in
     # case of a readonly field or when we render this field in display
     # mode.
-	ns_log notice "++++ monaco_html_sandbox private render_input value:[:value]"
+	ns_log notice "++++ monaco_storyboard private render_input value:[:value]"
     ::html::template -id "${:id}-srcdoc" style "display:none;" {
       ::html::t [ns_base64encode -- $htmlPreview]
     }
@@ -135,7 +135,7 @@ namespace eval ::xowiki::formfield {
 		  language: '${:language}', minimap: {enabled: ${:minimap}}, readOnly: true, theme: '${:theme}'
 		}));
 		xowf.monaco.editors[xowf.monaco.editors.length-1].setValue(xowf.monaco.b64_to_utf8('$base64'));
-
+G
 	}]
 
 	#
@@ -191,7 +191,7 @@ namespace eval ::xowiki::formfield {
 
 	# ad_log for full stack logging
 	# ns_log for "just a message"
-	ad_log notice "--- monaco_storyboard parse_storyboard sb:$storyboard"
+	ns_log notice "--- monaco_storyboard parse_storyboard sb:$storyboard"
 	ns_log notice "--- monaco_storyboard parse_storyboard notation:${:notation}"
 
 	set internalBuilder [StoryboardBuilder new -notation ${:notation}]
