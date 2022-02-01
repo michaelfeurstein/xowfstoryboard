@@ -91,15 +91,21 @@ namespace eval ::xowiki::formfield {
 	set storyboard [:fromBase64 [:value]]
 	set base64 [:value]
 
+	#if {$storyboard eq ""} {return {}}
+
 	#
 	# StoryBoard preparations
 	#
 
 	#namespace path ::StoryBoard
-	namespace import ::StoryBoard::*
+	#namespace import ::StoryBoard::*
 	# ad_log for full stack logging
 	# ns_log for "just a message"
 	ad_log notice "--- monaco_storyboard pretty_value sb:$storyboard"
+
+	if {[string is space $storyboard]} {
+		return
+	}
 
 	set parsed_storyboard [:parse_storyboard $storyboard]
 	set htmlPreview [dict get $parsed_storyboard html]
@@ -168,10 +174,10 @@ namespace eval ::xowiki::formfield {
 	# build up logic here
 	# whatever the parser returns
 	# show here
-	#:uplevel [list set errorMsg "This is BS! $value"]
+	#:uplevel [list set errorMsg "value is: $value"]
 	upvar errorMsg errorMsg
 	:uplevel [list set __langPkg xowfstoryboard]
-	return [expr {![catch {::StoryBoard::StoryboardParser new -storyboard [:fromBase64 $value]} errorMsg]}]
+	return [expr {![catch {:parse_storyboard [:fromBase64 $value]} errorMsg]}]
   }
 
   monaco_storyboard instproc parse_storyboard {storyboard} {
