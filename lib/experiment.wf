@@ -52,3 +52,7 @@ State finished -form en:experiment_summary.form -view_method view -form_constrai
    experiment_id:text,disabled=true
    time_elapsed:text,disabled=true
 }
+
+#:object-specific {
+    #:mixin add ::xowfstoryboard::StoryboardMixin
+#}
