@@ -31,7 +31,10 @@ namespace eval ::xowfstoryboard {
 	monaco.form
 
 	storyboard.wf
+	experiment.wf
 	storyboard.form
+	experiment_landing.form
+	experiment_summary.form
 	storyboard_test.form
   }
 

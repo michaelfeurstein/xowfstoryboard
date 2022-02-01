@@ -1,0 +1,23 @@
+::xowiki::Form new \
+    -set name en:experiment_summary.form \
+    -title "Experiment Summary Page" \
+    -set anon_instances t \
+    -set form {@experiment_id@
+				@time_elapsed@} \
+	-set text {<center>
+<h1>Storyboard Language Experiment</h1>
+<p>Thank you!</p>
+<p>Please transfer the following elements to your limesurvey</p>
+</hr>
+<p>Experiment ID: @experiment_id@</br>
+Time elapsed: @time_elapsed@</p>
+</hr>
+</center>} \
+    -set form_constraints {
+				_name:hidden
+                _page_order:hidden
+                _nls_language:hidden
+                _description:hidden
+                _creator:hidden
+                _title:hidden
+   }

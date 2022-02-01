@@ -1,0 +1,12 @@
+# -*- tcl-*-
+# The variable package_id and parent_id are provided via the caller context
+xowf::Package create_new_workflow_page \
+    -package_id $package_id \
+    -parent_id $parent_id \
+    -name en:experiment.wf \
+    -title "Experiment Workflow" \
+    -instance_attributes {
+        workflow_definition {::xowf::include /packages/xowfstoryboard/lib/experiment.wf}
+        form_constraints {{experiment_id:text,required,label=Experiment ID}}
+        return_url {}
+    }

@@ -1,0 +1,23 @@
+::xowiki::Form new \
+    -set name en:experiment_landing.form \
+    -title "Experiment Landing Page" \
+    -set anon_instances t \
+    -set form {<center>
+<h1>Storyboard Language Experiment</h1>
+<p>Welcome to Storyboard Language Experiment.</p>
+<p>Please enter your experiment ID in the below field</p>
+<form>
+                @experiment_id@
+				@user_info@
+                </form>
+</center>} \
+	-set text {@experiment_id@} \
+    -set form_constraints {
+				{user_info:inform,inline=true,value=Click start as soon as you are ready.}
+				_name:hidden
+                _page_order:hidden
+                _nls_language:hidden
+                _description:hidden
+                _creator:hidden
+                _title:hidden
+   }
