@@ -1,0 +1,50 @@
+set :debug 1
+set :autoname 1
+
+#
+# Define a Property for the workflow to configure it.  When we create
+# the workflow, we can pass e.g.
+#
+#   storyboard.wf?m=create-new&...&p.wf-notation=natural-language&...
+#
+# to the workflow. This parameter is kept as an instance variable of
+# the workflow instance.
+#
+Property wf_notation -default "natural-language" -allow_query_parameter true
+
+Action initialize -proc activate {obj} {
+  set wf_notation [$obj property wf_notation]
+  ns_log notice "storyboard.wf --> wf_notation:${wf_notation}"
+
+  set name [$obj name]
+  if {[$obj is_new_entry $name]} {
+    $obj title "Fresh '${wf_notation}' storyboard ($name)"
+  }
+}
+
+Action start \
+	-next_state editing \
+	-label {Start} \
+	-title {Start} 
+
+Action save \
+	-label {save storyboard draft} \
+	-title {Save Draft}
+
+Action finish \
+	-next_state finished \
+	-label {finish} \
+	-title {Finished} \
+
+State initial -actions {start} -form en:experiment_landing.form -form_constraints {
+	{experiment_id:text,size=40,help_text=Enter your experiment ID,style=width:15%}
+}
+
+State editing -actions {save finish} -form en:storyboard.form -view_method edit -form_constraints {
+   editor:monaco_storyboard,required,validator=storyboard
+}
+
+State finished -form en:experiment_summary.form -view_method view -form_constraints {
+   experiment_id:text,disabled=true
+   time_elapsed:text,disabled=true
+}
