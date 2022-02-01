@@ -49,6 +49,24 @@ namespace eval ::xowfstoryboard {
     }
   }
 
+  ad_proc time_elapsed {object} {
+	set item_id [$object item_id]
+	$object set_property -new 1 time_elapsed [::xo::dc get_value calc_elapsed {
+		select current_timestamp - min(o.creation_date) from xowiki_form_page f, cr_revisions r, acs_objects o where f.xowiki_form_page_id = r.revision_id and r.revision_id = o.object_id and f.state = 'editing' and r.item_id = :item_id
+	}]
+
+	#
+	# get all the timestamps for this item
+	#
+	#set results [::xo::dc list_of_lists get_data [subst {
+    #  select o.creation_date, r.revision_id = i.live_revision as is_live, f.state from cr_revisions r, acs_objects o, xowiki_form_page f, cr_items i where o.object_id = r.revision_id and f.xowiki_form_page_id = r.revision_id and i.item_id = [$object item_id] and r.item_id = i.item_id order by o.creation_date asc
+	#}]]
+	#
+	#foreach e $results {
+	#	ns_log notice "e:$e"
+	#}
+  }
+
   ad_proc hello {} {
 	ns_log notice "this is a text"
 	return "This is a TEST"

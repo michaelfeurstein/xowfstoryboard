@@ -11,6 +11,7 @@ set :autoname 1
 # the workflow instance.
 #
 Property wf_notation -default "natural-language" -allow_query_parameter true
+Property time_elapsed -default 0
 
 Action initialize -proc activate {obj} {
   set wf_notation [$obj property wf_notation]
@@ -35,6 +36,9 @@ Action finish \
 	-next_state finished \
 	-label {finish} \
 	-title {Finished} \
+	-proc activate {obj} {
+		::xowfstoryboard::time_elapsed $obj
+}
 
 State initial -actions {start} -form en:experiment_landing.form -form_constraints {
 	{experiment_id:text,size=40,help_text=Enter your experiment ID,style=width:15%}
