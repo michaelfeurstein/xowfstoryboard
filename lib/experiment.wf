@@ -21,14 +21,15 @@ Action initialize -proc activate {obj} {
 
   set name [$obj name]
   if {[$obj is_new_entry $name]} {
-    $obj title "Fresh '${wf_notation}' storyboard ($name)"
+    #$obj title "Fresh '${wf_notation}' storyboard ($name)"
+    $obj title "Storyboard Language Experiment"
   }
 }
 
 Action start \
 	-next_state editing \
 	-label {Start} \
-	-title {Start} 
+	-title {Start}
 
 Action save \
 	-label {save storyboard draft} \

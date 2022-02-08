@@ -4,6 +4,7 @@
 This is the start page of xowfstoryboard.</p>
 
 <center>
+<p><a class="btn btn-primary btn-lg" href="experiment.wf?nls_language=en_US&m=create-new&p.wf_notation=key-value" role="button" style="color: white; text-decoration: none;">New Experiment</a> </p>
 <p>
 <a class="btn btn-primary btn-lg" href="storyboard.wf?nls_language=en_US&m=create-new&p.wf_notation=key-value" role="button" style="color: white; text-decoration: none;">Key-Value</a> <a class="btn btn-primary btn-lg" href="storyboard.wf?nls_language=en_US&m=create-new&p.wf_notation=natural-language" role="button" style="color: white; text-decoration: none;">Natural-Language</a>
 
@@ -16,7 +17,7 @@ This is the start page of xowfstoryboard.</p>
 Storyboards defined in this package:
 </p>
 
- {{form-usages -field_names _name -form en:storyboard.wf -parent_id * -csv false -with_form_link false}}
+ {{form-usages -field_names _name -form en:experiment.wf -parent_id * -csv false -with_form_link false}}
 
 <hr>
 
