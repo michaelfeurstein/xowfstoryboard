@@ -13,6 +13,7 @@ set :policy ::xowfstoryboard::experiment-policy
 #
 Property wf_notation -default "natural-language" -allow_query_parameter true
 Property time_elapsed -default 0
+Property htmlPreview -default "Enter a storyboard to begin..."
 
 Action initialize -proc activate {obj} {
   set wf_notation [$obj property wf_notation]
@@ -33,6 +34,25 @@ Action save \
 	-label {save storyboard draft} \
 	-title {Save Draft}
 
+save proc next_state {} {
+	ns_log notice "experiment.wf --> Action:save next_state:editing"
+	set wf_notation [[:object] get_property -name wf_notation]
+	set result [::xowfstoryboard::check_storyboard [[:object] get_property -name editor] $wf_notation]
+	set sb_status [dict get $result storyboard_status]
+	[:object] set_property -new 1 htmlPreview [dict get $result html]
+	set htmlResult [[:object] get_property -name htmlPreview]
+	if {$sb_status} {
+		util_user_message -message "Storyboard OK"
+	} else {
+		util_user_message -message "Storyboard ERROR"
+	}
+
+	# How does this work
+	#[::xowfstoryboard::StoryboardHandler hello]
+
+	return editing
+}
+
 Action finish \
 	-next_state finished \
 	-label {finish} \
@@ -41,12 +61,19 @@ Action finish \
 		::xowfstoryboard::time_elapsed $obj
 }
 
+finish proc next_state {} {
+	ns_log notice "experiment.wf --> Action:finish next_state:finished"
+	ns_log notice "\n----------------\n[:serialize]\n\n-------------\n object:[[:object] get_property -name editor]"
+	return finished
+}
+
 State initial -actions {start} -form en:experiment_landing.form -form_constraints {
 	{experiment_id:text,size=40,help_text=Enter your experiment ID,style=width:15%}
 }
 
 State editing -actions {save finish} -form en:storyboard.form -view_method edit -form_constraints {
-   editor:monaco_storyboard,required,validator=storyboard
+   #editor:monaco_storyboard,required,validator=storyboard
+   editor:monaco_storyboard
 }
 
 State finished -form en:experiment_summary.form -view_method view -form_constraints {

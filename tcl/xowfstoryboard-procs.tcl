@@ -97,9 +97,55 @@ namespace eval ::xowfstoryboard {
 	#}
   }
 
-  ad_proc hello {} {
-	ns_log notice "this is a text"
-	return "This is a TEST"
+
+  ad_proc check_storyboard {sb n} {
+	set storyboard [fromBase64 $sb]
+	set notation $n
+
+	namespace import ::StoryBoard::*
+
+	# destroy all instances of type Element
+	# in order to prevent accumulation of zombie modules
+	foreach i [StoryBoard::Element info instances -closure] {
+		$i destroy
+	}
+
+	# ad_log for full stack logging
+	# ns_log for "just a message"
+	ns_log notice "--- check_storyboard sb:$storyboard"
+	ns_log notice "--- check_storyboard notation:$notation"
+
+	try {
+		set internalBuilder [StoryboardBuilder new -notation $notation]
+
+		if {$notation eq "key-value"} {
+			# kv
+			set internalParser [StoryboardParser new -storyboard $storyboard]
+			set module [$internalBuilder from [$internalParser storyboardDict get]]
+		} elseif {$notation eq "natural-language"} {
+			# nl
+			set dictBuilder [StepDefinitions setup]
+			set storyboardDict [$dictBuilder get $storyboard]
+			set module [$internalBuilder from $storyboardDict]
+		}
+
+		set visitor [HTMLVisitor new]
+		set htmlResult [$visitor evaluate $module]
+	} on error {msg} {
+		ad_log notice "--- check_storyboard msg:\n$msg"
+		return [list storyboard_status 0 html $msg]
+	} on ok {msg} {
+		return [list storyboard_status 1 html [$htmlResult asHTML]]
+	}
+  }
+
+  ad_proc fromBase64 {encValue} {
+        ns_log notice "++++ monaco fromBase64 encValue:$encValue"
+    # this is the equivalent to b64_to_utf8 at the client side
+    if {$encValue ne ""} {
+          ns_log notice "++++ monaco fromBase64 return:[encoding convertfrom utf-8 [binary decode base64 $encValue]]"
+      return [encoding convertfrom utf-8 [binary decode base64 $encValue]]
+    }
   }
 
   #

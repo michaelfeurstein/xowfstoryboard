@@ -36,13 +36,18 @@ namespace eval ::xowiki::formfield {
 	}
   }
 
+  # TODO: also make sure that it works with
+  # - storyboard.form
+  # - storyboard.wf
+  # - experiment.wf
   monaco_storyboard instproc render_input args {
 	ns_log notice "++++ monaco_storyboard private render_input"
 
 	try {
-		set value [:value]
-		set parsed_storyboard [:parse_storyboard [:fromBase64 $value]]
-		set htmlPreview [dict get $parsed_storyboard html]
+		#set value [:value]
+		#set parsed_storyboard [:parse_storyboard [:fromBase64 $value]]
+		#set htmlPreview [dict get $parsed_storyboard html]
+		set htmlPreview [${:object} get_property -name htmlPreview]
 	} on error {errorMsg} {
 		set htmlPreview ""
 	}
@@ -79,6 +84,10 @@ namespace eval ::xowiki::formfield {
     }]
   }
 
+  # TODO: also make sure that it works with
+  # - storyboard.form
+  # - storyboard.wf
+  # - experiment.wf
   monaco_storyboard instproc pretty_value args {
 	# :object is handle to the form page
 	# check [${:object} set state]
@@ -107,15 +116,21 @@ namespace eval ::xowiki::formfield {
 		return
 	}
 
-	set parsed_storyboard [:parse_storyboard $storyboard]
-	set htmlPreview [dict get $parsed_storyboard html]
+	#set parsed_storyboard [:parse_storyboard $storyboard]
+	#set htmlPreview [dict get $parsed_storyboard html]i
+	set htmlPreview [${:object} get_property -name htmlPreview]
 
-	set modules [dict get $parsed_storyboard modules]
+	#set modules [dict get $parsed_storyboard modules]
 
-	set sb_modules [llength $modules]
-	set sb_id [$modules id get]
-	set sb_title [$modules title get]
-	set sb_structure [$modules structure get]
+	#set sb_modules [llength $modules]
+	#set sb_id [$modules id get]
+	#set sb_title [$modules title get]
+	#set sb_structure [$modules structure get]
+
+	set sb_modules "n/a"
+	set sb_id "n/a"
+	set sb_title "n/a"
+	set sb_structure "n/a"
 
 	#
 	# JS preparations
@@ -152,7 +167,7 @@ G
 		<div id="${:id}" class="${:CSSclass} storyboardEditor" style="width: ${:width}; height: ${:height};"></div>
 		<div class="storyboardPreview">$htmlPreview</div>
 		<div class="storyboardLog">
-			Modules: $sb_modules $test
+			Modules: $sb_modules
 			<br>
 			ID: $sb_id
 			<br>
@@ -169,17 +184,22 @@ G
 	next
   }
 
+  #
+  # Validator for formfield
+  #
+  # set inside form_constraints
+  # editor:monaco_storyboard,validator=storyboard
+  #
   monaco_storyboard instproc check=storyboard {value} {
-	ns_log notice "--- monaco_storyboard check=storyboard:$value"
-	# build up logic here
-	# whatever the parser returns
-	# show here
+	#ns_log notice "--- monaco_storyboard check=storyboard:$value"
 	#:uplevel [list set errorMsg "value is: $value"]
 	upvar errorMsg errorMsg
 	:uplevel [list set __langPkg xowfstoryboard]
+	# TODO: refactor so we use ::xowfstoryboard::check_storyboard here
 	return [expr {![catch {:parse_storyboard [:fromBase64 $value]} errorMsg]}]
   }
 
+  # TODO: remove as soon as validator is refactored
   monaco_storyboard instproc parse_storyboard {storyboard} {
 	namespace import ::StoryBoard::*
 
