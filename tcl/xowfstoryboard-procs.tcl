@@ -51,6 +51,18 @@ namespace eval ::xowfstoryboard {
     }
   }
 
+  #
+  # Policy
+  #
+
+  Class create SBPolicy -superclass ::xo::Policy
+
+  SBPolicy experiment-policy -contains {
+	Class create FormPage -array set require_permission {
+		edit			public
+		view			public
+	}
+  }
 
   #
   # check if we are admin

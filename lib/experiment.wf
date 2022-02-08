@@ -1,5 +1,6 @@
 set :debug 1
 set :autoname 1
+set :policy ::xowfstoryboard::experiment-policy
 
 #
 # Define a Property for the workflow to configure it.  When we create
