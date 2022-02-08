@@ -96,5 +96,15 @@ State finished -form en:experiment_summary.form -view_method view -form_constrai
 }
 
 #:object-specific {
-    #:mixin add ::xowfstoryboard::StoryboardMixin
+#	set ctx [:wf_context]
+#
+#	[$ctx wf_definition_object submit_to_supervisor] proc next_state {} {
+#	#check if all coauthors have confirmed this submission
+#	#set confirmed [:property mv_agreement]
+#	#foreach [tlf_ephorus::unlist_coauthors -name 0 [:self]]
+#	if {[llength [[:object] get_property -name mv_agreement]] ne [llength [tlf_ephorus::unlist_coauthors -name 0 [:object]]]} {
+#		return "confirm"
+#	} else {
+#		return "submitted"
+#	}
 #}

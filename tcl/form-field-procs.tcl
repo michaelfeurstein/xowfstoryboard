@@ -24,7 +24,6 @@ namespace eval ::xowiki::formfield {
 
   monaco_storyboard instproc initialize {} {
 	next
-	#::xo::Page requireCSS "/resources/xowf-monaco-plugin/plugin.css"
     ::xo::Page requireCSS urn:ad:css:xowfstoryboard:storyboard
 
 	set wf_notation [${:object} get_property -name wf_notation]
@@ -156,8 +155,6 @@ G
 	#
 	# Return HTML preparations
 	#
-
-	set test [::xowfstoryboard::hello]
 
 	return [subst -nocommands {
 

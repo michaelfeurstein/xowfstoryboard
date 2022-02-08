@@ -88,6 +88,15 @@ namespace eval ::xowfstoryboard {
 	set ::xowfstoryboard::am_i_admin $amiadmin
   }
 
+  #
+  # calculate elapsed time
+  #
+  # do this via SQL:
+  # 	current timestamp - the earliest state of editing timestamp (right after the user clicked start)
+  #
+  # time_elapsed = editing time on storyboard
+  #
+
   ad_proc time_elapsed {object} {
 	set item_id [$object item_id]
 	$object set_property -new 1 time_elapsed [::xo::dc get_value calc_elapsed {
@@ -106,6 +115,20 @@ namespace eval ::xowfstoryboard {
 	#}
   }
 
+  # TODO: find out how this can work
+  Class create StoryboardHandler -ad_doc {
+	a handler to store results from storyboard
+  } -parameter {
+	{storyboard_ok 0}
+  }
+
+  StoryboardHandler instproc is_sb_ok {} {
+	return :storyboard_ok
+  }
+
+  StoryboardHandler instproc hello {} {
+	ns_log notice "hello from StoryboardHandler"
+  }
 
   ad_proc check_storyboard {sb n} {
 	set storyboard [fromBase64 $sb]
@@ -164,7 +187,7 @@ namespace eval ::xowfstoryboard {
   #
 
   # Class create StoryboardMixin
-
+  #
   #
   # set property via double save approach
   #
