@@ -1,3 +1,12 @@
+::xo::library require -package xowfstoryboard storyboard-language/error_handler
+::xo::library require -package xowfstoryboard storyboard-language/language_model
+::xo::library require -package xowfstoryboard storyboard-language/parser
+::xo::library require -package xowfstoryboard storyboard-language/visitor
+::xo::library require -package xowfstoryboard storyboard-language/worker
+::xo::library require -package xowfstoryboard storyboard-language/expression_builder
+::xo::library require -package xowfstoryboard storyboard-language/definition_builder
+::xo::library require -package xowfstoryboard storyboard-language/step_definitions
+
 namespace eval ::xowfstoryboard {
 
   ::xo::PackageMgr create ::xowfstoryboard::Package \
