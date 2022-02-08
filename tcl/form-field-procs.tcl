@@ -6,6 +6,7 @@
   @author Michael S. Feurstein
 }
 
+::xo::library require -package xowfstoryboard storyboard-language/error_handler
 ::xo::library require -package xowfstoryboard storyboard-language/language_model
 ::xo::library require -package xowfstoryboard storyboard-language/parser
 ::xo::library require -package xowfstoryboard storyboard-language/visitor
