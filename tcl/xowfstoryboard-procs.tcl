@@ -7,6 +7,7 @@ namespace eval ::xowfstoryboard {
 
   Package instproc initialize {} {
         ns_log notice "++++ CALL ::xowfstoryboard::initialize"
+		am_i_admin
         next
   }
 
@@ -21,6 +22,7 @@ namespace eval ::xowfstoryboard {
       with_user_tracking t with_general_comments f with_digg f with_tags f
       with_delicious f with_notifications f
       security_policy ::xowiki::policy1
+	  template_file view-xowfstoryboard
   }}
 
   Package site_wide_package_parameters {
@@ -45,8 +47,24 @@ namespace eval ::xowfstoryboard {
       MenuBar t top_includelet none production_mode t with_user_tracking t with_general_comments f
       with_digg f with_tags f
       ExtraMenuEntries {{clear_menu -menu New} {entry -name New.Storyboard -label {#xowfstoryboard.menu-New-Storyboard#} -form en:storyboard.wf}}
-      with_delicious f with_notifications f security_policy ::xowiki::policy1
+      with_delicious f with_notifications f security_policy ::xowiki::policy1 template_file view-xowfstoryboard
     }
+  }
+
+
+  #
+  # check if we are admin
+  # set value accordingly
+  # this value is used inside resources/templates/view-xxx.adp
+  #
+
+  ad_proc am_i_admin {} {
+	set package_id [::xo::cc set package_id]
+    set amiadmin [permission::permission_p \
+                      -party_id [::xo::cc user_id] \
+                      -object_id $package_id \
+                      -privilege "admin"]
+	set ::xowfstoryboard::am_i_admin $amiadmin
   }
 
   ad_proc time_elapsed {object} {

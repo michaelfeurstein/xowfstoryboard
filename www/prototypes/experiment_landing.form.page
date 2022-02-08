@@ -3,7 +3,6 @@
     -title "Experiment Landing Page" \
     -set anon_instances t \
     -set form {<center>
-<h1>Storyboard Language Experiment</h1>
 <p>Welcome to Storyboard Language Experiment.</p>
 <p>Please enter your experiment ID in the below field</p>
 <form>

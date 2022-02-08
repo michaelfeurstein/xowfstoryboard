@@ -5,13 +5,11 @@
     -set form {@experiment_id@
 				@time_elapsed@} \
 	-set text {<center>
-<h1>Storyboard Language Experiment</h1>
 <p>Thank you!</p>
 <p>Please transfer the following elements to your limesurvey</p>
-</hr>
 <p>Experiment ID: @experiment_id@</br>
 Time elapsed: @time_elapsed@</p>
-</hr>
+<p>Editor @editor@</p>
 </center>} \
     -set form_constraints {
 				_name:hidden

@@ -53,6 +53,19 @@ State finished -form en:experiment_summary.form -view_method view -form_constrai
    time_elapsed:text,disabled=true
 }
 
+:object-specific {
+	#:mixin add ::xowfstoryboard::StoryboardMixin
+	#:mixin add ::xowfstoryboard::StoryboardHandler
+	::xo::cc set_parameter template_file view-experiment
+
+	# this breaks my styling more than it helps
+	#::xo::cc set_parameter MenuBar 0
+
+	# this seems hacky but does the job of only hiding the MenuBar
+	template::set_css_property -class navbar -property display -value none
+	#template::set_css_property -class folders -property display -value none
+}
+
 #:object-specific {
     #:mixin add ::xowfstoryboard::StoryboardMixin
 #}

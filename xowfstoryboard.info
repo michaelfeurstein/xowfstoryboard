@@ -21,9 +21,10 @@
             <callback type="after-instantiate"  proc="::xowfstoryboard::after-instantiate"/>
         </callbacks>
 		<parameters>
-		  <parameter scope="instance" datatype="string"  min_n_values="1"  max_n_values="1"  name="parameter_page"  description="::xowiki::FormPage to search for parameters. The page name has to contain a language prefix and can refer to a different xowiki instance.
+			<parameter scope="instance" datatype="string"  min_n_values="1"  max_n_values="1"  name="parameter_page"  description="::xowiki::FormPage to search for parameters. The page name has to contain a language prefix and can refer to a different xowiki instance.
 Example: //xowiki/en:xowiki-standard-parameter"/>
-            <parameter scope="instance" datatype="number" min_n_values="1"  max_n_values="1" name="use_hstore"  default="0" description="Use hstore for accessing instance  attributes. Create index for  existing values via  ::xowiki::hstore::update_form_instance_item_index -package_id $package_id"/>
+			<parameter scope="instance" datatype="number" min_n_values="1"  max_n_values="1" name="use_hstore"  default="0" description="Use hstore for accessing instance  attributes. Create index for  existing values via  ::xowiki::hstore::update_form_instance_item_index -package_id $package_id"/>
+			<parameter scope="instance" datatype="string"  min_n_values="1"  max_n_values="1"  name="template_file"  default="view-xowfstoryboard" description="Name of the ADP file to be used for viewing xowiki pages. The default value is 'view-default'. Alternatively, one can use 'view-book' to view pages in book style (needs page_ordering) or e.g. 'oacs-view' for providing a view with the category-tree on the left, or any other tailored view"/>
         </parameters>
 
     </version>
