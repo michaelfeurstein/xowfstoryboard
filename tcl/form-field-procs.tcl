@@ -47,7 +47,7 @@ namespace eval ::xowiki::formfield {
 		#set value [:value]
 		#set parsed_storyboard [:parse_storyboard [:fromBase64 $value]]
 		#set htmlPreview [dict get $parsed_storyboard html]
-		set htmlPreview [${:object} get_property -name htmlPreview]
+		set htmlPreview [ad_text_to_html [${:object} get_property -name htmlPreview]]
 	} on error {errorMsg} {
 		set htmlPreview ""
 	}
