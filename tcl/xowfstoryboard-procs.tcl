@@ -17,6 +17,7 @@ namespace eval ::xowfstoryboard {
   Package instproc initialize {} {
         ns_log notice "++++ CALL ::xowfstoryboard::initialize"
 		am_i_admin
+		setup_experiment_policy
         next
   }
 
@@ -64,12 +65,14 @@ namespace eval ::xowfstoryboard {
   # Policy
   #
 
-  Class create SBPolicy -superclass ::xo::Policy
+  ad_proc setup_experiment_policy {} {
+	::xowiki::policy1 copy ::xowfstoryboard::experiment-policy
 
-  SBPolicy experiment-policy -contains {
-	Class create FormPage -array set require_permission {
-		edit			public
-		view			public
+	::xowfstoryboard::experiment-policy contains {
+	  Class create FormPage -array set require_permission {
+		edit		public
+		view		public
+	  }
 	}
   }
 
