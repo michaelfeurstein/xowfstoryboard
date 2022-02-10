@@ -4,7 +4,11 @@
 This is the start page of xowfstoryboard.</p>
 
 <center>
-<p><a class="btn btn-primary btn-lg" href="experiment.wf?nls_language=en_US&m=create-new&p.wf_notation=key-value" role="button" style="color: white; text-decoration: none;">New Experiment</a> </p>
+<p>KeyValue:</p>
+<p><a class="btn btn-primary btn-lg" href="experiment.wf?nls_language=en_US&m=create-new&p.wf_notation=key-value&p.treatment=1" role="button" style="color: white; text-decoration: none;">New Experiment (treatment 1)</a> <a class="btn btn-primary btn-lg" href="experiment.wf?nls_language=en_US&m=create-new&p.wf_notation=key-value&p.treatment=2" role="button" style="color: white; text-decoration: none;">New Experiment (treatment 2)</a> </p>
+<p>Natural-Language:</p>
+<p><a class="btn btn-primary btn-lg" href="experiment.wf?nls_language=en_US&m=create-new&p.wf_notation=natural-language&p.treatment=1" role="button" style="color: white; text-decoration: none;">New Experiment (treatment 1)</a> <a class="btn btn-primary btn-lg" href="experiment.wf?nls_language=en_US&m=create-new&p.wf_notation=natural-language&p.treatment=2" role="button" style="color: white; text-decoration: none;">New Experiment (treatment 2)</a> </p>
+<p>Editors:</p>
 <p>
 <a class="btn btn-primary btn-lg" href="storyboard.wf?nls_language=en_US&m=create-new&p.wf_notation=key-value" role="button" style="color: white; text-decoration: none;">Key-Value</a> <a class="btn btn-primary btn-lg" href="storyboard.wf?nls_language=en_US&m=create-new&p.wf_notation=natural-language" role="button" style="color: white; text-decoration: none;">Natural-Language</a>
 

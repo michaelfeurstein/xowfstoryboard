@@ -48,6 +48,9 @@ namespace eval ::xowfstoryboard {
 	experiment_landing.form
 	experiment_summary.form
 	storyboard_test.form
+
+	treatment1
+	treatment2
   }
 
   Package default_package_parameter_page_info {
@@ -89,6 +92,23 @@ namespace eval ::xowfstoryboard {
                       -object_id $package_id \
                       -privilege "admin"]
 	set ::xowfstoryboard::am_i_admin $amiadmin
+  }
+
+  #
+  # get treatment reference from db
+  # and set the property of object to it
+  #
+  # a treatment is an ::xowiki::Page
+  # with text containing instructions for a treatment
+  #
+  # the treatment pages are called:
+  # - en:treatment1.page
+  # - en:treatment2.page
+  #
+
+  ad_proc set_treatment_page_item_id {object treatment} {
+	set treatment_name "en:treatment$treatment"
+	$object set_property -new 1 treatment_page_item_id [::xo::dc get_value t_id {select item_id from xowiki_page_live_revision where name = :treatment_name}]
   }
 
   #

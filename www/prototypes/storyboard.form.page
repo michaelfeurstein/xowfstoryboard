@@ -3,13 +3,14 @@
     -title "Storyboard Form" \
     -set anon_instances t \
     -set form {<form>
-		@_name@
-		@editor@
+		<div class="sb-instruction">@instruction@</div>
+		<div class="sb-editor">@editor@</div>
 		</form>} \
     -set text {
-		@name@
+		@instruction@
 		@editor@} \
     -set form_constraints {
+		_name:hidden
 		_page_order:hidden
 		_nls_language:hidden
 		_description:hidden

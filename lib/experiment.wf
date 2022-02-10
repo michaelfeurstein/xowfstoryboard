@@ -12,7 +12,10 @@ set :policy ::xowfstoryboard::experiment-policy
 # the workflow instance.
 #
 Property wf_notation -default "natural-language" -allow_query_parameter true
+Property treatment -default "1" -allow_query_parameter true
+Property treatment_page_item_id -default 0
 Property time_elapsed -default 0
+Property instruction -default "Create a storyboard"
 Property htmlPreview -default "Enter a storyboard to begin..."
 
 Action initialize -proc activate {obj} {
@@ -27,9 +30,20 @@ Action initialize -proc activate {obj} {
 }
 
 Action start \
-	-next_state editing \
 	-label {Start} \
 	-title {Start}
+
+start proc next_state {} {
+	ns_log notice "experiment.wf --> Action:start next_state:editing"
+	::xowfstoryboard::set_treatment_page_item_id [:object] [[:object] get_property -name treatment]
+	#ns_log notice "treatment_id [[:object] get_property -name treatment_page_item_id]"
+	set treatment_page [::xo::db::CrClass get_instance_from_db -item_id [[:object] get_property -name treatment_page_item_id]]
+	#ns_log notice "treatment text: [lindex [$treatment_page set text] 0]"
+	set htmlInstruction [lindex [$treatment_page set text] 0]
+	[:object] set_property -new 1 instruction $htmlInstruction
+
+	return editing
+}
 
 Action save \
 	-label {save storyboard draft} \
@@ -74,7 +88,8 @@ State initial -actions {start} -form en:experiment_landing.form -form_constraint
 
 State editing -actions {save finish} -form en:storyboard.form -view_method edit -form_constraints {
    #editor:monaco_storyboard,required,validator=storyboard
-   editor:monaco_storyboard
+   {instruction:richtext,value=Storyboard Editing Instruction,label=Instruction,disabled=true,CSSclass=sb-instruction-text}
+   {editor:monaco_storyboard,label=Storyboard Editor}
 }
 
 State finished -form en:experiment_summary.form -view_method view -form_constraints {
