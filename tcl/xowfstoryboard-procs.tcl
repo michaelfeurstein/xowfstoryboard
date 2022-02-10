@@ -138,6 +138,92 @@ namespace eval ::xowfstoryboard {
 	#}
   }
 
+  ad_proc set_help_content {object} {
+	set help_content [subst -nocommands {
+
+		<!-- Modal: Video -->
+
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#videoModal">
+			Video
+		</button>
+
+		<!-- Modal -->
+		<div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="videoModalLabel"><b>Video Command Reference</b></h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px;">
+								<span aria-hidden="true">&times;</span>
+							</button>
+					</div>
+					<div class="modal-body">
+						<p><u>Name:</u></p>
+						<p>video - Create a video object based on a URL</p>
+
+						<p><u>Synopsis:</u></p>
+						<p><b>video</b><i>?identifier? URL value</i></p>
+
+						<p><u>Description:</u></p>
+						<p>This command uses the provided identifier to set the id of the video object in order to reference it (e.g.: video1, videoSession01). If no identifier is provided, future video objects will be overwritten. The URL needs to be an embeddable URL.</p>
+
+						<p><u>Video Example:</u></p>
+						<p>videoSession01 URL https://www.youtube.com/embed/0siisFJUKh4</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal: Timestamp -->
+
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#timestampModal">
+			Timestamp
+		</button>
+
+		<!-- Modal -->
+		<div class="modal fade" id="timestampModal" tabindex="-1" role="dialog" aria-labelledby="timestampModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="timestampModalLabel"><b>Timestamp Command Reference</b></h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px;">
+								<span aria-hidden="true">&times;</span>
+							</button>
+					</div>
+					<div class="modal-body">
+
+						<p><u>Name:</u></p>
+						<p>timestamp - Create a timestamp</p>
+
+						<p><u>Synopsis:</u></p>
+						<p><b>timestamp</b><i>?identifier? option value</i></p>
+
+						<p><u>Description:</u></p>
+						<p>Creates a timestamp based on options. Valid options are:</p>
+
+						<p><b>timestamp</b><i>?identifier?</i> <b>title</b> value<br>
+						<b>timestamp</b><i>?identifier?</i> <b>time</b> value<br>
+						<b>timestamp</b><i>?identifier?</i> <b>video</b> value</p>
+
+						<p><u>Timestamp Example:</u></p>
+						<p>timestampIntro title "Introduction" <br>timestampIntro time 63</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	}]
+
+	$object set_property -new 1 helpers $help_content
+  }
+
   # TODO: find out how this can work
   Class create StoryboardHandler -ad_doc {
 	a handler to store results from storyboard

@@ -16,6 +16,7 @@ Property treatment -default "1" -allow_query_parameter true
 Property treatment_page_item_id -default 0
 Property time_elapsed -default 0
 Property instruction -default "Create a storyboard"
+Property helpers -default "Help content ..."
 Property htmlPreview -default "Enter a storyboard to begin..."
 
 Action initialize -proc activate {obj} {
@@ -41,6 +42,7 @@ start proc next_state {} {
 	#ns_log notice "treatment text: [lindex [$treatment_page set text] 0]"
 	set htmlInstruction [lindex [$treatment_page set text] 0]
 	[:object] set_property -new 1 instruction $htmlInstruction
+	::xowfstoryboard::set_help_content [:object]
 
 	return editing
 }
@@ -94,6 +96,7 @@ State initial -actions {start} -form en:experiment_landing.form -form_constraint
 State editing -actions {save finish} -form en:storyboard.form -view_method edit -form_constraints {
    #editor:monaco_storyboard,required,validator=storyboard
    {instruction:richtext,value=Storyboard Editing Instruction,label=Instruction,disabled=true,CSSclass=sb-instruction-text}
+   {helpers:richtext,value=Some Help,disabled=true,label=Help,CSSclass=sb-help-text}
    {editor:monaco_storyboard,label=Storyboard Editor}
 }
 
