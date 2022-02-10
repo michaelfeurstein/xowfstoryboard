@@ -55,12 +55,12 @@ save proc next_state {} {
 	set result [::xowfstoryboard::check_storyboard [[:object] get_property -name editor] $wf_notation]
 	set sb_status [dict get $result storyboard_status]
 	[:object] set_property -new 1 htmlPreview [dict get $result html]
-	set htmlResult [[:object] get_property -name htmlPreview]
-	if {$sb_status} {
-		util_user_message -message "Storyboard OK"
-	} else {
-		util_user_message -message "Storyboard ERROR"
-	}
+	#set htmlResult [[:object] get_property -name htmlPreview]
+	#if {$sb_status} {
+	#	util_user_message -message "Storyboard OK"
+	#} else {
+	#	util_user_message -message "Storyboard ERROR"
+	#}
 
 	# How does this work
 	#[::xowfstoryboard::StoryboardHandler hello]

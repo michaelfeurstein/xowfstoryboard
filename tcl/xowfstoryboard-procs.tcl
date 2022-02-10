@@ -115,7 +115,7 @@ namespace eval ::xowfstoryboard {
   # calculate elapsed time
   #
   # do this via SQL:
-  # 	current timestamp - the earliest state of editing timestamp (right after the user clicked start)
+  #	current timestamp - the earliest state of editing timestamp (right after the user clicked start)
   #
   # time_elapsed = editing time on storyboard
   #
@@ -151,6 +151,11 @@ namespace eval ::xowfstoryboard {
 
   StoryboardHandler instproc hello {} {
 	ns_log notice "hello from StoryboardHandler"
+  }
+
+  ad_proc test_content {param} {
+	set result "Some text \nother text \n stuff $param"
+	return [ad_text_to_html $result]
   }
 
   ad_proc check_storyboard {sb n} {
