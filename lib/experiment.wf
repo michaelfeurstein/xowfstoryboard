@@ -82,6 +82,11 @@ finish proc next_state {} {
 	return finished
 }
 
+State parameter {
+	# this sets the css only for the complete workflow (not the entire package)
+	{extra_css {/resources/xowfstoryboard/experiment.css}}
+}
+
 State initial -actions {start} -form en:experiment_landing.form -form_constraints {
 	{experiment_id:text,size=40,help_text=Enter your experiment ID,style=width:15%}
 }
@@ -101,6 +106,9 @@ State finished -form en:experiment_summary.form -view_method view -form_constrai
 	#:mixin add ::xowfstoryboard::StoryboardMixin
 	#:mixin add ::xowfstoryboard::StoryboardHandler
 	::xo::cc set_parameter template_file view-experiment
+
+	# somehow this sets also the root page of the package
+	#template::head::add_link -rel stylesheet -href /resources/xowfstoryboard/experiment.css
 
 	# this breaks my styling more than it helps
 	#::xo::cc set_parameter MenuBar 0
