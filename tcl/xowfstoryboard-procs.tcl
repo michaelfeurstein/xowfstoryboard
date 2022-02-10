@@ -139,6 +139,15 @@ namespace eval ::xowfstoryboard {
   }
 
   ad_proc set_help_content {object} {
+	# TODO: setup ::xowiki::Page for each command reference
+	# currently this is hard coded just as an example
+	#
+	# pseudo approach:
+	# for each xowiki::Page starting with reference_xxx
+	# generate button and modal
+	# place inside help_content
+
+
 	set help_content [subst -nocommands {
 
 		<!-- Modal: Video -->
