@@ -1,0 +1,145 @@
+set :debug 1
+set :autoname 1
+set :policy ::xowfstoryboard::experiment-policy
+
+#
+# Define a Property for the workflow to configure it.  When we create
+# the workflow, we can pass e.g.
+#
+#   storyboard.wf?m=create-new&...&p.wf-notation=natural-language&...
+#
+# to the workflow. This parameter is kept as an instance variable of
+# the workflow instance.
+#
+Property wf_notation -default "natural-language" -allow_query_parameter true
+Property treatment -default "1" -allow_query_parameter true
+Property treatment_page_item_id -default 0
+Property time_elapsed -default 0
+Property instruction -default "Create a storyboard"
+Property helpers -default "Help content ..."
+Property htmlPreview -default "Enter a storyboard to begin..."
+
+Action initialize -proc activate {obj} {
+  set wf_notation [$obj property wf_notation]
+  ns_log notice "storyboard.wf --> wf_notation:${wf_notation}"
+
+  set name [$obj name]
+  if {[$obj is_new_entry $name]} {
+    #$obj title "Fresh '${wf_notation}' storyboard ($name)"
+    $obj title "Storyboard Language Experiment"
+  }
+}
+
+Action start \
+	-label {Start} \
+	-title {Start}
+
+start proc next_state {} {
+	ns_log notice "experiment.wf --> Action:start next_state:editing"
+
+	#
+	# setup instruction form field
+	#
+	::xowfstoryboard::set_treatment_page_item_id [:object] [[:object] get_property -name treatment]
+	#ns_log notice "treatment_id [[:object] get_property -name treatment_page_item_id]"
+	set treatment_page [::xo::db::CrClass get_instance_from_db -item_id [[:object] get_property -name treatment_page_item_id]]
+	#ns_log notice "treatment text: [lindex [$treatment_page set text] 0]"
+	set htmlInstruction [lindex [$treatment_page set text] 0]
+	[:object] set_property -new 1 instruction $htmlInstruction
+	
+	#
+	# setup helpers form field
+	#
+	::xowfstoryboard::set_help_content [:object]
+
+	return editing
+}
+
+Action save \
+	-label {save storyboard draft} \
+	-title {Save Draft}
+
+save proc next_state {} {
+	ns_log notice "experiment.wf --> Action:save next_state:editing"
+	set wf_notation [[:object] get_property -name wf_notation]
+	set result [::xowfstoryboard::check_storyboard [[:object] get_property -name editor] $wf_notation]
+	set sb_status [dict get $result storyboard_status]
+	[:object] set_property -new 1 htmlPreview [dict get $result html]
+	#set htmlResult [[:object] get_property -name htmlPreview]
+	#if {$sb_status} {
+	#	util_user_message -message "Storyboard OK"
+	#} else {
+	#	util_user_message -message "Storyboard ERROR"
+	#}
+
+	# How does this work
+	#[::xowfstoryboard::StoryboardHandler hello]
+
+	return editing
+}
+
+Action finish \
+	-next_state finished \
+	-label {finish} \
+	-title {Finished} \
+	-proc activate {obj} {
+		::xowfstoryboard::time_elapsed $obj
+}
+
+finish proc next_state {} {
+	ns_log notice "experiment.wf --> Action:finish next_state:finished"
+	ns_log notice "\n----------------\n[:serialize]\n\n-------------\n object:[[:object] get_property -name editor]"
+	return finished
+}
+
+State parameter {
+	# this sets the css only for the complete workflow (not the entire package)
+	{extra_css {/resources/xowfstoryboard/experiment.css}}
+}
+
+State initial -actions {start} -form en:experiment_landing.form -form_constraints {
+	{experiment_id:text,size=40,help_text=Enter your experiment ID,style=width:15%}
+}
+
+State editing -actions {save finish} -form en:storyboard.form -view_method edit -form_constraints {
+	#editor:monaco_storyboard,required,validator=storyboard
+	{instruction:richtext,label=Instruction,disabled=true,CSSclass=sb-instruction-text}
+	{helpers:richtext,label=Help,disabled=true,CSSclass=sb-help-text}
+	{editor:monaco_storyboard,label=Storyboard Editor}
+	#{htmlPreview:richtext,label=Preview,disabled=true,CSSclass=sb-htmlPreview-content}
+}
+
+State finished -form en:experiment_summary.form -view_method view -form_constraints {
+   experiment_id:text,disabled=true
+   time_elapsed:text,disabled=true
+}
+
+:object-specific {
+	#:mixin add ::xowfstoryboard::StoryboardMixin
+	#:mixin add ::xowfstoryboard::StoryboardHandler
+	::xo::cc set_parameter template_file view-experiment
+
+	# somehow this sets also the root page of the package
+	#template::head::add_link -rel stylesheet -href /resources/xowfstoryboard/experiment.css
+
+	# this breaks my styling more than it helps
+	#::xo::cc set_parameter MenuBar 0
+
+	# this seems hacky but does the job of only hiding the MenuBar
+	template::set_css_property -class navbar -property display -value none
+	#template::set_css_property -class folders -property display -value none
+}
+
+#:object-specific {
+#	set ctx [:wf_context]
+#
+#	[$ctx wf_definition_object submit_to_supervisor] proc next_state {} {
+#	#check if all coauthors have confirmed this submission
+#	#set confirmed [:property mv_agreement]
+#	#foreach [tlf_ephorus::unlist_coauthors -name 0 [:self]]
+#	if {[llength [[:object] get_property -name mv_agreement]] ne [llength [tlf_ephorus::unlist_coauthors -name 0 [:object]]]} {
+#		return "confirm"
+#	} else {
+#		return "submitted"
+#	}
+#}
