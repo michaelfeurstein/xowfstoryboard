@@ -43,45 +43,46 @@ namespace eval ::xowiki::formfield {
   monaco_storyboard instproc render_input args {
 	ns_log notice "++++ monaco_storyboard private render_input"
 
-	try {
-		#set value [:value]
-		#set parsed_storyboard [:parse_storyboard [:fromBase64 $value]]
-		#set htmlPreview [dict get $parsed_storyboard html]
-		set htmlPreview [ad_text_to_html [${:object} get_property -name htmlPreview]]
-	} on error {errorMsg} {
-		set htmlPreview ""
-	}
+	#try {
+	#	#set value [:value]
+	#	#set parsed_storyboard [:parse_storyboard [:fromBase64 $value]]
+	#	#set htmlPreview [dict get $parsed_storyboard html]
+	#
+	#	#set htmlPreview [ad_text_to_html [${:object} get_property -name htmlPreview]]
+	#} on error {errorMsg} {
+	#	set htmlPreview ""
+	#}
 
 	# This element is invisible and contains the base64 encoded value
     # of the formfield, which we use to initialize the previews. One
     # could also do it using the editor api, but we do not have one in
     # case of a readonly field or when we render this field in display
     # mode.
-	ns_log notice "++++ monaco_storyboard private render_input value:[:value]"
-    ::html::template -id "${:id}-srcdoc" style "display:none;" {
-      ::html::t [ns_base64encode -- $htmlPreview]
-    }
+	#ns_log notice "++++ monaco_storyboard private render_input value:[:value]"
+    #::html::template -id "${:id}-srcdoc" style "display:none;" {
+    #  ::html::t [ns_base64encode -- $htmlPreview]
+    #}
 
 	::html::div -id ${:id}-container -class storyboardContainer {
       ::html::div -id ${:id}-code -class "storyboardEditor"  {
         next
       }
-        ::html::div -id ${:id}-preview -class "storyboardPreview" {
-          ::html::t $htmlPreview
-        }
+        #::html::div -id ${:id}-preview -class "storyboardPreview" {
+        #  ::html::t $htmlPreview
+        #}
     }
 
-    template::add_body_handler -event load -script [subst -nocommands {
-      var srcDoc = document.getElementById('${:id}-srcdoc');
-	  //console.log("srcDoc: " + srcDoc);
-      var page = xowf.monaco.b64_to_utf8(srcDoc.innerHTML);
-	  //console.log("page: " + page);
+    #template::add_body_handler -event load -script [subst -nocommands {
+    #  var srcDoc = document.getElementById('${:id}-srcdoc');
+	#  //console.log("srcDoc: " + srcDoc);
+    #  var page = xowf.monaco.b64_to_utf8(srcDoc.innerHTML);
+	#  //console.log("page: " + page);
 
-      var preview = document.getElementById('${:id}-preview');
-      if (preview) {
-        preview.innerHTML = page;
-      }
-    }]
+    #  var preview = document.getElementById('${:id}-preview');
+    #  if (preview) {
+    #    preview.innerHTML = page;
+    #  }
+    #}]
   }
 
   # TODO: also make sure that it works with

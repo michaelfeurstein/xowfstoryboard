@@ -36,12 +36,20 @@ Action start \
 
 start proc next_state {} {
 	ns_log notice "experiment.wf --> Action:start next_state:editing"
+
+	#
+	# fill instruction form field
+	#
 	::xowfstoryboard::set_treatment_page_item_id [:object] [[:object] get_property -name treatment]
 	#ns_log notice "treatment_id [[:object] get_property -name treatment_page_item_id]"
 	set treatment_page [::xo::db::CrClass get_instance_from_db -item_id [[:object] get_property -name treatment_page_item_id]]
 	#ns_log notice "treatment text: [lindex [$treatment_page set text] 0]"
 	set htmlInstruction [lindex [$treatment_page set text] 0]
 	[:object] set_property -new 1 instruction $htmlInstruction
+
+	#
+	# fill helpers form field
+	#
 	::xowfstoryboard::set_help_content [:object]
 
 	return editing
@@ -53,10 +61,19 @@ Action save \
 
 save proc next_state {} {
 	ns_log notice "experiment.wf --> Action:save next_state:editing"
-	set wf_notation [[:object] get_property -name wf_notation]
-	set result [::xowfstoryboard::check_storyboard [[:object] get_property -name editor] $wf_notation]
+
+	#
+	# fill htmlPreview form field
+	#
+	set result [::xowfstoryboard::check_storyboard [[:object] get_property -name editor] [[:object] get_property -name wf_notation]]
 	set sb_status [dict get $result storyboard_status]
-	[:object] set_property -new 1 htmlPreview [dict get $result html]
+	if {$sb_status} {
+		set htmlResult [dict get $result html]
+	} else {
+		set htmlResult [ad_text_to_html [dict get $result html]]
+	}
+	[:object] set_property -new 1 htmlPreview $htmlResult
+
 	#set htmlResult [[:object] get_property -name htmlPreview]
 	#if {$sb_status} {
 	#	util_user_message -message "Storyboard OK"
@@ -94,10 +111,11 @@ State initial -actions {start} -form en:experiment_landing.form -form_constraint
 }
 
 State editing -actions {save finish} -form en:storyboard.form -view_method edit -form_constraints {
-   #editor:monaco_storyboard,required,validator=storyboard
-   {instruction:richtext,value=Storyboard Editing Instruction,label=Instruction,disabled=true,CSSclass=sb-instruction-text}
-   {helpers:richtext,value=Some Help,disabled=true,label=Help,CSSclass=sb-help-text}
-   {editor:monaco_storyboard,label=Storyboard Editor}
+	#editor:monaco_storyboard,required,validator=storyboard
+	{instruction:richtext,label=Instructions,disabled=true,CSSclass=sb-instruction-text}
+	{helpers:richtext,label=Help,disabled=true,CSSclass=sb-help-text}
+	{editor:monaco_storyboard,label=Storyboard Editor,CSSclass=sb-editor-content}
+	{htmlPreview:richtext,label=Preview,disabled=true,CSSclass=sb-htmlPreview-content}
 }
 
 State finished -form en:experiment_summary.form -view_method view -form_constraints {
