@@ -56,8 +56,8 @@ start proc next_state {} {
 }
 
 Action save \
-	-label {save storyboard draft} \
-	-title {Save Draft}
+	-label {Save & Test Storyboard Draft} \
+	-title {Save a and run your storyboard. You will see your result in the right preview pane.}
 
 save proc next_state {} {
 	ns_log notice "experiment.wf --> Action:save next_state:editing"
@@ -89,8 +89,8 @@ save proc next_state {} {
 
 Action finish \
 	-next_state finished \
-	-label {finish} \
-	-title {Finished} \
+	-label {Finish & Submit Storyboard} \
+	-title {Finish and submit your storyboard. After clicking finish & submit you will not be able to return to this page.} \
 	-proc activate {obj} {
 		::xowfstoryboard::time_elapsed $obj
 }

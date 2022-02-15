@@ -11,3 +11,42 @@ body{
     display:inline-block;
     box-sizing: border-box;
 }
+
+button[name="__action_start"].btn-default {
+  background: #3cafc3;
+  border-color: #008198;
+  color: white;
+  margin-top: 0.8em;
+}
+
+button[name="__action_start"].btn-default:hover {
+  background: #369db0;
+  border-color: #008198;
+  color: white;
+}
+
+button[name="__action_save"].btn-default {
+  background: #3cafc3;
+  border-color: #008198;
+  color: white;
+  margin-right: 2em;
+}
+
+button[name="__action_save"].btn-default:hover {
+  background: #369db0;
+  border-color: #008198;
+  color: white;
+}
+
+button[name="__action_finish"].btn-default {
+  background: #dc3545;
+  border-color: #bd2130;
+  color: white;
+  margin-right: 2em;
+}
+
+button[name="__action_finish"].btn-default:hover {
+  background: #c82333;
+  border-color: #bd2130;
+  color: white;
+}

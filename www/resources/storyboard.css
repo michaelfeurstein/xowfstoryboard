@@ -14,6 +14,10 @@ div.main-wrapper {
   margin: 10px;
 }
 
+div.main-wrapper + div {
+	text-align: center;
+}
+
 div.sb-instruction {
   height: 200px;
   width: 61em;
