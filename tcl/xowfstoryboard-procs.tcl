@@ -51,6 +51,9 @@ namespace eval ::xowfstoryboard {
 
 	treatment1
 	treatment2
+
+	reference_kv_video
+	reference_kv_timestamp
   }
 
   Package default_package_parameter_page_info {
@@ -140,7 +143,7 @@ namespace eval ::xowfstoryboard {
 	#}
   }
 
-  ad_proc set_help_content {object} {
+  ad_proc set_help_content {object notation} {
 	# TODO: setup ::xowiki::Page for each command reference
 	# currently this is hard coded just as an example
 	#
@@ -149,88 +152,67 @@ namespace eval ::xowfstoryboard {
 	# generate button and modal
 	# place inside help_content
 
+	namespace import ::StoryBoard::*
+	set help_content ""
 
-	set help_content [subst -nocommands {
+	if {$notation eq "key-value"} {
+		set reference_prefix "en:reference_kv_"
 
-		<!-- Modal: Video -->
+	} elseif {$notation eq "natural-language"} {
+		set reference_prefix "en:reference_nl_"
+	}
 
-		<!-- Button trigger modal -->
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#videoModal">
-			Video
-		</button>
+	set storyboard_elements [Helper getStoryboardElements]
 
-		<!-- Modal -->
-		<div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="videoModalLabel"><b>Video Command Reference</b></h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px;">
-								<span aria-hidden="true">&times;</span>
-							</button>
-					</div>
-					<div class="modal-body">
-						<p><u>Name:</u></p>
-						<p>video - Create a video object based on a URL</p>
+	foreach element $storyboard_elements {
+		set page_name "$reference_prefix$element"
+		set page_id [::xo::dc get_value p_id {select item_id from xowiki_page_live_revision where name = :page_name}]
+		if {$page_id eq ""} {
+			ns_log notice "page $element not found --> continue"
+			continue
+		}
+		set reference_page [::xo::db::CrClass get_instance_from_db -item_id $page_id]
+		set reference_html_text [lindex [$reference_page set text] 0]
+		set reference_html_button_title [$reference_page set description]
+		set reference_html_title [$reference_page set title]
 
-						<p><u>Synopsis:</u></p>
-						<p><b>video</b><i>?identifier? URL value</i></p>
+		set data_target_a "$element"
+		set data_target_b "Modal"
+		set data_target "$data_target_a$data_target_b";# --> e.g.: videoModal
 
-						<p><u>Description:</u></p>
-						<p>This command uses the provided identifier to set the id of the video object in order to reference it (e.g.: video1, videoSession01). If no identifier is provided, future video objects will be overwritten. The URL needs to be an embeddable URL.</p>
+		set aria_labelledby_b "Label"
+		set aria_labelledby "$data_target$aria_labelledby_b";# --> e.g.: videoModalLabel
 
-						<p><u>Video Example:</u></p>
-						<p>videoSession01 URL https://www.youtube.com/embed/0siisFJUKh4</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
+		append help_content [subst -nocommands {
 
-		<!-- Modal: Timestamp -->
+			<!-- Modal: $reference_html_button_title -->
 
-		<!-- Button trigger modal -->
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#timestampModal">
-			Timestamp
-		</button>
+			<!-- Button trigger modal -->
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#$data_target">
+				$reference_html_button_title
+			</button>
 
-		<!-- Modal -->
-		<div class="modal fade" id="timestampModal" tabindex="-1" role="dialog" aria-labelledby="timestampModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="timestampModalLabel"><b>Timestamp Command Reference</b></h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px;">
-								<span aria-hidden="true">&times;</span>
-							</button>
-					</div>
-					<div class="modal-body">
-
-						<p><u>Name:</u></p>
-						<p>timestamp - Create a timestamp</p>
-
-						<p><u>Synopsis:</u></p>
-						<p><b>timestamp</b><i>?identifier? option value</i></p>
-
-						<p><u>Description:</u></p>
-						<p>Creates a timestamp based on options. Valid options are:</p>
-
-						<p><b>timestamp</b><i>?identifier?</i> <b>title</b> value<br>
-						<b>timestamp</b><i>?identifier?</i> <b>time</b> value<br>
-						<b>timestamp</b><i>?identifier?</i> <b>video</b> value</p>
-
-						<p><u>Timestamp Example:</u></p>
-						<p>timestampIntro title "Introduction" <br>timestampIntro time 63</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+			<!-- Modal -->
+			<div class="modal fade" id="$data_target" tabindex="-1" role="dialog" aria-labelledby="$aria_labelledby" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="$aria_labelledby"><b>$reference_html_title</b></h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px;">
+									<span aria-hidden="true">&times;</span>
+								</button>
+						</div>
+						<div class="modal-body">
+							$reference_html_text
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	}]
+		}]
+	};# --> foreach end
 
 	$object set_property -new 1 helpers $help_content
   }

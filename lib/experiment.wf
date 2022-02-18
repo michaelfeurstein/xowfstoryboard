@@ -50,7 +50,8 @@ start proc next_state {} {
 	#
 	# fill helpers form field
 	#
-	::xowfstoryboard::set_help_content [:object]
+	::xowfstoryboard::set_help_content [:object] [[:object] get_property -name wf_notation]
+
 
 	return editing
 }
