@@ -1,0 +1,17 @@
+::xowiki::Page new \
+	-set name en:reference_kv_video.page \
+	-title "Video Command Reference (KV)" \
+	-text {
+<p><u>Name:</u></p>
+<p>video - Create a video object based on a URL</p>
+
+<p><u>Synopsis:</u></p>
+<p><b>video</b><i>?identifier? URL value</i></p>
+
+<p><u>Description:</u></p>
+<p>This command uses the provided identifier to set the id of the video object in order to reference it (e.g.: video1, videoSession01). If no identifier is provided, future video objects will be overwritten. The URL needs to be an embeddable URL.</p>
+
+<p><u>Video Example:</u></p>
+<p>videoSession01 URL https://www.youtube.com/embed/0siisFJUKh4</p>
+} \
+	-description {Video}
