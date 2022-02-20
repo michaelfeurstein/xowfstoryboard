@@ -1,0 +1,29 @@
+::xowiki::Page new \
+	-set name en:reference_kv_question.page \
+	-title "Question Command Reference (KV)" \
+	-text {
+<p><u>Name:</u></p>
+<p>question - Create a question element</p>
+
+<p><u>Synopsis:</u></p>
+<p><b>question</b><i>?identifier? key value</i></p>
+
+<p><u>Description:</u></p>
+<p>This command uses the provided <i>identifier</i> to set an id for the question object in order to reference it (e.g.: question1, questionTopic01). If no <i>identifier</i> is provided, future video objects will be overwritten. The keys title, question and feedback are receive simple text input. Answers are set via the answer key in the form of a list where each list item consists of the structure "Answer text", correct|wrong.</p>
+
+<p>Valid keys are:</p>
+
+<p><b>question</b><i>?identifier?</i> <b>title</b> question_title<br>
+<b>question</b><i>?identifier?</i> <b>type</b> singleChoice|multipleChoice<br>
+<b>question</b><i>?identifier?</i> <b>question</b> question_text<br>
+<b>question</b><i>?identifier?</i> <b>answers</b> (answer_text, correct|wrong, ?...?)<br>
+<b>question</b><i>?identifier?</i> <b>feedback</b> feedback_text</p>
+
+<p><u>Question Example:</u></p>
+<p>question1 title "What is an information system?"<br>
+question1 type singleChoice<br>
+question1 question "Please explain the concept of an information system."<br>
+question1 answers ("Answer 1", wrong, "Answer 2", correct, "Answer 3", correct)<br>
+question1 feedback "General feedback on this question"</p>
+} \
+	-description {Question}

@@ -1,0 +1,20 @@
+::xowiki::Page new \
+	-set name en:reference_kv_module.page \
+	-title "Module Command Reference (KV)" \
+	-text {
+<p><u>Name:</u></p>
+<p>module - Create a module</p>
+
+<p><u>Synopsis:</u></p>
+<p><b>module</b> <i>key value</i></p>
+
+<p><u>Description:</u></p>
+<p>Creates a module based on key-value pairs. Valid keys are:</p>
+
+<p><b>module</b> <b>title</b> title_of_module<br>
+<b>module</b> <b>structure</b> (element ?, element, ...?)<br>
+
+<p><u>Module Example:</u></p>
+<p>module title "Learning Module" <br>module structure (video, textpage, question)</p>
+} \
+	-description {Module}

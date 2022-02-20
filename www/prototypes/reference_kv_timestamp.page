@@ -6,14 +6,14 @@
 <p>timestamp - Create a timestamp</p>
 
 <p><u>Synopsis:</u></p>
-<p><b>timestamp</b><i>?identifier? option value</i></p>
+<p><b>timestamp</b><i>?identifier? key value</i></p>
 
 <p><u>Description:</u></p>
-<p>Creates a timestamp based on options. Valid options are:</p>
+<p>Creates a timestamp based on key-value pairs. Valid keys are:</p>
 
-<p><b>timestamp</b><i>?identifier?</i> <b>title</b> value<br>
-<b>timestamp</b><i>?identifier?</i> <b>time</b> value<br>
-<b>timestamp</b><i>?identifier?</i> <b>video</b> value</p>
+<p><b>timestamp</b><i>?identifier?</i> <b>title</b> title_of_timestamp<br>
+<b>timestamp</b><i>?identifier?</i> <b>time</b> time_in_seconds<br>
+<b>timestamp</b><i>?identifier?</i> <b>video</b> video_reference</p>
 
 <p><u>Timestamp Example:</u></p>
 <p>timestampIntro title "Introduction" <br>timestampIntro time 63</p>

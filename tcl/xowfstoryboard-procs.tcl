@@ -54,6 +54,9 @@ namespace eval ::xowfstoryboard {
 
 	reference_kv_video
 	reference_kv_timestamp
+	reference_kv_textpage
+	reference_kv_module
+	reference_kv_question
   }
 
   Package default_package_parameter_page_info {

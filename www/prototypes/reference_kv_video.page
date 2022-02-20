@@ -3,15 +3,20 @@
 	-title "Video Command Reference (KV)" \
 	-text {
 <p><u>Name:</u></p>
-<p>video - Create a video object based on a URL</p>
+<p>video - Create a video element</p>
 
 <p><u>Synopsis:</u></p>
-<p><b>video</b><i>?identifier? URL value</i></p>
+<p><b>video</b><i>?identifier? key value</i></p>
 
 <p><u>Description:</u></p>
-<p>This command uses the provided identifier to set the id of the video object in order to reference it (e.g.: video1, videoSession01). If no identifier is provided, future video objects will be overwritten. The URL needs to be an embeddable URL.</p>
+<p>This command uses the provided <i>identifier</i> to set an id for the video object in order to reference it (e.g.: video1, videoSession01). If no <i>identifier</i> is provided, future video objects will be overwritten. The URL needs to be an embeddable URL. Timestamps are added as comma separated lists in brackets (e.g. (ts01, ts02, ts03, ts04))</p>
+
+<p>Valid keys are:</p>
+
+<p><b>video</b><i>?identifier?</i> <b>URL</b> embeddable_url_of_video<br>
+<b>video</b><i>?identifier?</i> <b>timestamp</b> (timestamp_id ?, timestamp_id?)</p>
 
 <p><u>Video Example:</u></p>
-<p>videoSession01 URL https://www.youtube.com/embed/0siisFJUKh4</p>
+<p>videoSession01 URL https://www.youtube.com/embed/0siisFJUKh4<br>videoSession01 timestamp (intro, definition, topic1, topic2, end)</p>
 } \
 	-description {Video}
