@@ -1,0 +1,18 @@
+::xowiki::Page new \
+	-set name en:reference_nl_textpage.page \
+	-title "Textpage Definition Reference (NL)" \
+	-text {
+<p><u>Name:</u></p>
+<p>Define a paragraph of text with a title</p>
+
+<p><u>Synopsis - keywords used:</u></p>
+<p><b>Create</b> <i>OBJECT_NAME</i> <b>with id</b> <i>id_of_object</i></p>
+<p><b>Set</b> <i>ATTRIBUTE</i> <b>of</b> <i>id_of_object</i> <b>to</b> <i>attribute_content</i></p>
+
+<p><u>Description:</u></p>
+<p>Use the keywords <b>Create</b> and <b>Set</b> to define a textpage (OBJECT_NAME). A textpage needs to be created with an <b>id</b>. Each textpage requires the following <i>ATTRIBUTES</i> to be set: title and body.</p>
+
+<p><u>Textpage Example:</u></p>
+<p>Create textpage with id textpage1<br>Set title of textpage1 to "An Example"<br>Set body of textpage1 to "Some text for an examplary paragraph"</p>
+} \
+	-description {Textpage}

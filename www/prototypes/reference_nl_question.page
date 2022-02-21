@@ -1,0 +1,26 @@
+::xowiki::Page new \
+	-set name en:reference_nl_question.page \
+	-title "Question Definition Reference (NL)" \
+	-text {
+<p><u>Name:</u></p>
+<p>Define a question</p>
+
+<p><u>Synopsis - keywords used:</u></p>
+<p><b>Create</b> <i>OBJECT_NAME</i> <b>with id</b> <i>id_of_object</i></p>
+<p><b>Set</b> <i>ATTRIBUTE</i> <b>of</b> <i>id_of_object</i> <b>to</b> <i>attribute_content</i></p>
+
+<p><u>Description:</u></p>
+<p>Use the keywords <b>Create</b> and <b>Set</b> to define a question (OBJECT_NAME). A question needs to be created with an <b>id</b>. Each question requires the following <i>ATTRIBUTES</i> to be set: 
+ <ul>
+  <li><b>type</b> - singleChoice | multipleChoice</li>
+  <li><b>title</b> - the title of your question</li>
+  <li><b>question</b> - the question text</li>
+  <li><b>feedback</b> - feedback text to be provided after answering question</li>
+</ul>
+In order to add answers to your question make use of the <b>Set</b> command as usal and add a reference whether it is correct or wrong: <b>which is correct</b> | <b>which is wrong</b>:
+</p>
+
+<p><u>Question Example:</u></p>
+<p>Create question with id question1<br>Set title of question1 to "What is an information system?"<br>Set question of question1 to "Select the answer which is an information system."<br>Set answer of question1 to "External Harddrive" which is wrong<br>Set answer of question1 to "HTML" which is wrong<br>Set answer of question1 to "Content Management System" which is correct<br>Set feedback of question1 to "External harddrive and HTML can be components of an information system."</p>
+} \
+	-description {Question}
