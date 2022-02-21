@@ -118,9 +118,12 @@ namespace eval ::xowfstoryboard {
   # - en:treatment2.page
   #
 
-  ad_proc set_treatment_page_item_id {object treatment} {
+  ad_proc set_instruction_content {object treatment} {
 	set treatment_name "en:treatment$treatment"
-	$object set_property -new 1 treatment_page_item_id [::xo::dc get_value t_id {select item_id from xowiki_page_live_revision where name = :treatment_name}]
+	set treatment_page_item_id [::xo::dc get_value t_id {select item_id from xowiki_page_live_revision where name = :treatment_name}]
+	set treatment_page [::xo::db::CrClass get_instance_from_db -item_id $treatment_page_item_id]
+	set htmlInstruction [lindex [$treatment_page set text] 0]
+	$object set_property -new 1 instruction $htmlInstruction
   }
 
   #

@@ -40,12 +40,7 @@ start proc next_state {} {
 	#
 	# fill instruction form field
 	#
-	::xowfstoryboard::set_treatment_page_item_id [:object] [[:object] get_property -name treatment]
-	#ns_log notice "treatment_id [[:object] get_property -name treatment_page_item_id]"
-	set treatment_page [::xo::db::CrClass get_instance_from_db -item_id [[:object] get_property -name treatment_page_item_id]]
-	#ns_log notice "treatment text: [lindex [$treatment_page set text] 0]"
-	set htmlInstruction [lindex [$treatment_page set text] 0]
-	[:object] set_property -new 1 instruction $htmlInstruction
+	::xowfstoryboard::set_instruction_content [:object] [[:object] get_property -name treatment]
 
 	#
 	# fill helpers form field
