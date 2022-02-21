@@ -3,17 +3,19 @@
 	-title "Timestamp Command Reference (KV)" \
 	-text {
 <p><u>Name:</u></p>
-<p>timestamp - Create a timestamp</p>
+<p>timestamp - Create a timestamp for a video</p>
 
 <p><u>Synopsis:</u></p>
 <p><b>timestamp</b><i>?identifier? key value</i></p>
 
 <p><u>Description:</u></p>
-<p>Creates a timestamp based on key-value pairs. Valid keys are:</p>
+<p>Creates a timestamp element based on key-value pairs. The provided <i>identifier</i> is used together with the command name as an id for the element in order to reference it (e.g.: timestamp1, timestampIntro). If no <i>identifier</i> is provided, future elements will be overwritten.</p>
+
+<p>Valid keys are:</p>
 
 <p><b>timestamp</b><i>?identifier?</i> <b>title</b> title_of_timestamp<br>
 <b>timestamp</b><i>?identifier?</i> <b>time</b> time_in_seconds<br>
-<b>timestamp</b><i>?identifier?</i> <b>video</b> video_reference</p>
+<b>timestamp</b><i>?identifier?</i> <b>video</b> video_reference_id</p>
 
 <p><u>Timestamp Example:</u></p>
 <p>timestampIntro title "Introduction" <br>timestampIntro time 63</p>

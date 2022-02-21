@@ -9,7 +9,9 @@
 <p><b>module</b> <i>key value</i></p>
 
 <p><u>Description:</u></p>
-<p>Creates a module based on key-value pairs. Valid keys are:</p>
+<p>Creates a module based on key-value pairs. No <i>identifier</i> is needed. There is only one module. A module has a title and a structure containing a comma separated list of elements, referenced via their id (e.g. (textpageIntro, question1, video1, textpage2)).</p>
+
+<p>Valid keys are:</p>
 
 <p><b>module</b> <b>title</b> title_of_module<br>
 <b>module</b> <b>structure</b> (element ?, element, ...?)<br>
