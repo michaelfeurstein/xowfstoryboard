@@ -1,0 +1,31 @@
+::xowiki::Page new \
+	-set name en:treatmenttutorial.page \
+	-title "Treatment Tutorial" \
+	-text {
+<p>
+<b>Create a Video:</b>
+<br>
+Video link: https://www.youtube.com/embed/0siisFJUKh4
+<br>
+<br>
+<b>Create timestamps for this video:</b>
+<br>
+There are two timestamps, namely:
+
+<ul>
+<li>The first timestamp starting at 30 seconds with the title "Tutorial"</li>
+<li>The second timestamp starting at 100 seconds with the title "Examples"</li>
+</ul>
+
+<b>Create a text block</b>
+<br>
+Title: "A short language tutorial"
+Pragraph: "Welcome to this short introduction to the storyboard-language"
+<br>
+<br>
+
+<b>Create a module</b>
+<br>
+Start with the textpage, followed by the video and title the module "Storyboard-Language Tutorial"
+</p>
+}
