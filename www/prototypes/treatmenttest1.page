@@ -3,16 +3,16 @@
 	-title "Treatment Test 1" \
 	-text {
 <p>
-You have the following video link at hand to create a video-based learning module.<bri><br>
+You have the following video link at hand to create a video-based learning module.<br><br>
 
 Video link: https://www.youtube.com/embed/0siisFJUKh4<br><br>
 
 Task 1: Define timestamps within this video for better navigation. There are two timestamps, namely:
 
-<li>
-<ul>The first timestamp starts at 63 seconds and is titled "Definition of Information System"</ul>
-<ul>The second timestamp starts at 148 seconds and is titled "Example based on library"</ul>
-</li>
+<ul>
+<li>The first timestamp starts at 63 seconds and is titled "Definition of Information System"</li>
+<li>The second timestamp starts at 148 seconds and is titled "Example based on library"</li>
+</ul>
 
 Create a text page with a title "Explainer Video: Information System" and with a paragraph of text containing the following: "Watch the following video and answer the question below."<br><br>
 
