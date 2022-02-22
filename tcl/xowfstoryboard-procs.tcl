@@ -51,6 +51,8 @@ namespace eval ::xowfstoryboard {
 
 	treatment1
 	treatment2
+	treatmenttest1
+	treatmenttest2
 
 	reference_kv_video
 	reference_kv_timestamp

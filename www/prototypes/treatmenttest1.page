@@ -1,0 +1,23 @@
+::xowiki::Page new \
+	-set name en:treatmenttest1.page \
+	-title "Treatment Test 1" \
+	-text {
+<p>
+You have the following video link at hand to create a video-based learning module.<bri><br>
+
+Video link: https://www.youtube.com/embed/0siisFJUKh4<br><br>
+
+Task 1: Define timestamps within this video for better navigation. There are two timestamps, namely:
+
+<li>
+<ul>The first timestamp starts at 63 seconds and is titled "Definition of Information System"</ul>
+<ul>The second timestamp starts at 148 seconds and is titled "Example based on library"</ul>
+</li>
+
+Create a text page with a title "Explainer Video: Information System" and with a paragraph of text containing the following: "Watch the following video and answer the question below."<br><br>
+
+Create a single choice question titled "Information Systems inside the library" and add the following question: "Select the correct statement". Add three answer options of which one is correct. The first answer is "A library does not need an information system" (wrong), the second answer is "Libraries have only one information system", which is also wrong. Finally add the third answer which is "Libraries make use of different information systems", which is correct.<br><br>
+
+Finally structure the module the following way. The module should have the title "VBL Unit: Information Systems" and start with the text page, followed by the video which is then followed by the question.
+</p>
+}

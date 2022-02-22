@@ -13,6 +13,10 @@ This is the start page of xowfstoryboard.</p>
 <a class="btn btn-primary btn-lg" href="storyboard.wf?nls_language=en_US&m=create-new&p.wf_notation=key-value" role="button" style="color: white; text-decoration: none;">Key-Value</a> <a class="btn btn-primary btn-lg" href="storyboard.wf?nls_language=en_US&m=create-new&p.wf_notation=natural-language" role="button" style="color: white; text-decoration: none;">Natural-Language</a>
 
 </p>
+<p>Testing Links:</p>
+<p>Both: <a href="experiment.wf?nls_language=en_US&m=create-new&p.wf_notation=natural-language&p.treatment=test1">Natural Language with Test Treatment 1</a> | <a href="experiment.wf?nls_language=en_US&m=create-new&p.wf_notation=key-value&p.treatment=test2">Key-Value with Test Treatment 2</a></p>
+<p>One: <a href="experiment.wf?nls_language=en_US&m=create-new&p.wf_notation=natural-language&p.treatment=test1">Natural Language with Test Treatment 1</a></p>
+<p>Two: <a href="experiment.wf?nls_language=en_US&m=create-new&p.wf_notation=key-value&p.treatment=test1">Key-Value with Test Treatment 1</a></p>
 </center>
 
 <hr>

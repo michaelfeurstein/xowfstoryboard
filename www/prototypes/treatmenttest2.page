@@ -1,0 +1,23 @@
+::xowiki::Page new \
+	-set name en:treatmenttest2.page \
+	-title "Treatment Test 2" \
+	-text {
+<p>
+You have the following video link at hand to create a video-based learning module.<bri><br>
+
+Video link: https://www.youtube.com/embed/0siisFJUKh4<br><br>
+
+Task 1: Define timestamps within this video for better navigation. There are two timestamps, namely:
+
+<li>
+<ul>The first timestamp starts at 120 seconds and is titled "Explanation of Concept"</ul>
+<ul>The second timestamp starts at 201 seconds and is titled "Overview of core components"</ul>
+</li>
+
+Create a text page with a title "Explainer Video: Hash Values" and with a paragraph of text containing the following: "Welcome to this video-based learning module. Please start with the question."<br><br>
+
+Create a single choice question titled "How Hash Values are used today" and add the following question: "Select the correct statement". Add three answer options of which two are correct. The first answer is "A hash value is never unique" (wrong), the second answer is "Hash values can be used to check the data integrity", which is a correct answer. Finally add the third answer which is "Hash values are unique and have a fixed bit length depending on the algorithm", which is correct.<br><br>
+
+Finally structure the module the following way. The module should have the title "VBL Unit: Hash Values" and start with the text page, followed by the question which is then followed by the video.
+</p>
+}
