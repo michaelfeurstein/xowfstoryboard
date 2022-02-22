@@ -103,7 +103,8 @@ State parameter {
 }
 
 State initial -actions {start} -form en:experiment_landing.form -form_constraints {
-	{experiment_id:text,size=40,help_text=Enter your experiment ID,style=width:15%}
+	#{experiment_id:text,size=40,help_text=Enter your experiment ID,style=width:15%}
+	{experiment_id:hidden}
 }
 
 State editing -actions {save finish} -form en:storyboard.form -view_method edit -form_constraints {

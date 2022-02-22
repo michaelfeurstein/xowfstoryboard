@@ -20,7 +20,7 @@ namespace eval ::xowiki::includelet {
 		#
 		# Get all properties of workflow
 		#
-		set experiment_id [${:__including_page} get_property -name experiment_id]
+		set name [${:__including_page} get_property -name _name]
 		set time_elapsed [${:__including_page} get_property -name time_elapsed]
 		set editor_b64 [${:__including_page} get_property -name editor]
 		set editor [::xowfstoryboard::fromBase64 $editor_b64]
@@ -54,7 +54,7 @@ namespace eval ::xowiki::includelet {
 		#
 		return [subst {
 			<div class="top-summary">
-				<p><b>Experiment ID: $experiment_id</b></p>
+				<p><b>Experiment ID: $name</b></p>
 				<p>Time elapsed: $time_elapsed</p>
 			</div>
 
@@ -90,7 +90,8 @@ namespace eval ::xowiki::includelet {
 
 		return [subst {
 			<center>
-				<p>Please copy the following experiment ID to your limesurvey</p>
+				<p>Please stop your timer or note down the current time.</p>
+				<p>Please copy your elapsed time and the following experiment ID to your limesurvey</p>
 				<p><span style="font-size: 2em; font-weight: bold;">ID: $name</span></p>
 				<p>and continue with the questionnaire.</p>
 				<p>Thank you!</p>

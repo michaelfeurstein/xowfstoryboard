@@ -2,8 +2,7 @@
     -set name en:experiment_summary.form \
     -title "Experiment Summary Page" \
     -set anon_instances t \
-    -set form {@experiment_id@
-				@time_elapsed@} \
+    -set form {@time_elapsed@} \
 	-set text {
 {{xowfstoryboard_includelet}}
 } \

@@ -3,16 +3,21 @@
     -title "Experiment Landing Page" \
     -set anon_instances t \
     -set form {<center>
-<p>Welcome to Storyboard Language Experiment.</p>
-<p>Please enter your experiment ID in the below field</p>
+<p>Welcome to the Storyboard Language Experiment.</p>
+<p style="text-align: justify; width: 40em;">You are about to start creating your own storyboard based on a given descriptive instruction. Before you click on start below, please check the following points to make sure that you are ready:</p>
+<ul style="text-align: justify; width: 40em;">
+<li><b>Start a timer</b> as soon as you click "Start" (if you do not have a timer at hand, note down start and end time)</li>
+<li><b>Turn off</b> or silence any distractions such as mobile devices or notifications</li>
+<li>Make sure that you can <b>stay focussed</b> for the next 15 minutes</li>
+</ul>
+<br>
+<p style="text-align: justify; width: 40em;">Click start as soon as you have started your own timer or noted down the time.</p>
 <form>
-                @experiment_id@
-				@user_info@
+@experiment_id@
                 </form>
 </center>} \
 	-set text {@experiment_id@} \
     -set form_constraints {
-				{user_info:inform,inline=true,value=Click start as soon as you are ready.}
 				_name:hidden
                 _page_order:hidden
                 _nls_language:hidden
