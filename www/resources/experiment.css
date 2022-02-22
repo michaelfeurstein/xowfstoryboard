@@ -12,6 +12,10 @@ body{
     box-sizing: border-box;
 }
 
+.helperbtn {
+  margin-top: 0.3em;
+}
+
 button[name="__action_start"].btn-default {
   background: #3cafc3;
   border-color: #008198;

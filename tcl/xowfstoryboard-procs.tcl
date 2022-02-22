@@ -200,7 +200,7 @@ namespace eval ::xowfstoryboard {
 			<!-- Modal: $reference_html_button_title -->
 
 			<!-- Button trigger modal -->
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#$data_target">
+			<button type="button" class="helperbtn btn btn-primary" data-toggle="modal" data-target="#$data_target">
 				$reference_html_button_title
 			</button>
 
