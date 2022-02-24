@@ -159,15 +159,13 @@ namespace eval ::xowfstoryboard {
   }
 
   ad_proc set_help_content {object notation} {
-	# TODO: setup ::xowiki::Page for each command reference
-	# currently this is hard coded just as an example
-	#
 	# pseudo approach:
 	# for each xowiki::Page starting with reference_xxx
 	# generate button and modal
 	# place inside help_content
 
 	namespace import ::StoryBoard::*
+
 	set help_content ""
 
 	if {$notation eq "key-value"} {
@@ -198,36 +196,57 @@ namespace eval ::xowfstoryboard {
 		set aria_labelledby_b "Label"
 		set aria_labelledby "$data_target$aria_labelledby_b";# --> e.g.: videoModalLabel
 
+		set btn_id_a $element
+		set btn_id_b "-btn"
+		set btn_id "$btn_id_a$btn_id_b";# --> e.g.: video-btn
+
 		append help_content [subst -nocommands {
 
-			<!-- Modal: $reference_html_button_title -->
+			<a id="$btn_id-popover" tabindex="0" class="helperbtn btn btn-info" role="button" data-placement="bottom">$reference_html_button_title</a>
 
-			<!-- Button trigger modal -->
-			<button type="button" class="helperbtn btn btn-primary" data-toggle="modal" data-target="#$data_target">
-				$reference_html_button_title
-			</button>
-
-			<!-- Modal -->
-			<div class="modal fade" id="$data_target" tabindex="-1" role="dialog" aria-labelledby="$aria_labelledby" aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="$aria_labelledby"><b>$reference_html_title</b></h5>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px;">
-									<span aria-hidden="true">&times;</span>
-								</button>
-						</div>
-						<div class="modal-body">
-							$reference_html_text
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-						</div>
-					</div>
+			<div id="$btn_id-popover-content" class="hidden">
+				<div>
+				$reference_html_text
 				</div>
 			</div>
+
+			<div id="$btn_id-popover-title" class="hidden">
+				<div>
+					$reference_html_title
+				</div>
+			</div>
+
+			<script>
+				\$(function(){
+					// Enables popover
+					\$("#$btn_id-popover").popover({
+					template : reftemplate,
+						html : true,
+						content: function() {
+							return \$("#$btn_id-popover-content").html();
+						},
+						title: function() {
+							return \$("#$btn_id-popover-title").html();
+						}
+					});
+				});
+			</script>
 		}]
 	};# --> foreach end
+
+	# append js call to prevent copy inside popover content / doesn't work yet - css does the jobs
+	# keeping for reference
+	#
+	#append help_content [subst -novariables -nocommands {
+	#	<script>
+	#	$(function(){
+	#		$(".ref-body.popover-content").bind('cut copy', function(e) {
+	#			console.log("prevented");
+    #		e.preventDefault();
+    #        });
+	#	});
+	#	</script>
+	#}]
 
 	$object set_property -new 1 helpers $help_content
   }

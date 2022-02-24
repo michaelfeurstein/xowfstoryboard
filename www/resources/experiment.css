@@ -16,6 +16,50 @@ body{
   margin-top: 0.3em;
 }
 
+.hidden {
+  display: none;
+}
+
+.modal-wrapper {
+  position: relative;
+}
+
+.modal-dialog {
+  position: fixed;
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+}
+
+.ref-wrapper.popover {
+  max-width: 600px;
+}
+
+.ref-header.popover-title {
+  background-color: lightgray;
+  border-bottom: 2px solid #3cafc3;
+}
+
+.ref-body.popover-content {
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.helperbtn.btn-info {
+  background: #3cafc3;
+  border-color: #008198;
+  color: white;
+}
+
+.helperbtn.btn-info:hover {
+  background: #369db0;
+  border-color: #008198;
+  color: white;
+}
+
 button[name="__action_start"].btn-default {
   background: #3cafc3;
   border-color: #008198;
