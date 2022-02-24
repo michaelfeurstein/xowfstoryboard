@@ -21,6 +21,8 @@ namespace eval ::xowiki::formfield {
     trying to extend on what antonio did
   } -parameter {
     {notation natural-language}
+	{width 800px}
+	{height 450px}
   }
 
   monaco_storyboard instproc initialize {} {
