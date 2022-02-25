@@ -98,12 +98,17 @@ finish proc next_state {} {
 
 State parameter {
 	# this sets the css only for the complete workflow (not the entire package)
-	{extra_css {/resources/xowfstoryboard/experiment.css}}
+	{extra_css {
+		//cdnjs.cloudflare.com/ajax/libs/jScrollPane/2.2.2/style/jquery.jscrollpane.css
+		/resources/xowfstoryboard/experiment.css
+	}}
 	{extra_js {
 		//cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js
 		urn:ad:js:jquery
 		urn:ad:js:bootstrap3
 		urn:ad:js:bootstrap3-treeview
+		//cdn.jsdelivr.net/gh/vitch/jScrollPane@master/script/jquery.mousewheel.js
+		//cdnjs.cloudflare.com/ajax/libs/jScrollPane/2.2.2/script/jquery.jscrollpane.min.js
 		/resources/xowfstoryboard/popover-template.js
 	}}
 }

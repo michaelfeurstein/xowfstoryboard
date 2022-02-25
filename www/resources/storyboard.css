@@ -25,7 +25,30 @@ div.sb-instruction {
   float: left;
   padding: 5px;
   margin: 1px;
-  overflow-y: auto;
+  overflow-y: scroll;
+}
+
+div.sb-instruction-text {
+  padding: 10px;
+}
+
+label.instruction {
+  padding-top: 5px;
+  padding-left: 5px;
+}
+
+/* stylying jScrollPane */
+.jspTrack {
+  background-color: lightgrey;
+}
+
+.jspDrag {
+  border-radius: 0px;
+  background-color: #008198;
+}
+
+.jspVerticalBar {
+  background: none;
 }
 
 div.sb-helpers {

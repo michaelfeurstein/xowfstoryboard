@@ -126,6 +126,24 @@ namespace eval ::xowfstoryboard {
 	set treatment_page_item_id [::xo::dc get_value t_id {select item_id from xowiki_page_live_revision where name = :treatment_name}]
 	set treatment_page [::xo::db::CrClass get_instance_from_db -item_id $treatment_page_item_id]
 	set htmlInstruction [lindex [$treatment_page set text] 0]
+
+	# add js to initialize jScrollPane
+	append htmlInstruction [subst -nocommands -novariables {
+		<script>
+			$(function () {
+
+				var settings = {
+					showArrows: false,
+					autoReinitialise: true
+				};
+
+			var pane = $('.sb-instruction')
+			pane.jScrollPane(settings);
+
+			});
+		</script>
+	}]
+
 	$object set_property -new 1 instruction $htmlInstruction
   }
 
