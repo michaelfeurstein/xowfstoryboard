@@ -17,7 +17,7 @@ Property treatment_page_item_id -default 0
 Property time_elapsed -default 0
 Property instruction -default "Create a storyboard"
 Property helpers -default "Help content ..."
-Property htmlPreview -default "Enter a storyboard to begin..."
+Property htmlPreview -default "How to get started quickly:<br><br><b>Step 1:</b> Start by entering a storyboard on the left<br><b>Step 2:</b> Click \"<i>Save & Test Storyboard Draft</i>\" button below to generate an instant preview of your storyboard."
 
 Action initialize -proc activate {obj} {
   set wf_notation [$obj property wf_notation]
