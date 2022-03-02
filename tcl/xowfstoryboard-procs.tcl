@@ -218,9 +218,13 @@ namespace eval ::xowfstoryboard {
 		set btn_id_b "-btn"
 		set btn_id "$btn_id_a$btn_id_b";# --> e.g.: video-btn
 
+		# create the helper buttons
+		#
+		# notes:
+		# javascript 'reftemplate' variable is defined inside www/resources/popover-template.js
 		append help_content [subst -nocommands {
 
-			<a id="$btn_id-popover" tabindex="0" class="helperbtn btn btn-info" role="button" data-placement="bottom">$reference_html_button_title</a>
+			<a id="$btn_id-popover" tabindex="0" class="helperbtn btn btn-info" role="button" data-placement="bottom" data-toggle="popover">$reference_html_button_title</a>
 
 			<div id="$btn_id-popover-content" class="hidden">
 				<div>
@@ -230,15 +234,16 @@ namespace eval ::xowfstoryboard {
 
 			<div id="$btn_id-popover-title" class="hidden">
 				<div>
-					$reference_html_title
+					$reference_html_title <a class="close" data-dismiss="popover">&times;</a>
 				</div>
 			</div>
 
 			<script>
 				\$(function(){
 					// Enables popover
+					// retemplate variable is defined inside www/resources/popover-template.js
 					\$("#$btn_id-popover").popover({
-					template : reftemplate,
+						template : reftemplate,
 						html : true,
 						content: function() {
 							return \$("#$btn_id-popover-content").html();
@@ -247,10 +252,43 @@ namespace eval ::xowfstoryboard {
 							return \$("#$btn_id-popover-title").html();
 						}
 					});
+
+					\$("#$btn_id-popover").click(function (e) {
+						//console.log("toggling $btn_id");
+						e.preventDefault();
+						\$('[data-toggle="popover"]').not(this).popover('hide');
+						\$(this).popover('toggle');
+					});
 				});
+
 			</script>
 		}]
 	};# --> foreach end
+
+	append help_content [subst -novariables -nocommands {
+		<script>
+			$(function() {
+					$(document).on("click", ".popover .close" , function(){
+						//console.log("closing");
+						$(this).parents(".popover").popover('hide');
+					});
+			});
+
+			document.onkeydown = function(evt) {
+				evt = evt || window.event;
+				var isEscape = false;
+				if ("key" in evt) {
+					isEscape = (evt.key === "Escape" || evt.key === "Esc");
+				} else {
+					isEscape = (evt.keyCode === 27);
+				}
+				if (isEscape) {
+					//console.log("closing via esc key");
+					$('[data-toggle="popover"]').popover('hide');
+				}
+			};
+		</script>
+	}]
 
 	# append js call to prevent copy inside popover content / doesn't work yet - css does the jobs
 	# keeping for reference

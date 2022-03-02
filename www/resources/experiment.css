@@ -35,7 +35,16 @@ body{
   max-width: 600px;
 }
 
+.close {
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+}
+
 .ref-header.popover-title {
+  position: absolute;
+  top: -10px;
+  width: 596px;
   background-color: lightgray;
   border-bottom: 2px solid #3cafc3;
 }
@@ -46,6 +55,7 @@ body{
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  margin-top: 35px;
 }
 
 .helperbtn.btn-info {
