@@ -136,6 +136,19 @@ State finished -form en:experiment_summary.form -view_method view -form_constrai
 	#:mixin add ::xowfstoryboard::StoryboardHandler
 	::xo::cc set_parameter template_file view-experiment
 
+	security::csp::require script-src cdn.jsdelivr.net
+	security::csp::require style-src cdnjs.cloudflare.com
+
+	security::csp::require script-src 'unsafe-eval'
+	security::csp::require -force script-src 'unsafe-inline'
+
+	# preview of monaco editor
+	security::csp::require img-src data:
+
+	# iframe youtube
+	security::csp::require frame-src youtube.com
+	security::csp::require frame-src www.youtube.com
+
 	#template::head::add_javascript -src "//cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
 
 	# somehow this sets also the root page of the package
