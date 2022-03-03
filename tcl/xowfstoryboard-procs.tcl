@@ -61,6 +61,10 @@ namespace eval ::xowfstoryboard {
 	reference_kv_module
 	reference_kv_question
 
+	reference_nl_create
+	reference_nl_set
+	reference_nl_add
+
 	reference_nl_video
 	reference_nl_timestamp
 	reference_nl_textpage
@@ -185,85 +189,21 @@ namespace eval ::xowfstoryboard {
 	namespace import ::StoryBoard::*
 
 	set help_content ""
+	set storyboard_elements [Helper getStoryboardElements]
 
 	if {$notation eq "key-value"} {
 		set reference_prefix "en:reference_kv_"
 
+		append help_content [generate_buttons $storyboard_elements $reference_prefix]
 	} elseif {$notation eq "natural-language"} {
+		set syntax_nl_keywords [Helper getNaturalLanguageKeywords]
 		set reference_prefix "en:reference_nl_"
+
+		append help_content [subst {<b>Keywords:</b><br>}]
+		append help_content [generate_buttons $syntax_nl_keywords $reference_prefix]
+		append help_content [subst {<br><b>Elements:</b><br>}]
+		append help_content [generate_buttons $storyboard_elements $reference_prefix]
 	}
-
-	set storyboard_elements [Helper getStoryboardElements]
-
-	foreach element $storyboard_elements {
-		set page_name "$reference_prefix$element"
-		set page_id [::xo::dc get_value p_id {select item_id from xowiki_page_live_revision where name = :page_name}]
-		if {$page_id eq ""} {
-			ns_log notice "page $element not found --> continue"
-			continue
-		}
-		set reference_page [::xo::db::CrClass get_instance_from_db -item_id $page_id]
-		set reference_html_text [lindex [$reference_page set text] 0]
-		set reference_html_button_title [$reference_page set description]
-		set reference_html_title [$reference_page set title]
-
-		set data_target_a "$element"
-		set data_target_b "Modal"
-		set data_target "$data_target_a$data_target_b";# --> e.g.: videoModal
-
-		set aria_labelledby_b "Label"
-		set aria_labelledby "$data_target$aria_labelledby_b";# --> e.g.: videoModalLabel
-
-		set btn_id_a $element
-		set btn_id_b "-btn"
-		set btn_id "$btn_id_a$btn_id_b";# --> e.g.: video-btn
-
-		# create the helper buttons
-		#
-		# notes:
-		# javascript 'reftemplate' variable is defined inside www/resources/popover-template.js
-		append help_content [subst -nocommands {
-
-			<a id="$btn_id-popover" tabindex="0" class="helperbtn btn btn-info" role="button" data-placement="bottom" data-toggle="popover">$reference_html_button_title</a>
-
-			<div id="$btn_id-popover-content" class="hidden">
-				<div>
-				$reference_html_text
-				</div>
-			</div>
-
-			<div id="$btn_id-popover-title" class="hidden">
-				<div>
-					$reference_html_title <a class="close" data-dismiss="popover">&times;</a>
-				</div>
-			</div>
-
-			<script>
-				\$(function(){
-					// Enables popover
-					// retemplate variable is defined inside www/resources/popover-template.js
-					\$("#$btn_id-popover").popover({
-						template : reftemplate,
-						html : true,
-						content: function() {
-							return \$("#$btn_id-popover-content").html();
-						},
-						title: function() {
-							return \$("#$btn_id-popover-title").html();
-						}
-					});
-
-					\$("#$btn_id-popover").click(function (e) {
-						//console.log("toggling $btn_id");
-						e.preventDefault();
-						\$('[data-toggle="popover"]').not(this).popover('hide');
-						\$(this).popover('toggle');
-					});
-				});
-
-			</script>
-		}]
-	};# --> foreach end
 
 	append help_content [subst -novariables -nocommands {
 		<script>
@@ -305,6 +245,82 @@ namespace eval ::xowfstoryboard {
 	#}]
 
 	$object set_property -new 1 helpers $help_content
+  }
+
+  ad_proc generate_buttons {storyboard_elements reference_prefix} {
+		set help_content ""
+
+		foreach element $storyboard_elements {
+			set page_name "$reference_prefix$element"
+			set page_id [::xo::dc get_value p_id {select item_id from xowiki_page_live_revision where name = :page_name}]
+			if {$page_id eq ""} {
+				ns_log notice "page $element not found --> continue"
+				continue
+			}
+			set reference_page [::xo::db::CrClass get_instance_from_db -item_id $page_id]
+			set reference_html_text [lindex [$reference_page set text] 0]
+			set reference_html_button_title [$reference_page set description]
+			set reference_html_title [$reference_page set title]
+
+			#set data_target_a "$element"
+			#set data_target_b "Modal"
+			#set data_target "$data_target_a$data_target_b";# --> e.g.: videoModal
+
+			#set aria_labelledby_b "Label"
+			#set aria_labelledby "$data_target$aria_labelledby_b";# --> e.g.: videoModalLabel
+
+			set btn_id_a $element
+			set btn_id_b "-btn"
+			set btn_id "$btn_id_a$btn_id_b";# --> e.g.: video-btn
+
+			# create the helper buttons
+			#
+			# notes:
+			# javascript 'reftemplate' variable is defined inside www/resources/popover-template.js
+			append help_content [subst -nocommands {
+
+				<a id="$btn_id-popover" tabindex="0" class="helperbtn btn btn-info" role="button" data-placement="bottom" data-toggle="popover">$reference_html_button_title</a>
+
+				<div id="$btn_id-popover-content" class="hidden">
+					<div>
+					$reference_html_text
+					</div>
+				</div>
+
+				<div id="$btn_id-popover-title" class="hidden">
+					<div>
+						$reference_html_title <a class="close" data-dismiss="popover">&times;</a>
+					</div>
+				</div>
+
+				<script>
+					\$(function(){
+						// Enables popover
+						// retemplate variable is defined inside www/resources/popover-template.js
+						\$("#$btn_id-popover").popover({
+							template : reftemplate,
+							html : true,
+							content: function() {
+								return \$("#$btn_id-popover-content").html();
+							},
+							title: function() {
+								return \$("#$btn_id-popover-title").html();
+							}
+						});
+
+						\$("#$btn_id-popover").click(function (e) {
+							//console.log("toggling $btn_id");
+							e.preventDefault();
+							\$('[data-toggle="popover"]').not(this).popover('hide');
+							\$(this).popover('toggle');
+						});
+					});
+
+				</script>
+			}]
+		};# --> foreach end
+
+		return $help_content
   }
 
   # TODO: find out how this can work
