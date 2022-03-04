@@ -108,3 +108,13 @@ button[name="__action_finish"].btn-default:hover {
   border-color: #bd2130;
   color: white;
 }
+
+code.example {
+  background-color: lightgray;
+  border: 1px solid #999;
+  display: block;
+  padding: 2px 4px;
+  font-size: 90%;
+  color: black;
+  border-radius: 4px;
+}
