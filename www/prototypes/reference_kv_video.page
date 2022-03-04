@@ -1,22 +1,22 @@
 ::xowiki::Page new \
 	-set name en:reference_kv_video.page \
-	-title "Video Command Reference (KV)" \
+	-title "Video Command Reference" \
 	-text {
 <p><u>Name:</u></p>
-<p>video - Create a video element</p>
+<p>video - Creates a video element</p>
 
 <p><u>Synopsis:</u></p>
-<p><b>video</b><i>?identifier? key value</i></p>
+<p><b>video</b> <i>identifier</i> key <i>value</i></p>
 
 <p><u>Description:</u></p>
-<p>Creates a video element based on key-value pairs. The provided <i>identifier</i> is used together with the command name as an id for the element in order to reference it (e.g.: video1, videoSession01). If no <i>identifier</i> is provided, future elements will be overwritten. The URL needs to be an embeddable URL. Timestamps are added as comma separated lists in brackets (e.g. (timestamp01, timestamp02, timestamp03, timestamp04))</p>
+<p>Creates a video element based on key-value pairs. The provided <i>identifier</i> is used as an id for the element in order to reference it (e.g.: v1, Session01, etc.). A video element only needs a URL to work. The URL needs to be an embeddable URL. Timestamps are added as comma separated lists in brackets (e.g. (ts1, ts2, ts3, t4))</p>
 
 <p> Valid keys are:</p>
 
-<p><b>video</b><i>?identifier?</i> <b>URL</b> embeddable_url_of_video<br>
-<b>video</b><i>?identifier?</i> <b>timestamp</b> (timestamp_id ?, timestamp_id?)</p>
+<p><b>video</b> <i>identifier</i> <b>URL</b> embeddable_url_of_video<br>
+<b>video</b> <i>identifier</i> <b>timestamp</b> (?timestamp_id1, timestamp_id2, ... timestamp_idN?)</p>
 
 <p><u>Video Example:</u></p>
-<p>videoSession01 URL https://www.youtube.com/embed/0siisFJUKh4<br>videoSession01 timestamp (intro, definition, topic1, topic2, end)</p>
+<code class="example">video myVideo URL https://www.youtube.com/embed/gNYbvsruKHs<br>video myVideo timestamp (ts1, ts2, ts3)</code>
 } \
 	-description {Video}

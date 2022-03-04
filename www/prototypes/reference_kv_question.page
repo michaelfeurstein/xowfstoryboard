@@ -1,31 +1,31 @@
 ::xowiki::Page new \
 	-set name en:reference_kv_question.page \
-	-title "Question Command Reference (KV)" \
+	-title "Question Command Reference" \
 	-text {
 <p><u>Name:</u></p>
 <p>question - Create a question element</p>
 
 <p><u>Synopsis:</u></p>
-<p><b>question</b><i>?identifier? key value</i></p>
+<p><b>question</b> <i>identifier</i> key <i>value</i></p>
 
 <p><u>Description:</u></p>
-<p>Creates a question element based on key-value pairs. The provided <i>identifier</i> is used together with the command name as an id for the element in order to reference it (e.g.: question1, questionTopic01). If no <i>identifier</i> is provided, future elements will be overwritten.</p>
+<p>Creates a question element based on key-value pairs. The provided <i>identifier</i> is used as an id for the element in order to reference it (e.g.: q1 or topic_A). A question can be of type singleChoice or mulitpleChoice.</p>
 
-<p>The keys title, question and feedback receive simple text input. Answers are set via the answer key in the form of a list where each list item consists of the structure "Answer text", correct|wrong.</p>
+<p>The keys title, question and feedback receive simple text input. Answers are set via the answer key in the form of a list where each list item consists of the structure "Answer text", [correct|wrong].</p>
 
 <p>Valid keys are:</p>
 
-<p><b>question</b><i>?identifier?</i> <b>title</b> question_title<br>
-<b>question</b><i>?identifier?</i> <b>type</b> singleChoice|multipleChoice<br>
-<b>question</b><i>?identifier?</i> <b>question</b> question_text<br>
-<b>question</b><i>?identifier?</i> <b>answers</b> (answer_text, correct|wrong, ?...?)<br>
-<b>question</b><i>?identifier?</i> <b>feedback</b> feedback_text</p>
+<p><b>question</b> <i>identifier</i> <b>title</b> question_title<br>
+<b>question</b> <i>identifier</i> <b>type</b> [singleChoice|multipleChoice]<br>
+<b>question</b> <i>identifier</i> <b>question</b> question_text<br>
+<b>question</b> <i>identifier</i> <b>answers</b> (answer_text, [correct|wrong], ?...?)<br>
+<b>question</b> <i>identifier</i> <b>feedback</b> feedback_text</p>
 
 <p><u>Question Example:</u></p>
-<p>question1 title "What is an information system?"<br>
-question1 type singleChoice<br>
-question1 question "Select the answer which is an information system."<br>
-question1 answers ("External Harddrive", wrong, "HTML", wrong, "Content Management System", correct)<br>
-question1 feedback "External harddrive and HTML can be components of an information system."</p>
+<code class="example">question q1 title "Question Example"<br>
+question q1 type singleChoice<br>
+question q1 question "Select the answer which is correct."<br>
+question q1 answers ("Sample answer text", wrong, "Another text", true)<br>
+question q1 feedback "This field can provide additional feedback"</code>
 } \
 	-description {Question}
