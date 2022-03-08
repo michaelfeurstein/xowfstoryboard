@@ -157,7 +157,7 @@ namespace eval ::xowfstoryboard {
   # do this via SQL:
   #	current timestamp - the earliest state of editing timestamp (right after the user clicked start)
   #
-  # time_elapsed = editing time on storyboard
+  # time_elapsed = editing time on storyboard based on latest editing revision
   #
 
   ad_proc time_elapsed {object} {
@@ -168,6 +168,15 @@ namespace eval ::xowfstoryboard {
 	set trimmed [string range $time_elapsed 0 7]
 	return $trimmed
   }
+
+  #
+  # setup helpers content
+  #
+  # generate html for helpers field displaying
+  # list of buttons with reference popovers
+  # natural-language has slightly different pages
+  # than key-value
+  #
 
   ad_proc set_help_content {object notation} {
 	# pseudo approach:
@@ -235,6 +244,18 @@ namespace eval ::xowfstoryboard {
 
 	$object set_property -new 1 helpers $help_content
   }
+
+  #
+  # generate popover buttons
+  #
+  # the buttons with respective content are generated
+  # based on ::xowiki::Pages and their content
+  # using popovers with no copy paste feature and they
+  # stay open for easier referencing
+  #
+  # elements: list of classes in sync with pages
+  # prefix: e.g.: reference_nl / reference_kv
+  #
 
   ad_proc generate_buttons {storyboard_elements reference_prefix} {
 		set help_content ""
@@ -311,6 +332,21 @@ namespace eval ::xowfstoryboard {
 
 		return $help_content
   }
+
+  #
+  # check storyboard
+  #
+  # either "run" or "validate" storyboard
+  # this proc is used to run the storyboard and either
+  # return 0/1 for simple validation if it worked
+  # or return list of infos to work with
+  #
+  # run
+  # returns list with storyboard_status & html
+  #
+  # validate
+  # returns 0/1
+  #
 
   ad_proc check_storyboard {sb n mode} {
 	set storyboard [fromBase64 $sb]

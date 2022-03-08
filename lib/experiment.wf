@@ -3,8 +3,9 @@ set :autoname 1
 set :policy ::xowfstoryboard::experiment-policy
 
 #
-# Define a Property for the workflow to configure it.  When we create
-# the workflow, we can pass e.g.
+# Properties
+#
+# When we create a workflow, we can pass e.g.
 #
 #   storyboard.wf?m=create-new&...&p.wf-notation=natural-language&...
 #
@@ -21,6 +22,12 @@ Property autosaved -default 0
 Property instruction -default "Create a storyboard"
 Property helpers -default "Help content ..."
 Property htmlPreview -default "How to get started quickly:<br><br><b>Step 1:</b> Start by entering a storyboard on the left<br><b>Step 2:</b> Click \"<i>Save & Test Storyboard Draft</i>\" button below to generate an instant preview of your storyboard."
+
+
+
+#
+# Actions
+#
 
 Action initialize -proc activate {obj} {
   set wf_notation [$obj property wf_notation]
@@ -168,6 +175,10 @@ finish proc next_state {} {
 	ns_log notice "\n----------------\n[:serialize]\n\n-------------\n object:[[:object] get_property -name editor]"
 	return finished
 }
+
+#
+# States
+#
 
 State parameter {
 	# this sets the css only for the complete workflow (not the entire package)
