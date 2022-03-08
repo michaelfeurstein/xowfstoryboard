@@ -228,20 +228,6 @@ namespace eval ::xowfstoryboard {
 		</script>
 	}]
 
-	# append js call to prevent copy inside popover content / doesn't work yet - css does the jobs
-	# keeping for reference
-	#
-	#append help_content [subst -novariables -nocommands {
-	#	<script>
-	#	$(function(){
-	#		$(".ref-body.popover-content").bind('cut copy', function(e) {
-	#			console.log("prevented");
-    #		e.preventDefault();
-    #        });
-	#	});
-	#	</script>
-	#}]
-
 	$object set_property -new 1 helpers $help_content
   }
 
@@ -271,13 +257,6 @@ namespace eval ::xowfstoryboard {
 			set reference_html_text [lindex [$reference_page set text] 0]
 			set reference_html_button_title [$reference_page set description]
 			set reference_html_title [$reference_page set title]
-
-			#set data_target_a "$element"
-			#set data_target_b "Modal"
-			#set data_target "$data_target_a$data_target_b";# --> e.g.: videoModal
-
-			#set aria_labelledby_b "Label"
-			#set aria_labelledby "$data_target$aria_labelledby_b";# --> e.g.: videoModalLabel
 
 			set btn_id_a $element
 			set btn_id_b "-btn"
@@ -362,8 +341,8 @@ namespace eval ::xowfstoryboard {
 
 	# ad_log for full stack logging
 	# ns_log for "just a message"
-	ns_log notice "--- check_storyboard sb:$storyboard"
-	ns_log notice "--- check_storyboard notation:$notation"
+	#ns_log notice "--- check_storyboard sb:$storyboard"
+	#ns_log notice "--- check_storyboard notation:$notation"
 
 	try {
 		set internalBuilder [StoryboardBuilder new -notation $notation]
@@ -408,48 +387,5 @@ namespace eval ::xowfstoryboard {
       return [encoding convertfrom utf-8 [binary decode base64 $encValue]]
     }
   }
-
-  #
-  # MIXIN EXAMPLE
-  #
-  # begin
-  #
-
-  # Class create StoryboardMixin
-  #
-  #
-  # set property via double save approach
-  #
-  #  StoryboardMixin instproc save args {
-  #	set item_id ${:item_id}
-  #	set db_state_before [db_string query {select state from xowiki_form_instance_item_index where item_id = :item_id}]
-  #	ns_log warning "before ${:state} ${:item_id} $db_state_before"
-  #	next
-  #	if {![info exists :__saved_p] && ${:state} eq "finished"} {
-  #		set :__saved_p 1
-  #		:set_property -new 1 time_elapsed [::xo::dc get_value calc_elapsed {
-  #			select (select o.creation_date from acs_objects o, cr_items i where o.object_id = i.live_revision and i.item_id = :item_id) - (select min(o.creation_date) from xowiki_form_page f, cr_revisions r, acs_objects o where f.xowiki_form_page_id = r.revision_id and r.revision_id = o.object_id and f.state = 'editing' and r.item_id = :item_id)
-  #		}]
-  #		:save
-  #	}
-  #	ns_log warning "after ${:state} ${:item_id}"
-  #  }
-
-
-  # StoryboardMixin instproc save args {
-  #	ns_log warning "before ${:state} ${:item_id}"
-  #	set item_id ${:item_id}
-  #	if {${:state} eq "finished"} {
-  #		:set_property -new 1 time_elapsed [::xo::dc get_value calc_elapsed {
-  #			select current_timestamp - min(o.creation_date) from xowiki_form_page f, cr_revisions r, acs_objects o where f.xowiki_form_page_id = r.revision_id and r.revision_id = o.object_id and f.state = 'editing' and r.item_id = :item_id
-  #			}]
-  #		}
-  #	ns_log warning "before next"
-  #	next
-  #	ns_log warning "after next ${:state} ${:item_id}"
-  #}
-  #
-  #
-  # EXAMPLE END
 
 }

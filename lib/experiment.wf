@@ -58,7 +58,7 @@ Action start \
 }
 
 start proc next_state {} {
-	ns_log notice "experiment.wf --> Action:start next_state:editing"
+	ns_log notice "experiment.wf --> action:start next_state:editing"
 
 	#
 	# fill instruction form field
@@ -148,16 +148,6 @@ save proc next_state {} {
 		set htmlResult [ad_text_to_html [dict get $result html]]
 	}
 	[:object] set_property -new 1 htmlPreview $htmlResult
-
-	#set htmlResult [[:object] get_property -name htmlPreview]
-	#if {$sb_status} {
-	#	util_user_message -message "Storyboard OK"
-	#} else {
-	#	util_user_message -message "Storyboard ERROR"
-	#}
-
-	# How does this work
-	#[::xowfstoryboard::StoryboardHandler hello]
 
 	return editing
 }
@@ -269,8 +259,6 @@ State finished -form en:experiment_summary.form -view_method view -form_constrai
 #
 
 :object-specific {
-	#:mixin add ::xowfstoryboard::StoryboardMixin
-	#:mixin add ::xowfstoryboard::StoryboardHandler
 	::xo::cc set_parameter template_file view-experiment
 
 	security::csp::require script-src cdn.jsdelivr.net
@@ -286,13 +274,8 @@ State finished -form en:experiment_summary.form -view_method view -form_constrai
 	security::csp::require frame-src youtube.com
 	security::csp::require frame-src www.youtube.com
 
-	#template::head::add_javascript -src "//cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-
 	# somehow this sets also the root page of the package
 	#template::head::add_link -rel stylesheet -href /resources/xowfstoryboard/experiment.css
-
-	# this breaks my styling more than it helps
-	#::xo::cc set_parameter MenuBar 0
 
 	# this seems hacky but does the job of only hiding the MenuBar
 	template::set_css_property -class navbar -property display -value none
@@ -331,16 +314,3 @@ State finished -form en:experiment_summary.form -view_method view -form_constrai
 	}
 }
 
-#:object-specific {
-#	set ctx [:wf_context]
-#
-#	[$ctx wf_definition_object submit_to_supervisor] proc next_state {} {
-#	#check if all coauthors have confirmed this submission
-#	#set confirmed [:property mv_agreement]
-#	#foreach [tlf_ephorus::unlist_coauthors -name 0 [:self]]
-#	if {[llength [[:object] get_property -name mv_agreement]] ne [llength [tlf_ephorus::unlist_coauthors -name 0 [:object]]]} {
-#		return "confirm"
-#	} else {
-#		return "submitted"
-#	}
-#}
