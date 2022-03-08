@@ -17,7 +17,6 @@ Property treatment -default "1" -allow_query_parameter true
 Property treatment_page_item_id -default 0
 Property time_elapsed -default 0
 Property first_time_working -default 0
-Property schedule_proc_id -default 0
 Property autosaved -default 0
 Property instruction -default "Create a storyboard"
 Property helpers -default "Help content ..."
