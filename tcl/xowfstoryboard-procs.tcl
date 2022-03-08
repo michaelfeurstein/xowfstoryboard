@@ -166,18 +166,7 @@ namespace eval ::xowfstoryboard {
 		select current_timestamp - min(o.creation_date) from xowiki_form_page f, cr_revisions r, acs_objects o where f.xowiki_form_page_id = r.revision_id and r.revision_id = o.object_id and f.state = 'editing' and r.item_id = :item_id
 	}]
 	set trimmed [string range $time_elapsed 0 7]
-	$object set_property -new 1 time_elapsed $trimmed
-
-	#
-	# get all the timestamps for this item
-	#
-	#set results [::xo::dc list_of_lists get_data [subst {
-    #  select o.creation_date, r.revision_id = i.live_revision as is_live, f.state from cr_revisions r, acs_objects o, xowiki_form_page f, cr_items i where o.object_id = r.revision_id and f.xowiki_form_page_id = r.revision_id and i.item_id = [$object item_id] and r.item_id = i.item_id order by o.creation_date asc
-	#}]]
-	#
-	#foreach e $results {
-	#	ns_log notice "e:$e"
-	#}
+	return $trimmed
   }
 
   ad_proc set_help_content {object notation} {
@@ -323,27 +312,7 @@ namespace eval ::xowfstoryboard {
 		return $help_content
   }
 
-  # TODO: find out how this can work
-  Class create StoryboardHandler -ad_doc {
-	a handler to store results from storyboard
-  } -parameter {
-	{storyboard_ok 0}
-  }
-
-  StoryboardHandler instproc is_sb_ok {} {
-	return :storyboard_ok
-  }
-
-  StoryboardHandler instproc hello {} {
-	ns_log notice "hello from StoryboardHandler"
-  }
-
-  ad_proc test_content {param} {
-	set result "Some text \nother text \n stuff $param"
-	return [ad_text_to_html $result]
-  }
-
-  ad_proc check_storyboard {sb n} {
+  ad_proc check_storyboard {sb n mode} {
 	set storyboard [fromBase64 $sb]
 	set notation $n
 
@@ -374,13 +343,24 @@ namespace eval ::xowfstoryboard {
 			set module [$internalBuilder from $storyboardDict]
 		}
 
-		set visitor [HTMLVisitor new]
-		set htmlResult [$visitor evaluate $module]
+		if {$mode eq "run"} {
+			set visitor [HTMLVisitor new]
+			set htmlResult [$visitor evaluate $module]
+		}
 	} on error {msg} {
-		ad_log notice "--- check_storyboard msg:\n$msg"
-		return [list storyboard_status 0 html $msg]
+		ns_log notice "--- check_storyboard mode:$mode status:0\n\nmsg:\n$msg"
+		if {$mode eq "run"} {
+			return [list storyboard_status 0 html $msg]
+		} elseif {$mode eq "validate"} {
+			return 0
+		}
 	} on ok {msg} {
-		return [list storyboard_status 1 html [$htmlResult asHTML]]
+		ns_log notice "--- check_storyboard mode:$mode status:1"
+		if {$mode eq "run"} {
+			return [list storyboard_status 1 html [$htmlResult asHTML]]
+		} elseif {$mode eq "validate"} {
+			return 1
+		}
 	}
   }
 

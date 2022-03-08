@@ -118,3 +118,21 @@ code.example {
   color: black;
   border-radius: 4px;
 }
+
+.autosave {
+  width: 800px;
+}
+
+.pending  {
+  float: left !important;
+  position: relative;
+  left: 753px;
+  bottom: 2px;
+}
+
+.saved {
+  float: left !important;
+  position: relative;
+  left: 718px;
+  bottom: 2px;
+}

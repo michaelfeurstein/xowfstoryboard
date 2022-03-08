@@ -15,6 +15,9 @@ Property wf_notation -default "natural-language" -allow_query_parameter true
 Property treatment -default "1" -allow_query_parameter true
 Property treatment_page_item_id -default 0
 Property time_elapsed -default 0
+Property first_time_working -default 0
+Property schedule_proc_id -default 0
+Property autosaved -default 0
 Property instruction -default "Create a storyboard"
 Property helpers -default "Help content ..."
 Property htmlPreview -default "How to get started quickly:<br><br><b>Step 1:</b> Start by entering a storyboard on the left<br><b>Step 2:</b> Click \"<i>Save & Test Storyboard Draft</i>\" button below to generate an instant preview of your storyboard."
@@ -32,7 +35,20 @@ Action initialize -proc activate {obj} {
 
 Action start \
 	-label {Start} \
-	-title {Start}
+	-title {Start} \
+	-proc activate {obj} {
+		ns_log notice "experiment.wf --> action:start activate"
+
+		#
+		# manually call save to create a new revision
+		#
+		# this makes the initial revision of editing empty
+		# and allows us to caluclate the elapsed time from autosave
+		# which overwrites the current revision
+		# that's why we need an explicit first editing revision marking the start or editing
+		#
+		$obj save
+}
 
 start proc next_state {} {
 	ns_log notice "experiment.wf --> Action:start next_state:editing"
@@ -51,20 +67,77 @@ start proc next_state {} {
 }
 
 Action save \
-	-label {Save & Test Storyboard Draft} \
-	-title {Save a and run your storyboard. You will see your result in the right preview pane.}
+	-label {Run Storyboard Script} \
+	-title {Save a and run your storyboard script. You will see your result in the right preview pane.} \
 
 save proc next_state {} {
-	ns_log notice "experiment.wf --> Action:save next_state:editing"
+	ns_log notice "experiment.wf --> action:save next_state:editing editor:[[:object] get_property -name editor]"
+
+	#
+	# hack:
+	#
+	# if editor was saved via "autosave"
+	# and user clicks Action save
+	# the editor form field is not overwritten with content
+	# but seems to append the data with a whitespace
+	# hence making it a list
+	# therefore get index 1 (second item of list)
+	# which should be the most recent editor entry
+	#
+	if {[[:object] get_property -name autosaved]} {
+		#ns_log notice "experiment.wf --> action:save autosaved:1"
+		[:object] set_property -new 1 autosaved 0
+		set current_editor [[:object] get_property -name editor]
+
+		# sanity check if list has really those 2 items
+		if {[llength $current_editor] eq 2} {
+
+			#
+			# use second item of list
+			#
+			# use case:
+			# 1) enter text
+			# 2) autosave
+			# 3) enter text again more
+			# 4) click save manually
+			#
+			#ns_log notice "experiment.wf --> action:save llength:2"
+			#
+			set new_editor [lindex $current_editor 1]
+		} else {
+
+			#
+			# use as is
+			#
+			# use case:
+			# 1) enter text
+			# 2) autosave
+			# 3) close tab
+			# 4) reopen
+			# 5) click save
+			#
+			#ns_log notice "experiment.wf --> action:save llength:[llength $current_editor] not changing anything"
+			#
+			set new_editor $current_editor
+		}
+
+		[:object] set_property -new 1 editor $new_editor
+	} else {
+		ns_log notice "experiment.wf --> action:save autosaved:0"
+	}
 
 	#
 	# fill htmlPreview form field
 	#
-	set result [::xowfstoryboard::check_storyboard [[:object] get_property -name editor] [[:object] get_property -name wf_notation]]
+	set editor_backup [[:object] get_property -name editor]
+	set result [::xowfstoryboard::check_storyboard [[:object] get_property -name editor] [[:object] get_property -name wf_notation] "run"]
 	set sb_status [dict get $result storyboard_status]
 	if {$sb_status} {
+		# storyboard is working show result in htmlResult
 		set htmlResult [dict get $result html]
+		set_first_time_working [:object]
 	} else {
+		# storyboard is not working show feedback in htmlResult
 		set htmlResult [ad_text_to_html [dict get $result html]]
 	}
 	[:object] set_property -new 1 htmlPreview $htmlResult
@@ -87,7 +160,7 @@ Action finish \
 	-extra_css_class "finish-prompt" \
 	-title {Finish and submit your storyboard. After clicking finish & submit you will not be able to return to this page.} \
 	-proc activate {obj} {
-		::xowfstoryboard::time_elapsed $obj
+		$obj set_property -new 1 time_elapsed [::xowfstoryboard::time_elapsed $obj]
 }
 
 finish proc next_state {} {
@@ -122,14 +195,67 @@ State editing -actions {save finish} -form en:storyboard.form -view_method edit 
 	#editor:monaco_storyboard,required,validator=storyboard
 	{instruction:richtext,label=Instructions,disabled=true,CSSclass=sb-instruction-text}
 	{helpers:richtext,label=Help,disabled=true,CSSclass=sb-help-text}
-	{editor:monaco_storyboard,label=Storyboard Editor,CSSclass=sb-editor-content}
+	{editor:monaco_storyboard,label=Storyboard Editor,CSSclass=sb-editor-content,autosave=true}
 	{htmlPreview:richtext,label=Preview,disabled=true,CSSclass=sb-htmlPreview-content}
 }
 
 State finished -form en:experiment_summary.form -view_method view -form_constraints {
    experiment_id:text,disabled=true
    time_elapsed:text,disabled=true
+   first_time_working:text,disabled=true
 }
+
+#
+# Helper Procs
+#
+
+:proc experiment_info {obj} {
+	return [list autosaved [$obj get_property -name autosaved]]
+}
+
+:proc activate_autosave {obj} {
+	$obj set_property -new 1 autosaved 1
+}
+
+:proc validate_storyboard {obj sb} {
+	# run storyboard validation check
+	set result [::xowfstoryboard::check_storyboard $sb [$obj get_property -name wf_notation] "validate"]
+
+	# persist status
+	if {$result} {
+		# result:1 - storyboard works
+
+		#
+		# approach
+		#
+		# 1) calculate elapsed time from click start
+		# 2) if property:first_time_working is 0
+		# 3) write elapsed time to property:first_time_working
+		# 4) if property:first_time_working is not 0
+		#    hence there has already been a working version
+		#    this is what we need --> don't update property anymore
+		#
+
+		# calculate elapsed time
+		ns_log notice "experiment.wf --> validate_storyboard result:1 now let's calc the time"
+		:set_first_time_working $obj
+	} else {
+		# result:0 - storyboard doesn't work
+		# do nothing here
+	}
+}
+
+:proc set_first_time_working {obj} {
+	if {[$obj get_property -name first_time_working] eq 0} {
+			$obj set_property -new 1 first_time_working [::xowfstoryboard::time_elapsed $obj]
+		} else {
+			# don't update property anymore
+	}
+}
+
+#
+# Object Specific Code
+#
 
 :object-specific {
 	#:mixin add ::xowfstoryboard::StoryboardMixin
@@ -162,6 +288,36 @@ State finished -form en:experiment_summary.form -view_method view -form_constrai
 	#template::set_css_property -class folders -property display -value none
 
 	template::add_confirm_handler -CSSclass finish-prompt -message "Do you really want to finish & submit? This action cannot be undone."
+
+	#
+	# overload www-autosave-attribute
+	#
+	:proc www-autosave-attribute {} {
+		ns_log notice "experiment.wf --> www-autosave-attribute"
+		set experiment_info [[[:wf_context] wf_container] experiment_info [self]]
+		set has_been_autosaved [dict get $experiment_info autosaved]
+		[[:wf_context] wf_container] activate_autosave [self]; # setting the wf property to 1
+
+		# get the most recent storyboard script from parameters passed
+		set provided_form_parameters [xo::cc get_all_form_parameter]
+		set keys [dict keys $provided_form_parameters]
+
+		if {[llength $keys] == 1} {
+			set key   [lindex $keys 0]
+			set value [::xo::cc form_parameter $key]
+			#ns_log notice "experiment.wf --> www-autosave-attribute '$key' <$value>"
+			set storyboard_script $value
+		} else {
+			#ns_log error "provided parameters don't fit set storyboard_script empty"
+			set storyboard_script ""
+		}
+
+		# persist elapsed time of the first time it worked
+		[[:wf_context] wf_container] validate_storyboard [self] $storyboard_script
+
+		# actually save
+		next
+	}
 }
 
 #:object-specific {

@@ -23,10 +23,14 @@ namespace eval ::xowiki::formfield {
     {notation natural-language}
 	{width 800px}
 	{height 450px}
+	{autosave:boolean false}
   }
 
   monaco_storyboard instproc initialize {} {
 	next
+	if {${:autosave}} {
+      ::xo::Page requireJS  "/resources/xowfstoryboard/autosave-monaco.js"
+    }
     ::xo::Page requireCSS urn:ad:css:xowfstoryboard:storyboard
 
 	set wf_notation [${:object} get_property -name wf_notation]
@@ -56,23 +60,51 @@ namespace eval ::xowiki::formfield {
 	#}
 
 	# This element is invisible and contains the base64 encoded value
-    # of the formfield, which we use to initialize the previews. One
-    # could also do it using the editor api, but we do not have one in
-    # case of a readonly field or when we render this field in display
-    # mode.
-	#ns_log notice "++++ monaco_storyboard private render_input value:[:value]"
-    #::html::template -id "${:id}-srcdoc" style "display:none;" {
-    #  ::html::t [ns_base64encode -- $htmlPreview]
-    #}
+    # of the formfield, which is used for the autosave feature.
+    ::html::textarea -id "${:id}-srcdoc" style "display:none;" {
+      ::html::t [:value]
+    }
 
-	::html::div -id ${:id}-container -class storyboardContainer {
-      ::html::div -id ${:id}-code -class "storyboardEditor"  {
-        next
+      if {${:autosave}} {
+        ::html::div -class "autosave" {
+          ::html::div -id ${:id}-status \
+              -class "nochange" \
+              -data-saved #xowiki.autosave_saved# \
+              -data-rejected #xowiki.autosave_rejected# \
+              -data-pending #xowiki.autosave_pending# {
+                ::html::t "" ;#"no change"
+              }
+
+			  ::html::div -id ${:id}-container -class storyboardContainer {
+				::html::div -id ${:id}-code -class "storyboardEditor"  {
+					next
+				}
+			  }
+
+        }
+
+		template::add_event_listener \
+            -id ${:id} \
+            -event keyup \
+            -preventdefault=false \
+            -script "autosave_handler('${:id}');"
+
+      } else {
+		::html::div -id ${:id}-container -class storyboardContainer {
+			::html::div -id ${:id}-code -class "storyboardEditor"  {
+				next
+			}
+		}
       }
+
+	#::html::div -id ${:id}-container -class storyboardContainer {
+    #  ::html::div -id ${:id}-code -class "storyboardEditor"  {
+    #    next
+    #  }
         #::html::div -id ${:id}-preview -class "storyboardPreview" {
         #  ::html::t $htmlPreview
         #}
-    }
+    #}
 
     #template::add_body_handler -event load -script [subst -nocommands {
     #  var srcDoc = document.getElementById('${:id}-srcdoc');
@@ -85,6 +117,27 @@ namespace eval ::xowiki::formfield {
     #    preview.innerHTML = page;
     #  }
     #}]
+
+	template::add_body_handler -event load -script [subst -nocommands {
+      var srcDoc = document.getElementById('${:id}-srcdoc');
+      var page = xowf.monaco.b64_to_utf8(srcDoc.innerHTML);
+
+
+      // If we have an editor
+	  // find it and listen to change events
+	  // on change update content into
+	  // a hidden textarea
+      for (var i = 0; i < xowf.monaco.editors.length ; i++)  {
+        var e = xowf.monaco.editors[i];
+        var hiddenId = e.getDomNode().parentNode.id + ".hidden";
+        if (hiddenId === '${:id}.hidden') {
+          e.onDidChangeModelContent((event) => {
+			srcDoc.innerHTML = xowf.monaco.utf8_to_b64(e.getValue());
+          });
+        }
+      }
+	}]
+
   }
 
   # TODO: also make sure that it works with

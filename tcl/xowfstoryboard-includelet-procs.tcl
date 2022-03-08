@@ -22,6 +22,7 @@ namespace eval ::xowiki::includelet {
 		#
 		set name [${:__including_page} get_property -name _name]
 		set time_elapsed [${:__including_page} get_property -name time_elapsed]
+		set first_time_working [${:__including_page} get_property -name first_time_working]
 		set editor_b64 [${:__including_page} get_property -name editor]
 		set editor [::xowfstoryboard::fromBase64 $editor_b64]
 		set htmlPreview [${:__including_page} get_property -name htmlPreview]
@@ -54,8 +55,10 @@ namespace eval ::xowiki::includelet {
 		#
 		return [subst {
 			<div class="top-summary">
-				<p><b>Experiment ID: $name</b></p>
-				<p>Time elapsed: $time_elapsed</p>
+				<h2>Summary Page</h2>
+				<p><b>Experiment ID:</b> $name</p>
+				<p><b>First time storyboard was working:</b> $first_time_working</p>
+				<p><b>Total working time elapsed:</b> $time_elapsed</p>
 			</div>
 
 			<template id="editor-summary-srcdoc" style="display:none;">$editor_b64</template>
