@@ -16,7 +16,7 @@ Task 1: Define timestamps within this video for better navigation. There are two
 
 Create a text page with a title "Explainer Video: Hash Values" and with a paragraph of text containing the following: "Welcome to this video-based learning module. Please start with the question."<br><br>
 
-Create a single choice question titled "How Hash Values are used today" and add the following question: "Select the correct statement". Add three answer options of which two are correct. The first answer is "A hash value is never unique" (wrong), the second answer is "Hash values can be used to check the data integrity", which is a correct answer. Finally add the third answer which is "Hash values are unique and have a fixed bit length depending on the algorithm", which is correct.<br><br>
+Create a single choice question titled "How Hash Values are used today" and add the following question: "Select the correct statement". Add three answer options of which two are correct. The first answer is "A hash value is never unique" (wrong), the second answer is "Hash values can be used to check the data integrity", which is a correct answer. Finally add the third answer which is "Hash values can have a variable bit length depending on the algorithm", which is wrong.<br><br>
 
 Finally structure the module the following way. The module should have the title "VBL Unit: Hash Values" and start with the text page, followed by the question which is then followed by the video.
 </p>
