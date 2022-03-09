@@ -200,7 +200,7 @@ namespace eval ::xowfstoryboard {
 
 		append help_content [subst {<b>Commands:</b><br>}]
 		append help_content [generate_buttons $syntax_nl_keywords $reference_prefix]
-		append help_content [subst {<br><b>Element Types:</b><br>}]
+		append help_content [subst {<br><br><b>Element Types:</b><br>}]
 		append help_content [generate_buttons $storyboard_elements $reference_prefix]
 	}
 

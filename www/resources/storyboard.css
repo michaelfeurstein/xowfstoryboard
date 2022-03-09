@@ -84,6 +84,10 @@ div.sb-helpers {
   margin-left: 10px;
 }
 
+div.sb-help-text {
+  margin-bottom: -15px;
+}
+
 div.sb-editor {
   border: 1px solid grey;
   float: left;
