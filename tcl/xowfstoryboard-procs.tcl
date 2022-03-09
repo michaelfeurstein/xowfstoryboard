@@ -288,6 +288,7 @@ namespace eval ::xowfstoryboard {
 						// retemplate variable is defined inside www/resources/popover-template.js
 						\$("#$btn_id-popover").popover({
 							template : reftemplate,
+							trigger: 'manual',
 							html : true,
 							content: function() {
 								return \$("#$btn_id-popover-content").html();
@@ -298,10 +299,21 @@ namespace eval ::xowfstoryboard {
 						});
 
 						\$("#$btn_id-popover").click(function (e) {
-							//console.log("toggling $btn_id");
+							console.log("toggling $btn_id");
+
 							e.preventDefault();
+
+							if (\$("#$btn_id-popover").next('div.popover:visible').length) {
+								// popover is visible
+								\$('[data-toggle="popover"]').popover('hide');
+							} else {
+								// popover is not visible
+								\$(this).popover('toggle');
+							}
+
+							// hide all othe popovers
 							\$('[data-toggle="popover"]').not(this).popover('hide');
-							\$(this).popover('toggle');
+
 						});
 					});
 
