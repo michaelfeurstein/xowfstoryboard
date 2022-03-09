@@ -299,7 +299,7 @@ namespace eval ::xowfstoryboard {
 						});
 
 						\$("#$btn_id-popover").click(function (e) {
-							console.log("toggling $btn_id");
+							//console.log("toggling $btn_id");
 
 							e.preventDefault();
 
