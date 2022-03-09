@@ -192,14 +192,15 @@ namespace eval ::xowfstoryboard {
 	if {$notation eq "key-value"} {
 		set reference_prefix "en:reference_kv_"
 
+		append help_content [subst {<b>Commands:</b><br>}]
 		append help_content [generate_buttons $storyboard_elements $reference_prefix]
 	} elseif {$notation eq "natural-language"} {
 		set syntax_nl_keywords [Helper getNaturalLanguageKeywords]
 		set reference_prefix "en:reference_nl_"
 
-		append help_content [subst {<b>Keywords:</b><br>}]
+		append help_content [subst {<b>Commands:</b><br>}]
 		append help_content [generate_buttons $syntax_nl_keywords $reference_prefix]
-		append help_content [subst {<br><b>Elements:</b><br>}]
+		append help_content [subst {<br><b>Element Types:</b><br>}]
 		append help_content [generate_buttons $storyboard_elements $reference_prefix]
 	}
 
