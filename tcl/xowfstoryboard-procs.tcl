@@ -278,7 +278,7 @@ namespace eval ::xowfstoryboard {
 
 				<div id="$btn_id-popover-title" class="hidden">
 					<div>
-						$reference_html_title <a class="close" data-dismiss="popover">&times;</a>
+						$reference_html_title <span class="tip">(key: esc)</span> <a class="close" data-dismiss="popover">&times;</a>
 					</div>
 				</div>
 
