@@ -1,17 +1,17 @@
 ::xowiki::Page new \
 	-set name en:reference_nl_create.page \
-	-title "Reference for Keyword: Create" \
+	-title "Reference for Command: Create" \
 	-text {
 <p><u>Name:</u></p>
-<p>Create and element</p>
+<p>Create - Creates an element type</p>
 
-<p><u>Synopsis - keywords used:</u></p>
-<p><b>Create</b> <i>OBJECT_NAME</i> <b>with id</b> <i>id_of_object</i></p>
+<p><u>Synopsis</u></p>
+<p><b>Create</b> <i>ELEMENT_TYPE</i> <b>with id</b> <i>identifier</i></p>
 
 <p><u>Description:</u></p>
-<p>Use the keywords <b>Create</b> and <b>Set</b> to define a video (OBJECT_NAME).  A video needs to be created with an <b>id</b>. Each video requires the following <i>ATTRIBUTE</i> to be set: URL. Use the keyword <b>Add</b> to add timestamps in a comma separated list within brackets to your video (e.g. (ts01, ts02, ts03)).</p>
+<p>Use the keyword <b>Create</b> to create an <i>ELEMENT_TYPE</i>. All <i>ELEMENT_TYPE</i>s need to be created with an <i>identifier</i>, except for <i>ELEMENT_TYPE</i>: module. The <i>identifier</i> is used as an id for the <i>ELEMENT_TYPE</i> in order to reference it (e.g.: v1, page01, session)</p>
 
-<p><u>Video Example:</u></p>
-<p>Create video with id tutorialVideo</p>
+<p><u>Example:</u></p>
+<code class="example">Create video with id tutorialVideo</code>
 } \
 	-description {Create}

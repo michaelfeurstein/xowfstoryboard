@@ -1,26 +1,23 @@
 ::xowiki::Page new \
 	-set name en:reference_nl_question.page \
-	-title "Question Definition Reference (NL)" \
+	-title "Element Type: Question" \
 	-text {
 <p><u>Name:</u></p>
-<p>Define a question</p>
+<p>question</p>
 
-<p><u>Synopsis - keywords used:</u></p>
-<p><b>Create</b> <i>OBJECT_NAME</i> <b>with id</b> <i>id_of_object</i></p>
-<p><b>Set</b> <i>ATTRIBUTE</i> <b>of</b> <i>id_of_object</i> <b>to</b> <i>attribute_content</i></p>
+<p><u>Synopsis</u></p>
+<p>Attributes definable with <b>Set</b></p>
+<p><i>ATTRIBUTE</i>: <b>id</b> <i>value</i>: any_characters_without_spaces
+<br/><i>ATTRIBUTE</i>: <b>type</b> <i>value</i>: [singleChoice | multipleChoice]
+<br/><i>ATTRIBUTE</i>: <b>title</b> <i>value</i>: string inside quotes
+<br/><i>ATTRIBUTE</i>: <b>question</b> <i>value</i>: string inside quotes
+<br/><i>ATTRIBUTE</i>: <b>answer</b> <i>value</i>: string inside quotes + <b>which is</b> [correct | wrong]
+<br/><i>ATTRIBUTE</i>: <b>feedback</b> <i>value</i>: string inside quotes</p>
 
 <p><u>Description:</u></p>
-<p>Use the keywords <b>Create</b> and <b>Set</b> to define a question (OBJECT_NAME). A question needs to be created with an <b>id</b>. Each question requires the following <i>ATTRIBUTES</i> to be set: 
- <ul>
-  <li><b>type</b> - singleChoice | multipleChoice</li>
-  <li><b>title</b> - the title of your question</li>
-  <li><b>question</b> - the question text</li>
-  <li><b>feedback</b> - feedback text to be provided after answering question</li>
-</ul>
-In order to add answers to your question make use of the <b>Set</b> command as usal and add a reference whether it is correct or wrong: <b>which is correct</b> | <b>which is wrong</b>:
-</p>
+<p>A question has an <b>id</b> in order to reference it. An <b>id</b> can consist of upper and lower case characters but no spaces are allowed. There are two <b>types</b> of questions: single and multiple choice questions. Each question has a <b>title</b>, <b>question</b> text and <b>feedback</b> text. A question can have multiple <b>answers</b> which are identified as correct or wrong via the following reference: <b>which is [correct | wrong]</b></p>
 
 <p><u>Question Example:</u></p>
-<p>Create question with id question1<br>Set title of question1 to "What is an information system?"<br>Set question of question1 to "Select the answer which is an information system."<br>Set answer of question1 to "External Harddrive" which is wrong<br>Set answer of question1 to "HTML" which is wrong<br>Set answer of question1 to "Content Management System" which is correct<br>Set feedback of question1 to "External harddrive and HTML can be components of an information system."</p>
+<code class="example">Create question with id q1<br>Set title of q1 to "Tutorial Question"<br>Set type of q1 to singleChoice<br/>Set question of q1 to "Select the answer which is correct"<br>Set answer of q1 to "Answer text number one" which is wrong<br>Set answer of q1 to "Second answer text" which is wrong<br>Set answer of q1 to "Last answer" which is correct<br>Set feedback of q1 to "Additional feedback text can be added here"</code>
 } \
 	-description {Question}

@@ -16,7 +16,7 @@
 <p><b>video</b> <i>identifier</i> <b>URL</b> embeddable_url_of_video<br>
 <b>video</b> <i>identifier</i> <b>timestamp</b> (?timestamp_id1, timestamp_id2, ... timestamp_idN?)</p>
 
-<p><u>Video Example:</u></p>
+<p><u>Example:</u></p>
 <code class="example">video myVideo URL https://www.youtube.com/embed/gNYbvsruKHs<br>video myVideo timestamp (ts1, ts2, ts3)</code>
 } \
 	-description {Video}

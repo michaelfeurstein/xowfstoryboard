@@ -1,17 +1,17 @@
 ::xowiki::Page new \
 	-set name en:reference_nl_set.page \
-	-title "Reference for Keyword: Set" \
+	-title "Reference for Command: Set" \
 	-text {
 <p><u>Name:</u></p>
-<p>Set an attribute of element to specific value</p>
+<p>Set - Set an attribute of an element type to a specific value</p>
 
-<p><u>Synopsis - keywords used:</u></p>
-<p><b>Set</b> <i>ATTRIBUTE</i> <b>of</b> <i>id_of_object</i> <b>to</b> <i>attribute_content</i></p>
+<p><u>Synopsis</u></p>
+<p><b>Set</b> <i>ATTRIBUTE</i> <b>of</b> <i>identifier</i> <b>to</b> <i>value</i></p>
 
 <p><u>Description:</u></p>
-<p>Use the keywords <b>Create</b> and <b>Set</b> to define a video (OBJECT_NAME).  A video needs to be created with an <b>id</b>. Each video requires the following <i>ATTRIBUTE</i> to be set: URL. Use the keyword <b>Add</b> to add timestamps in a comma separated list within brackets to your video (e.g. (ts01, ts02, ts03)).</p>
+<p>Use the keyword <b>Set</b> to set the <i>value</i> of an <i>ATTRIBUTE</i> for a specific element type which is referenced via an <i>identifier</i>. See the reference documentation for each available element type for all available <i>ATTRIBUTE</i>s which can be set.</p>
 
 <p><u>Example:</u></p>
-<p>Set URL of tutorialVideo to https://www.youtube.com/embed/0siisFJUKh4</p>
+<code class="example">Set URL of tutorialVideo to https://www.youtube.com/embed/0siisFJUKh4</code>
 } \
 	-description {Set}

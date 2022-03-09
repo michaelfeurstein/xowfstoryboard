@@ -1,18 +1,19 @@
 ::xowiki::Page new \
 	-set name en:reference_nl_module.page \
-	-title "Module Definition Reference (NL)" \
+	-title "Element Type: Module" \
 	-text {
 <p><u>Name:</u></p>
-<p>Define a module</p>
+<p>module</p>
 
-<p><u>Synopsis - keywords used:</u></p>
-<p><b>Create</b> <i>OBJECT_NAME</i> <b>titled</b> <i>title_of_object</i></p>
-<p><b>Set structure of</b> <i>id_of_object</i> <b>to</b> <i>(element, ?...?)</i></p>
+<p><u>Synopsis</u></p>
+<p><p>Attributes definable with <b>Set</b></p>
+<p><i>ATTRIBUTE</i>: <b>title</b> <i>value</i>: string inside quotes
+<br/><i>ATTRIBUTE</i>: <b>structure</b> <i>value</i>: comma separated list of element references</p>
 
 <p><u>Description:</u></p>
-<p>Use the keywords <b>Create</b> and <b>Set</b> to define a module (OBJECT_NAME). A module needs to be created with a <b>title</b> and a <b>structure</b>. The structure is set via the <b>Set</b> command using a comma separated list of elements (e.g. (question1, video1, textpage1, video2))</p>
+<p>A module can be created without an id. Note that no <i>identifier</i> is needed. A module has a <b>title</b> and a </b>structure</b> containing a comma separated list of elements, referenced via their id (e.g. (textpageIntro, question1, v1, intro)).</p>
 
-<p><u>Module Example:</u></p>
-<p>Create module titled "Learning Module"<br>Set structure of module to (video, textpage, question)</p>
+<p><u>Example:</u></p>
+<code class="example">Create module with title "Tutorial Learning Module"<br>Set structure of module to (video, tutorialTextPage, q1)</code>
 } \
 	-description {Module}

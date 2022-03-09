@@ -1,17 +1,17 @@
 ::xowiki::Page new \
 	-set name en:reference_nl_add.page \
-	-title "Reference for Keyword: Add" \
+	-title "Reference for Command: Add" \
 	-text {
 <p><u>Name:</u></p>
-<p>Add element to another element</p>
+<p>Add - Add list of elements to another element type</p>
 
-<p><u>Synopsis - keywords used:</u></p>
-<p><b>Add timestamps</b> (<i>timestamp_id</i>, ?...?) <b>to</b> <i>id_of_object</i></p>
+<p><u>Synopsis</u></p>
+<p><b>Add</b> <i>ELEMENT_TYPE</i>s (<i>identifierN</i>, ?...?) <b>to</b> <i>identifier</i></p>
 
 <p><u>Description:</u></p>
-<p>Use the keywords <b>Create</b> and <b>Set</b> to define a video (OBJECT_NAME).  A video needs to be created with an <b>id</b>. Each video requires the following <i>ATTRIBUTE</i> to be set: URL. Use the keyword <b>Add</b> to add timestamps in a comma separated list within brackets to your video (e.g. (ts01, ts02, ts03)).</p>
+<p>Use the keyword <b>Add</b> to add <i>ELEMENT_TYPE</i>s in a comma separated list within brackets to another <i>ELEMENT_TYPE</i> referenced via an <i>identifier</i>.</p>
 
 <p><u>Example:</u></p>
-<p>Add timestamps (definition, example) to tutorialVideo</p>
+<code class="example">Add timestamps (ts01, ts02) to tutorialVideo</code>
 } \
 	-description {Add}

@@ -16,7 +16,7 @@
 <p><b>textpage</b> <i>identifier</i> <b>title</b> title_of_paragraph<br>
 <b>textpage</b> <i>identifier</i> <b>body</b> paragraph_text</p>
 
-<p><u>Textpage Example:</u></p>
+<p><u>Example:</u></p>
 <code class="example">textpage p1 title "Example Page Title" <br>textpage p1 body "This is some example text for a paragraph"</code>
 } \
 	-description {Textpage}

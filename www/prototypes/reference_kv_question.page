@@ -21,7 +21,7 @@
 <b>question</b> <i>identifier</i> <b>answers</b> (answer_text, [correct|wrong], ?...?)<br>
 <b>question</b> <i>identifier</i> <b>feedback</b> feedback_text</p>
 
-<p><u>Question Example:</u></p>
+<p><u>Example:</u></p>
 <code class="example">question q1 title "Question Example"<br>
 question q1 type singleChoice<br>
 question q1 question "Select the answer which is correct."<br>

@@ -16,7 +16,7 @@
 <p><b>module</b> <b>title</b> title_of_module<br>
 <b>module</b> <b>structure</b> (?element1, element2, ... elementN?)<br>
 
-<p><u>Module Example:</u></p>
+<p><u>Example:</u></p>
 <code class="example">module title "Learning Module" <br>module structure (myVideo, myPage, question1, question2)</code>
 } \
 	-description {Module}

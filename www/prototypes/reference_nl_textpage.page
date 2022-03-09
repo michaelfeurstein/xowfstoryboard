@@ -1,18 +1,20 @@
 ::xowiki::Page new \
 	-set name en:reference_nl_textpage.page \
-	-title "Textpage Definition Reference (NL)" \
+	-title "Element Type: Textpage" \
 	-text {
 <p><u>Name:</u></p>
-<p>Define a paragraph of text with a title</p>
+<p>textpage</p>
 
 <p><u>Synopsis - keywords used:</u></p>
-<p><b>Create</b> <i>OBJECT_NAME</i> <b>with id</b> <i>id_of_object</i></p>
-<p><b>Set</b> <i>ATTRIBUTE</i> <b>of</b> <i>id_of_object</i> <b>to</b> <i>attribute_content</i></p>
+<p>Attributes definable with <b>Set</b></p>
+<p><i>ATTRIBUTE</i>: <b>id</b> <i>value</i>: any_characters_without_spaces
+<br/><i>ATTRIBUTE</i>: <b>title</b> <i>value</i>: string inside quotes
+<br/><i>ATTRIBUTE</i>: <b>body</b> <i>value</i>: string inside quotes</p>
 
 <p><u>Description:</u></p>
-<p>Use the keywords <b>Create</b> and <b>Set</b> to define a textpage (OBJECT_NAME). A textpage needs to be created with an <b>id</b>. Each textpage requires the following <i>ATTRIBUTES</i> to be set: title and body.</p>
+<p>A textpage has an <b>id</b> in order to reference it. An <b>id</b> can consist of upper and lower case characters but no spaces are allowed. The <b>title</b> and body of a textpage are regular text stated inside quotes.</p>
 
-<p><u>Textpage Example:</u></p>
-<p>Create textpage with id textpage1<br>Set title of textpage1 to "An Example"<br>Set body of textpage1 to "Some text for an examplary paragraph"</p>
+<p><u>Example:</u></p>
+<code class="example">Create textpage with id tutorialTextPage<br>Set title of tutorialTextPage to "An Example"<br>Set body of tutorialTextPage to "Some text for an examplary paragraph"</code>
 } \
 	-description {Textpage}

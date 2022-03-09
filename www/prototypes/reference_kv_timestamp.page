@@ -17,7 +17,7 @@
 <b>timestamp</b> <i>identifier</i> <b>time</b> time_in_seconds<br>
 <b>timestamp</b> <i>identifier</i> <b>video</b> video_reference_id</p>
 
-<p><u>Timestamp Example:</u></p>
+<p><u>Example:</u></p>
 <code class="example">timestamp ts01 title "Example Timestamp" <br>timestamp ts01 time 63<br>timestamp ts01 video myVideo</code>
 } \
 	-description {Timestamp}

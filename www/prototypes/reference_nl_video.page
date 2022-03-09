@@ -1,19 +1,21 @@
 ::xowiki::Page new \
 	-set name en:reference_nl_video.page \
-	-title "Video Definition Reference (NL)" \
+	-title "Element Type: Video" \
 	-text {
 <p><u>Name:</u></p>
-<p>Define a video</p>
+<p>video</p>
 
-<p><u>Synopsis - keywords used:</u></p>
-<p><b>Create</b> <i>OBJECT_NAME</i> <b>with id</b> <i>id_of_object</i></p>
-<p><b>Set</b> <i>ATTRIBUTE</i> <b>of</b> <i>id_of_object</i> <b>to</b> <i>attribute_content</i></p>
-<p><b>Add timestamps</b> (<i>timestamp_id</i>, ?...?) <b>to</b> <i>id_of_object</i></p>
+<p><u>Synopsis</u></p>
+<p>Attributes definable with <b>Set</b></p>
+<p><i>ATTRIBUTE</i>: <b>id</b> <i>value</i>: any_characters_without_spaces
+<br/><i>ATTRIBUTE</i>: <b>URL</b> <i>value</i>: embeddable youtube link</p>
+<p>Other element types addable with <b>Add</b><p>
+<p><i>LIST of ELEMENT_TYPE</i>: <b>timestamps</b> <i>value</i>: comma separated list of timestamp identifiers in brackets</p>
 
 <p><u>Description:</u></p>
-<p>Use the keywords <b>Create</b> and <b>Set</b> to define a video (OBJECT_NAME).  A video needs to be created with an <b>id</b>. Each video requires the following <i>ATTRIBUTE</i> to be set: URL. Use the keyword <b>Add</b> to add timestamps in a comma separated list within brackets to your video (e.g. (ts01, ts02, ts03)).</p>
+<p>A video has an <b>id</b> in order to reference it. An <b>id</b> can consist of upper and lower case characters but no spaces are allowed. The <b>URL</b> links to an embeddable video link. Currently only youtube links are supported. Additionally one can add a list of comma separated timestamp identifiers in brackets in order to add <b>timestamps</b> to a video.</p>
 
-<p><u>Video Example:</u></p>
-<p>Create video with id tutorialVideo<br>Set URL of tutorialVideo to https://www.youtube.com/embed/0siisFJUKh4<br>Add timestamps (definition, example) to tutorialVideo</p>
+<p><u>Example:</u></p>
+<code class="example">Create video with id tutorialVideo<br>Set URL of tutorialVideo to https://www.youtube.com/embed/0siisFJUKh4<br>Add timestamps (ts01, ts02) to tutorialVideo</code>
 } \
 	-description {Video}
