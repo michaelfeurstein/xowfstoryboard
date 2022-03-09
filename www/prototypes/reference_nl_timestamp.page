@@ -6,13 +6,13 @@
 <p>timestamp</p>
 
 <p><u>Synopsis</u></p>
-<p>Attributes definable with <b>Set</b></p>
+<p>Attributes can be set with command <b>Set</b></p>
 <p><i>ATTRIBUTE</i>: <b>id</b> <i>value</i>: any_characters_without_spaces
 <br/><i>ATTRIBUTE</i>: <b>title</b> <i>value</i>: string inside quotes
 <br/><i>ATTRIBUTE</i>: <b>time</b> <i>value</i>: time in seconds</p>
 
 <p><u>Description:</u></p>
-<p>A timestamp has an <b>id</b> in order to reference it. An <b>id</b> can consist of upper and lower case characters but no spaces are allowed. The <b>title</b> is used to display a clickable link. The <b>time</b> defines the start of the video at a certain time in seconds.</p>
+<p>A timestamp has an <b>id</b> in order to reference it. An <b>id</b> can hold upper and lower case characters without any spaces. The <b>title</b> is used to display a clickable link. The <b>time</b> defines the start of the video at a certain time in seconds.</p>
 
 <p><u>Example:</u></p>
 <code class="example">Create timestamp with id t01<br>Set title of t01 to "Tutorial Timestamp"<br>Set time of t01 to 63</code>

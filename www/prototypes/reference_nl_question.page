@@ -6,18 +6,18 @@
 <p>question</p>
 
 <p><u>Synopsis</u></p>
-<p>Attributes definable with <b>Set</b></p>
+<p>Attributes can be set with command <b>Set</b></p>
 <p><i>ATTRIBUTE</i>: <b>id</b> <i>value</i>: any_characters_without_spaces
-<br/><i>ATTRIBUTE</i>: <b>type</b> <i>value</i>: [singleChoice | multipleChoice]
+<br/><i>ATTRIBUTE</i>: <b>type</b> <i>value</i>: [ singleChoice | multipleChoice ]
 <br/><i>ATTRIBUTE</i>: <b>title</b> <i>value</i>: string inside quotes
 <br/><i>ATTRIBUTE</i>: <b>question</b> <i>value</i>: string inside quotes
 <br/><i>ATTRIBUTE</i>: <b>answer</b> <i>value</i>: string inside quotes + <b>which is</b> [correct | wrong]
 <br/><i>ATTRIBUTE</i>: <b>feedback</b> <i>value</i>: string inside quotes</p>
 
 <p><u>Description:</u></p>
-<p>A question has an <b>id</b> in order to reference it. An <b>id</b> can consist of upper and lower case characters but no spaces are allowed. There are two <b>types</b> of questions: single and multiple choice questions. Each question has a <b>title</b>, <b>question</b> text and <b>feedback</b> text. A question can have multiple <b>answers</b> which are identified as correct or wrong via the following reference: <b>which is [correct | wrong]</b></p>
+<p>A question has an <b>id</b> in order to reference it. An <b>id</b> can hold upper and lower case characters without any spaces. There are two <b>types</b> of questions: single and multiple choice questions. Each question has a <b>title</b>, <b>question</b> text and <b>feedback</b> text. A question can have multiple <b>answers</b> which are identified as correct or wrong via the following reference: <b>which is</b> [correct | wrong]</p>
 
-<p><u>Question Example:</u></p>
+<p><u>Example:</u></p>
 <code class="example">Create question with id q1<br>Set title of q1 to "Tutorial Question"<br>Set type of q1 to singleChoice<br/>Set question of q1 to "Select the answer which is correct"<br>Set answer of q1 to "Answer text number one" which is wrong<br>Set answer of q1 to "Second answer text" which is wrong<br>Set answer of q1 to "Last answer" which is correct<br>Set feedback of q1 to "Additional feedback text can be added here"</code>
 } \
 	-description {Question}

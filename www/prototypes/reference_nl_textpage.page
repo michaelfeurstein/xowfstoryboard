@@ -6,13 +6,13 @@
 <p>textpage</p>
 
 <p><u>Synopsis - keywords used:</u></p>
-<p>Attributes definable with <b>Set</b></p>
+<p>Attributes can be set with command <b>Set</b></p>
 <p><i>ATTRIBUTE</i>: <b>id</b> <i>value</i>: any_characters_without_spaces
 <br/><i>ATTRIBUTE</i>: <b>title</b> <i>value</i>: string inside quotes
 <br/><i>ATTRIBUTE</i>: <b>body</b> <i>value</i>: string inside quotes</p>
 
 <p><u>Description:</u></p>
-<p>A textpage has an <b>id</b> in order to reference it. An <b>id</b> can consist of upper and lower case characters but no spaces are allowed. The <b>title</b> and body of a textpage are regular text stated inside quotes.</p>
+<p>A textpage has an <b>id</b> in order to reference it. An <b>id</b> can hold upper and lower case characters without any spaces. The <b>title</b> and <b>body</b> of a textpage are regular text stated inside quotes.</p>
 
 <p><u>Example:</u></p>
 <code class="example">Create textpage with id tutorialTextPage<br>Set title of tutorialTextPage to "An Example"<br>Set body of tutorialTextPage to "Some text for an examplary paragraph"</code>

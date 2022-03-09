@@ -9,7 +9,7 @@
 <p><b>module</b> <i>key value</i></p>
 
 <p><u>Description:</u></p>
-<p>Creates a module based on key-value pairs. Note that no <i>identifier</i> is needed. A module has a <b>title</b> and a </b>structure</b> containing a comma separated list of elements, referenced via their id (e.g. (textpageIntro, question1, v1, intro)).</p>
+<p>A module has a <b>title</b> and <b>structure</b> containing a comma separated list of element types, referenced via their <i>identifier</i> (e.g. (textpageIntro, question1, v1 etc.)). Note that no <i>identifier</i> is needed for the module itself.</p>
 
 <p>Valid keys are:</p>
 
@@ -17,6 +17,6 @@
 <b>module</b> <b>structure</b> (?element1, element2, ... elementN?)<br>
 
 <p><u>Example:</u></p>
-<code class="example">module title "Learning Module" <br>module structure (myVideo, myPage, question1, question2)</code>
+<code class="example">module title "Tutorial Learning Module" <br>module structure (video, tutorialTextPage, q1)</code>
 } \
 	-description {Module}

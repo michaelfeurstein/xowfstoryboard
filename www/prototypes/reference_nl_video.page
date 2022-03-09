@@ -6,14 +6,14 @@
 <p>video</p>
 
 <p><u>Synopsis</u></p>
-<p>Attributes definable with <b>Set</b></p>
+<p>Attributes can be set with command <b>Set</b></p>
 <p><i>ATTRIBUTE</i>: <b>id</b> <i>value</i>: any_characters_without_spaces
 <br/><i>ATTRIBUTE</i>: <b>URL</b> <i>value</i>: embeddable youtube link</p>
-<p>Other element types addable with <b>Add</b><p>
-<p><i>LIST of ELEMENT_TYPE</i>: <b>timestamps</b> <i>value</i>: comma separated list of timestamp identifiers in brackets</p>
+<p>Element types can be added with command <b>Add</b><p>
+<p><i>ELEMENT_TYPE</i>: <b>timestamps</b> <i>value</i>: comma separated list of timestamp identifiers in brackets</p>
 
 <p><u>Description:</u></p>
-<p>A video has an <b>id</b> in order to reference it. An <b>id</b> can consist of upper and lower case characters but no spaces are allowed. The <b>URL</b> links to an embeddable video link. Currently only youtube links are supported. Additionally one can add a list of comma separated timestamp identifiers in brackets in order to add <b>timestamps</b> to a video.</p>
+<p>A video has an <b>id</b> in order to reference it. An <b>id</b> can hold upper and lower case characters without any spaces. The <b>URL</b> links to an embeddable video link. Currently only youtube links are supported. Additionally one can add a list of comma separated timestamp identifiers in brackets in order to add <b>timestamps</b> to a video.</p>
 
 <p><u>Example:</u></p>
 <code class="example">Create video with id tutorialVideo<br>Set URL of tutorialVideo to https://www.youtube.com/embed/0siisFJUKh4<br>Add timestamps (ts01, ts02) to tutorialVideo</code>

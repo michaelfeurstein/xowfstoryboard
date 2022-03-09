@@ -3,20 +3,20 @@
 	-title "Video Command Reference" \
 	-text {
 <p><u>Name:</u></p>
-<p>video - Creates a video element</p>
+<p>video - Create a video element</p>
 
 <p><u>Synopsis:</u></p>
 <p><b>video</b> <i>identifier</i> key <i>value</i></p>
 
 <p><u>Description:</u></p>
-<p>Creates a video element based on key-value pairs. The provided <i>identifier</i> is used as an id for the element in order to reference it (e.g.: v1, Session01, etc.). A video element only needs a URL to work. The URL needs to be an embeddable URL. Timestamps are added as comma separated lists in brackets (e.g. (ts1, ts2, ts3, t4))</p>
+<p>Creates a video element based on key-value pairs. The provided <i>identifier</i> is used in order to reference the element. A video element only needs a <b>URL</b> to work. The <b>URL</b> needs to be an embeddable video link. Currently only youtube links are supported. A video can contain <b>timestamps</b> which are added as comma separated lists in brackets (e.g. (ts1, ts2, ts3, t4))</p>
 
 <p> Valid keys are:</p>
 
-<p><b>video</b> <i>identifier</i> <b>URL</b> embeddable_url_of_video<br>
+<p><b>video</b> <i>identifier</i> <b>URL</b> embeddable_youtube_link<br>
 <b>video</b> <i>identifier</i> <b>timestamp</b> (?timestamp_id1, timestamp_id2, ... timestamp_idN?)</p>
 
 <p><u>Example:</u></p>
-<code class="example">video myVideo URL https://www.youtube.com/embed/gNYbvsruKHs<br>video myVideo timestamp (ts1, ts2, ts3)</code>
+<code class="example">video tutorialVideo URL https://www.youtube.com/embed/gNYbvsruKHs<br>video tutorialVideo timestamp (ts01, ts02)</code>
 } \
 	-description {Video}

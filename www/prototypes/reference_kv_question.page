@@ -9,23 +9,21 @@
 <p><b>question</b> <i>identifier</i> key <i>value</i></p>
 
 <p><u>Description:</u></p>
-<p>Creates a question element based on key-value pairs. The provided <i>identifier</i> is used as an id for the element in order to reference it (e.g.: q1 or topic_A). A question can be of type singleChoice or mulitpleChoice.</p>
-
-<p>The keys title, question and feedback receive simple text input. Answers are set via the answer key in the form of a list where each list item consists of the structure "Answer text", [correct|wrong].</p>
+<p>Creates a question element based on key-value pairs. The provided <i>identifier</i> is used in order to reference the element. There are two <b>types</b> of questions: single and multiple choice questions. Each question has a <b>title</b>, <b>question</b> text and <b>feedback</b> text. A question can have multiple answers which are set via the <b>answer</b> key in the form of a comma separated list, where each list item is structured: "answer text", [ correct | wrong ].</p>
 
 <p>Valid keys are:</p>
 
-<p><b>question</b> <i>identifier</i> <b>title</b> question_title<br>
-<b>question</b> <i>identifier</i> <b>type</b> [singleChoice|multipleChoice]<br>
-<b>question</b> <i>identifier</i> <b>question</b> question_text<br>
-<b>question</b> <i>identifier</i> <b>answers</b> (answer_text, [correct|wrong], ?...?)<br>
-<b>question</b> <i>identifier</i> <b>feedback</b> feedback_text</p>
+<p><b>question</b> <i>identifier</i> <b>type</b> [ singleChoice | multipleChoice ]<br>
+<b>question</b> <i>identifier</i> <b>title</b> string inside quotes<br>
+<b>question</b> <i>identifier</i> <b>question</b> string inside quotes<br>
+<b>question</b> <i>identifier</i> <b>answers</b> (string inside quotes, [ correct | wrong ], ?...?)<br>
+<b>question</b> <i>identifier</i> <b>feedback</b> string inside quotes</p>
 
 <p><u>Example:</u></p>
-<code class="example">question q1 title "Question Example"<br>
+<code class="example">question q1 title "Tutorial Question"<br>
 question q1 type singleChoice<br>
-question q1 question "Select the answer which is correct."<br>
-question q1 answers ("Sample answer text", wrong, "Another text", true)<br>
-question q1 feedback "This field can provide additional feedback"</code>
+question q1 question "Select the answer which is correct"<br>
+question q1 answers ("Answer text number one", wrong, "Second answer text", wrong, "Last answer", correct)<br>
+question q1 feedback "Additional feedback text can be added here"</code>
 } \
 	-description {Question}

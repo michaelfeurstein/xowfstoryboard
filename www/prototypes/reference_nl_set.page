@@ -9,7 +9,7 @@
 <p><b>Set</b> <i>ATTRIBUTE</i> <b>of</b> <i>identifier</i> <b>to</b> <i>value</i></p>
 
 <p><u>Description:</u></p>
-<p>Use the keyword <b>Set</b> to set the <i>value</i> of an <i>ATTRIBUTE</i> for a specific element type which is referenced via an <i>identifier</i>. See the reference documentation for each available element type for all available <i>ATTRIBUTE</i>s which can be set.</p>
+<p>Use the keyword <b>Set</b> to assign a <i>value</i> to an <i>ATTRIBUTE</i> of an element type, referenced via an <i>identifier</i>. See references of <i>ELEMENT_TYPES</i> for <i>ATTRIBUTE</i>s that can be set.</p>
 
 <p><u>Example:</u></p>
 <code class="example">Set URL of tutorialVideo to https://www.youtube.com/embed/0siisFJUKh4</code>
