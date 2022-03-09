@@ -1,3 +1,27 @@
+div.top-summary {
+  display: flex;
+  justify-content: center;
+  /* border: 1px solid black; */
+  overflow: hidden; /* add this to contain floated children */
+  margin: 10px;
+}
+
+div.experiment-summary {
+  border: 1px solid grey;
+  width: 1225px;
+  float: left;
+  padding: 5px;
+  margin: 1px;
+}
+
+label.title {
+  font-size: large;
+  font-weight: normal;
+  /* text-decoration: underline;*/
+  border-bottom: 1px solid grey;
+  width: 100%;
+}
+
 div.top-wrapper {
   display: flex;
   justify-content: center;

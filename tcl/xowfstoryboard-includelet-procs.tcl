@@ -41,7 +41,7 @@ namespace eval ::xowiki::includelet {
 
                 var srcDoc = document.getElementById('editor-summary-srcdoc');
                 var page = xowf.monaco.b64_to_utf8(srcDoc.innerHTML);
-                console.log("page: " + page);
+                //console.log("page: " + page);
 
                 xowf.monaco.editors.push(monaco.editor.create(document.getElementById('editor-summary'), {
                   language: 'tcl', minimap: {enabled: true}, readOnly: true, theme: 'vs'
@@ -55,10 +55,14 @@ namespace eval ::xowiki::includelet {
 		#
 		return [subst {
 			<div class="top-summary">
-				<h2>Summary Page</h2>
-				<p><b>Experiment ID:</b> $name</p>
-				<p><b>First time storyboard was working:</b> $first_time_working</p>
-				<p><b>Total working time elapsed:</b> $time_elapsed</p>
+				<div class="experiment-summary">
+					<div class="form-label">
+							<label class="title">Summary</label>
+					</div>
+					<p><b>Experiment ID:</b> $name</p>
+					<p><b>First time storyboard was working:</b> $first_time_working</p>
+					<p><b>Total working time elapsed:</b> $time_elapsed</p>
+				</div>
 			</div>
 
 			<template id="editor-summary-srcdoc" style="display:none;">$editor_b64</template>
@@ -67,17 +71,17 @@ namespace eval ::xowiki::includelet {
                 <div class="sb-editor">
 					<div class="form-group">
 						<div class="form-label">
-							<label class="editor">Storyboard (read-only)</label>
+							<label class="title">Storyboard (read-only)</label>
 						</div>
 						<div class="">
-							<div id="editor-summary" class="xowf-monaco-container storyboardEditor" style="width: 800px; height: 600px;"></div>
+							<div id="editor-summary" class="xowf-monaco-container storyboardEditor" style="width: 800px; height: 450px;"></div>
 						</div>
 					</div>
 				</div>
                 <div class="sb-preview">
 					<div class="form-label">
-							<label class="editor">Result</label>
-						</div>
+							<label class="title">Result</label>
+					</div>
 						$htmlPreview
 				</div>
 			</div>
