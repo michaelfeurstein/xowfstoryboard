@@ -31,7 +31,6 @@ namespace eval ::xowiki::formfield {
 	if {${:autosave}} {
       ::xo::Page requireJS  "/resources/xowfstoryboard/autosave-monaco.js"
     }
-    ::xo::Page requireCSS urn:ad:css:xowfstoryboard:storyboard
 
 	set wf_notation [${:object} get_property -name wf_notation]
 	if {$wf_notation eq ""} {

@@ -15,10 +15,11 @@ namespace eval ::xowfstoryboard {
       -superclass ::xowf::Package
 
   Package instproc initialize {} {
-        ns_log notice "++++ CALL ::xowfstoryboard::initialize"
-		am_i_admin
-		setup_experiment_policy
-        next
+	ns_log notice "++++ ::xowfstoryboard::initialize"
+	::xo::Page requireCSS urn:ad:css:xowfstoryboard:storyboard
+	am_i_admin
+	setup_experiment_policy
+	next
   }
 
   Package site_wide_package_parameter_page_info {
