@@ -53,7 +53,7 @@
 
 <if @body.menubarHTML@ not nil><div class='visual-clear'><!-- --></div>@body.menubarHTML;noquote@</if>
 <if @page_context@ not nil><h4>@body.title@ (@page_context@)</h4></if>
-<else><h4>@body.title@</h4></else>
+<else><div class="top-title"><div class="experiment-title"><h4 class="page-title">@body.title@</h4></div></div></else>
 
 <div class="xowfstoryboard-content">
 @content;noquote@

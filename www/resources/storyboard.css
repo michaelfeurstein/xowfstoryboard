@@ -1,3 +1,44 @@
+/* experiment title  */
+div.top-title {
+  display: flex;
+  justify-content: center;
+  overflow: hidden; /* add this to contain floated children */
+  margin: 10px;
+}
+
+div.experiment-title {
+  width: 1225px;
+  float: left;
+  padding: 0.5px;
+}
+
+h4.page-title {
+  font-size: large;
+  font-weight: normal;
+  /* text-decoration: underline;*/
+  border-bottom: 1px solid grey;
+  width: 100%;
+}
+
+/* xowfstoryboard index page */
+div.xowfstoryboard-page-container {
+  display: flex;
+  justify-content: center;
+  overflow: hidden; /* add this to contain floated children */
+  margin: 10px;
+}
+
+div.xowfstoryboard-page-box {
+  width: 1225px;
+  float: left;
+  padding: 0.5px;
+}
+
+div.xowfstoryboard-page-content {
+  width: 100%;
+}
+
+/* experiment-summary title  */
 div.top-summary {
   display: flex;
   justify-content: center;
@@ -22,6 +63,7 @@ label.title {
   width: 100%;
 }
 
+/* first row in experiment view  */
 div.top-wrapper {
   display: flex;
   justify-content: center;
@@ -30,6 +72,7 @@ div.top-wrapper {
   margin: 10px;
 }
 
+/* second row in experiment and experiment-summary view  */
 div.main-wrapper {
   display: flex;
   justify-content: center;
@@ -38,10 +81,12 @@ div.main-wrapper {
   margin: 10px;
 }
 
+/* Workflow Buttons  */
 div.main-wrapper + div {
 	text-align: center;
 }
 
+/* experiment instructions box */
 div.sb-instruction {
   height: 200px;
   width: 61em;
@@ -61,7 +106,7 @@ label.instruction {
   padding-left: 5px;
 }
 
-/* stylying jScrollPane */
+/* styling jScrollPane */
 .jspTrack {
   background-color: lightgrey;
 }
@@ -75,6 +120,7 @@ label.instruction {
   background: none;
 }
 
+/* experiment helper box  */
 div.sb-helpers {
   width: 30em;
   border: 1px solid grey;
@@ -88,6 +134,7 @@ div.sb-help-text {
   margin-bottom: -15px;
 }
 
+/* storyboard editor  */
 div.sb-editor {
   border: 1px solid grey;
   float: left;
@@ -95,6 +142,7 @@ div.sb-editor {
   margin: 1px;
 }
 
+/* storyboard preview */
 div.sb-preview {
   width: 30em;
   height: 38em;
@@ -106,17 +154,20 @@ div.sb-preview {
   overflow-y: auto;
 }
 
+/* monaco_storyboard form field render_input */
 div.storyboardContainer {
   overflow: hidden;
   display: inline-block;
 }
 
+/* monaco_storyboard form field render_input */
 div.storyboardEditor {
   float: left;
   margin: 1px;
   display: inline-block;
 }
 
+/* monaco_storyboard form field pretty_value */
 div.storyboardPreview {
   border: 1px solid grey;
   height: 500px;
@@ -128,6 +179,7 @@ div.storyboardPreview {
   padding: 5px;
 }
 
+/* monaco_storyboard form field pretty_value */
 div.storyboardLog {
   border: 1px solid grey;
   float: left;
