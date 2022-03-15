@@ -108,12 +108,12 @@ label.instruction {
 
 /* styling jScrollPane */
 .jspTrack {
-  background-color: lightgrey;
+  background-color: lightgrey !important;
 }
 
 .jspDrag {
   border-radius: 0px;
-  background-color: #008198;
+  background-color: #008198 !important;
 }
 
 .jspVerticalBar {
