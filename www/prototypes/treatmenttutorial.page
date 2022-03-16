@@ -17,9 +17,9 @@ There are two timestamps, namely:
 <li>The second timestamp starting at 100 seconds with the title "Examples"</li>
 </ul>
 
-<b>Create a text block</b>
+<b>Create a text page</b>
 <br>
-Title: "A short language tutorial"
+Title: "A short language tutorial"<br>
 Pragraph: "Welcome to this short introduction to the storyboard-language"
 <br>
 <br>
