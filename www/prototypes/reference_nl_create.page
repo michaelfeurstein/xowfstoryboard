@@ -6,12 +6,12 @@
 <p>Create - Creates an element type</p>
 
 <p><u>Synopsis</u></p>
-<p><b>Create</b> <i>ELEMENT_TYPE</i> <b>with id</b> <i>identifier</i></p>
+<p><b>Create</b> <i>ELEMENT_TYPE</i> <b>with</b> <i>ATTRIBUTE</i> <i>value</i></p>
 
 <p><u>Description:</u></p>
-<p>Use the keyword <b>Create</b> to create an <i>ELEMENT_TYPE</i>. All <i>ELEMENT_TYPE</i>s need to be created with an <i>identifier</i>, except for <i>ELEMENT_TYPE</i>: module. The <i>identifier</i> is used as an id for the <i>ELEMENT_TYPE</i> in order to reference it (e.g.: v1, page01, session)</p>
+<p>Use the keyword <b>Create</b> to create an <i>ELEMENT_TYPE</i>. All <i>ELEMENT_TYPE</i>s need to be created with an <i>ATTRIBUTE</i> called <b>id</b>, except for the <i>ELEMENT_TYPE</i> module, which does not have an <b>id</b>. The <i>ATTRIBUTE</i> <b>id</b> can be used for reference purposes.</p>
 
 <p><u>Example:</u></p>
-<code class="example">Create video with id tutorialVideo</code>
+<code class="example">Create video with id tutorialVideo<br>Create module with title "Tuorial Unit"</code>
 } \
 	-description {Create}

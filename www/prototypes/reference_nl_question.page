@@ -6,8 +6,8 @@
 <p>question</p>
 
 <p><u>Synopsis</u></p>
-<p>Attributes can be set with command <b>Set</b></p>
-<p><i>ATTRIBUTE</i>: <b>id</b> <i>value</i>: any_characters_without_spaces
+<p>The element type question has the following attributes:</p>
+<p><i>ATTRIBUTE</i>: <b>id</b> <i>value</i>: any characters without spaces
 <br/><i>ATTRIBUTE</i>: <b>type</b> <i>value</i>: [ singleChoice | multipleChoice ]
 <br/><i>ATTRIBUTE</i>: <b>title</b> <i>value</i>: string inside quotes
 <br/><i>ATTRIBUTE</i>: <b>question</b> <i>value</i>: string inside quotes

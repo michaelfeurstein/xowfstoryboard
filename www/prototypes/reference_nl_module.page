@@ -6,12 +6,12 @@
 <p>module</p>
 
 <p><u>Synopsis</u></p>
-<p><p>Attributes can be set with command <b>Set</b></p>
+<p>The element type module has the following attributes:</p>
 <p><i>ATTRIBUTE</i>: <b>title</b> <i>value</i>: string inside quotes
-<br/><i>ATTRIBUTE</i>: <b>structure</b> <i>value</i>: comma separated list of element type references</p>
+<br/><i>ATTRIBUTE</i>: <b>structure</b> <i>value</i>: comma separated list of element type ids</p>
 
 <p><u>Description:</u></p>
-<p>A module has a <b>title</b> and <b>structure</b> containing a comma separated list of element types, referenced via their <i>identifier</i> (e.g. (textpageIntro, question1, v1 etc.)). Note that no <i>identifier</i> is needed for the module itself. It can be created without an <b>id</b>.</p>
+<p>A module has a <b>title</b> and <b>structure</b> containing a comma separated list of element types, referenced via their <i>ids</i> (e.g. (textpageIntro, question1, v1 etc.)). Note that no <b>id</b> is needed for the module itself. It can be created without an <b>id</b>.</p>
 
 <p><u>Example:</u></p>
 <code class="example">Create module with title "Tutorial Learning Module"<br>Set structure of module to (video, tutorialTextPage, q1)</code>

@@ -6,10 +6,10 @@
 <p>Add - Add list of elements to another element type</p>
 
 <p><u>Synopsis</u></p>
-<p><b>Add</b> <i>ELEMENT_TYPE</i>s (<i>identifierN</i>, ?...?) <b>to</b> <i>identifier</i></p>
+<p><b>Add</b> <i>ELEMENT_TYPE</i>s (<i>id</i>, ?...?) <b>to</b> <i>id</i></p>
 
 <p><u>Description:</u></p>
-<p>Use the keyword <b>Add</b> to add <i>ELEMENT_TYPE</i>s in a comma separated list within brackets to another <i>ELEMENT_TYPE</i> referenced via an <i>identifier</i>.</p>
+<p>Use the keyword <b>Add</b> to add <i>ELEMENT_TYPE</i>s in a comma separated list within brackets to another <i>ELEMENT_TYPE</i> referenced via its <i>id</i>.</p>
 
 <p><u>Example:</u></p>
 <code class="example">Add timestamps (ts01, ts02) to tutorialVideo</code>
