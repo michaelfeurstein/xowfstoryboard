@@ -20,7 +20,9 @@ namespace eval ::xowiki::formfield {
   Class create monaco_storyboard -superclass monaco -ad_doc {
     trying to extend on what antonio did
   } -parameter {
-    {notation natural-language}
+	{language "tcl"}
+	{theme "vs"}
+	{notation natural-language}
 	{width 800px}
 	{height 450px}
 	{autosave:boolean false}
@@ -48,6 +50,15 @@ namespace eval ::xowiki::formfield {
   monaco_storyboard instproc render_input args {
 	ns_log notice "++++ monaco_storyboard private render_input"
 
+	if {${:language} eq "storyboard-language"} {
+		security::csp::require script-src 'unsafe-inline'
+
+		template::add_body_script -script {var require = { paths: { 'vs': '/resources/xowf-monaco-plugin/monaco-editor/min/vs' } };}
+		template::add_body_script -src urn:ad:js:monaco:min/vs/loader
+		template::add_body_script -src urn:ad:js:monaco:min/vs/editor/editor.main.nls
+		template::add_body_script -src urn:ad:js:monaco:min/vs/editor/editor.main
+	}
+
 	#try {
 	#	#set value [:value]
 	#	#set parsed_storyboard [:parse_storyboard [:fromBase64 $value]]
@@ -57,6 +68,102 @@ namespace eval ::xowiki::formfield {
 	#} on error {errorMsg} {
 	#	set htmlPreview ""
 	#}
+
+	###
+	#
+	# Syntax Highlighting
+	#
+	# Based on the custom-languages example with monarch
+	# https://microsoft.github.io/monaco-editor/playground.html#extending-language-services-custom-languages
+	#
+	# Works both with key-value and natural-language syntax
+	#
+	# Note that this is a draft working example not fully finished
+	# and not used in the actual experiment
+	#
+	# Open issues:
+	# - which colors should be set for what
+	# - comments are not colored / supported
+	# - possibly missing tokens
+	# - code completion only works with what is define in 'registerCompletionItemProvider' - the free monaco code completion of what has already been typed is not integrated with this language definition
+	# - numbers should be colored as well in some way
+	# - sync with common grounds of syntax highlighting approachs
+	#
+	###
+
+	if {${:language} eq "storyboard-language"} {
+		template::add_body_script -script [subst -nocommands -novariables -nobackslashes {
+			// Register a new language
+			monaco.languages.register({ id: 'storyboard-language' });
+
+			// Register a tokens provider for storyboard-language
+			monaco.languages.setMonarchTokensProvider('storyboard-language', {
+				tokenizer: {
+				root: [
+					[/(Create)( module| textpage| video| timestamp| question)/, ['command','element-type']],
+					[/(Create)(.*?)( question)/, ['command','italic','element-type']],
+					[/(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?/, 'http-link'],
+					[/\".*?\"/, 'quotes'],
+					[/^module|textpage|video|timestamp|question/, 'element-type'],
+					[/(module|textpage|video|timestamp|question) /, 'element-type'],
+					[/^Create|Set|Add/, 'command'],
+					[/\ id | title | body | URL | type | answers | answer | feedback | question | time | timestamps | timestamp | structure /, 'attributes']
+				]
+				}
+			});
+
+			// Define a new theme that contains only rules that match storyboard-language
+			monaco.editor.defineTheme('sbl-theme', {
+				base: 'vs',
+				inherit: false,
+				rules: [
+					{ token: 'http-link', foreground: 'ff0000', fontStyle: 'italic' },
+					{ token: 'quotes', foreground: '808080' },
+					{ token: 'command', foreground: '0000CC' },
+					{ token: 'italic', foreground: '000000', fontStyle: 'italic'},
+					{ token: 'element-type', foreground: '008800' },
+					{ token: 'attributes', foreground: 'FFA500' }
+				],
+				colors: {
+					'editor.foreground': '#000000'
+				}
+			});
+
+			// Register a completion item provider for storyboard-language
+			monaco.languages.registerCompletionItemProvider('storyboard-language', {
+				provideCompletionItems: () => {
+					var suggestions = [
+						{
+							label: 'module',
+							kind: monaco.languages.CompletionItemKind.Text,
+							insertText: 'module'
+						},
+						{
+							label: 'textpage',
+							kind: monaco.languages.CompletionItemKind.Text,
+							insertText: 'textpage'
+						},
+						{
+							label: 'video',
+							kind: monaco.languages.CompletionItemKind.Text,
+							insertText: 'video'
+						},
+						{
+							label: 'timestamp',
+							kind: monaco.languages.CompletionItemKind.Text,
+							insertText: 'timestamp'
+						},
+						{
+							label: 'question',
+							kind: monaco.languages.CompletionItemKind.Text,
+							insertText: 'question'
+						}
+					];
+					return { suggestions: suggestions };
+				}
+			});
+		}]
+	}
 
 	# This element is invisible and contains the base64 encoded value
     # of the formfield, which is used for the autosave feature.
@@ -76,7 +183,13 @@ namespace eval ::xowiki::formfield {
 
 			  ::html::div -id ${:id}-container -class storyboardContainer {
 				::html::div -id ${:id}-code -class "storyboardEditor"  {
-					next
+					if {${:language} eq "storyboard-language"} {
+						# use own code (supports custom syntax highlighting)
+						:create_monaco_editor
+					} else {
+						# use upstream code (no support for custom syntax highlighting)
+						next
+					}
 				}
 			  }
 
@@ -91,7 +204,13 @@ namespace eval ::xowiki::formfield {
       } else {
 		::html::div -id ${:id}-container -class storyboardContainer {
 			::html::div -id ${:id}-code -class "storyboardEditor"  {
-				next
+				if {${:language} eq "storyboard-language"} {
+					# use own code (supports custom syntax highlighting)
+					:create_monaco_editor
+				} else {
+					# use upstream code (no support for custom syntax highlighting)
+					next
+				}
 			}
 		}
       }
@@ -117,6 +236,7 @@ namespace eval ::xowiki::formfield {
     #  }
     #}]
 
+	# helper script for autosave functionality
 	template::add_body_handler -event load -script [subst -nocommands {
       var srcDoc = document.getElementById('${:id}-srcdoc');
       var page = xowf.monaco.b64_to_utf8(srcDoc.innerHTML);
@@ -138,6 +258,68 @@ namespace eval ::xowiki::formfield {
 	}]
 
   }
+
+  ###
+  #
+  # Create Monaco Editor
+  #
+  # redundant code from what next actually leads to
+  # this is done in order to set language and theme accordingly
+  #
+  # TODO: find a way to better integrated this (include syntax highlighting in upstream code?)
+  #
+  ###
+  monaco_storyboard instproc create_monaco_editor args {
+	set isDisabled [:is_disabled]
+
+    if {!$isDisabled} {
+      append :style "width: ${:width};" "height: ${:height};"
+    } else {
+      lappend :CSSclass "disabled"
+    }
+
+    ::html::div [:get_attributes id style {CSSclass class}] {}
+
+	set currentValue [:value]
+
+	if {!$isDisabled} {
+      template::add_body_script -script [subst -nocommands {
+
+        xowf.monaco.editors.push(monaco.editor.create(document.getElementById('${:id}'), {
+          language: '${:language}', minimap: {enabled: ${:minimap}}, readOnly: ${:readOnly}, theme: '${:theme}'
+      }));
+        xowf.monaco.editors[xowf.monaco.editors.length-1].setValue(xowf.monaco.b64_to_utf8('$currentValue'));
+
+      }]
+
+      if {!${:readOnly}} {
+        ::html::input -type hidden -name ${:name} -id ${:id}.hidden
+        template::add_body_script -script {
+          $(document).ready(function(){
+            $("form").submit(function(event) {
+              for (var i = 0; i < xowf.monaco.editors.length ; i++)  {
+               var e = xowf.monaco.editors[i];
+               if (!e.getRawOptions()["readOnly"]) {
+                 var hiddenId = e.getDomNode().parentNode.id + ".hidden";
+                 var hiddenEl = document.getElementById(hiddenId);
+                 if (hiddenEl != null) {
+                   //console.log("are we here separate " + e.getValue());
+                   hiddenEl.value = xowf.monaco.utf8_to_b64(e.getValue());
+                 }
+               }
+             }
+            });
+          });
+        }
+      }
+    } else {
+      template::add_body_script -script [subst {
+        monaco.editor.colorize(xowf.monaco.b64_to_utf8('$currentValue'), '${:language}')
+        .then(html => document.getElementById('${:id}').innerHTML = html);
+      }]
+
+  }
+}
 
   # TODO: also make sure that it works with
   # - storyboard.form

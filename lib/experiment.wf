@@ -195,6 +195,8 @@ State editing -actions {save finish} -form en:storyboard.form -view_method edit 
 	#editor:monaco_storyboard,required,validator=storyboard
 	{instruction:richtext,label=Instructions,disabled=true,CSSclass=sb-instruction-text}
 	{helpers:richtext,label=Help,disabled=true,CSSclass=sb-help-text}
+	# uncomment to use custom syntax highlighting for storyboard-language
+	#{editor:monaco_storyboard,label=Storyboard Editor,CSSclass=sb-editor-content,autosave=true,language=storyboard-language,theme=sbl-theme}
 	{editor:monaco_storyboard,label=Storyboard Editor,CSSclass=sb-editor-content,autosave=true}
 	{htmlPreview:richtext,label=Preview,disabled=true,CSSclass=sb-htmlPreview-content}
 }
