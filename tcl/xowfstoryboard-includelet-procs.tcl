@@ -74,11 +74,11 @@ namespace eval ::xowiki::includelet {
 							<label class="title">Storyboard (read-only)</label>
 						</div>
 						<div class="">
-							<div id="editor-summary" class="xowf-monaco-container storyboardEditor" style="width: 800px; height: 450px;"></div>
+							<div id="editor-summary" class="xowf-monaco-container storyboardEditor" style="width: 800px; height: 680px;"></div>
 						</div>
 					</div>
 				</div>
-                <div class="sb-preview">
+                <div class="sb-preview-summary">
 					<div class="form-label">
 							<label class="title">Result</label>
 					</div>
