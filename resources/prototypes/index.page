@@ -3,8 +3,7 @@
 	<div class="xowfstoryboard-page-box">
 		<div class="xowfstoryboard-page-content">
 
-		  <p>Weclome to the start page of xowfstoryboard.</p>
-
+		<!-- HIDE DURING EXPERIMENT
 		  <center>
 			<p>KeyValue:</p>
 			<p><a class="btn btn-primary btn-lg" href="experiment.wf?nls_language=en_US&m=create-new&p.wf_notation=key-value&p.treatment=1" role="button" style="color: white; text-decoration: none;">New Experiment (treatment 1)</a> <a class="btn btn-primary btn-lg" href="experiment.wf?nls_language=en_US&m=create-new&p.wf_notation=key-value&p.treatment=2" role="button" style="color: white; text-decoration: none;">New Experiment (treatment 2)</a> </p>
@@ -27,7 +26,10 @@
 		  <h5> Experiments:</h5>
 
 		  {{form-usages -field_names _name -form en:experiment.wf -parent_id * -csv false -with_form_link false}}
-
+		-->
+			<center>
+				Experiment is running.
+			</center>
 		</div>
 	</div>
 </div>
