@@ -50,8 +50,8 @@ namespace eval ::xowfstoryboard {
 	experiment_summary.form
 	storyboard_test.form
 
-	treatment1
-	treatment2
+	treatmentperiod1
+	treatmentperiod2
 	treatmenttest1
 	treatmenttest2
 	treatmenttutorial
@@ -122,8 +122,8 @@ namespace eval ::xowfstoryboard {
   # with text containing instructions for a treatment
   #
   # the treatment pages are called:
-  # - en:treatment1.page
-  # - en:treatment2.page
+  # - en:treatmentperiod1.page
+  # - en:treatmentperiod2.page
   #
 
   ad_proc set_instruction_content {object treatment} {

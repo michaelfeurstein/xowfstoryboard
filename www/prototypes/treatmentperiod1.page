@@ -1,0 +1,29 @@
+::xowiki::Page new \
+	-set name en:treatmentperiod1.page \
+	-title "Period 1" \
+	-text {
+<p>
+Please work through the following tasks in order to create a video-based learning module.
+<br><br>
+<b>Task 1: Define a video</b>
+Video link: https://www.youtube.com/embed/0siisFJUKh4
+<br><br>
+<b>Task 2: Define two timestamps</b>
+<br>
+<ul>
+<li>First timestamp starts at 63 seconds and is titled "Definition"</li>
+<li>Second timestamp starts at 148 seconds and is titled "Example"</li>
+</ul>
+
+<b>Task 3: Define a text page</b>
+<br>
+Create a text page with a title "Explainer Video: Information System" and with a paragraph of text containing the following: "Watch the following video and answer the question below."<br><br>
+
+<b>Task 4: Define a question</b>
+<br>
+Create a single choice question titled "Comprehending Information Systems" and add the following question: "Select the correct statement". Add two answers of which one is correct. The first answer is "A library does not need an information system" (wrong), the second answer is "Information systems can support the digitalization of libraries", which is correct.<br><br>
+
+<b>Task 5: Define structure of module</b>
+Finally structure the module the following way. The module should have the title "VBL Unit: Information Systems" and start with the text page, followed by the video which is then followed by the question.
+</p>
+}

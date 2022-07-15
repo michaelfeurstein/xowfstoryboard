@@ -1,0 +1,30 @@
+::xowiki::Page new \
+	-set name en:treatmentperiod2.page \
+	-title "Period 2" \
+	-text {
+<p>
+Please work through the following tasks in order to create a video-based learning module.
+<br><br>
+<b>Task 1: Define a video</b>
+Video link: https://www.youtube.com/embed/KFSyY6lgXHw
+<br><br>
+<b>Task 2: Define two timestamps</b>
+<br>
+<ul>
+<li>First timestamp starts at 120 seconds and is titled "Concept"</li>
+<li>Second timestamp starts at 201 seconds and is titled "Requirements"</li>
+</ul>
+
+<b>Task 3: Define a text page</b>
+<br>
+Create a text page with a title "Explainer Video: Hash Values" and with a paragraph of text containing the following: "Answer the following question and watch the video below."<br><br>
+
+<b>Task 4: Define a question</b>
+<br>
+Create a single choice question titled "Comprehending Hash Values" and add the following question: "Select the correct statement". Add two answers of which one is correct. The first answer is "A hash function produces a hash value" (correct), the second answer is "A hash value is a random number", which is wrong.<br><br>
+
+<b>Task 5: Define structure of module</b>
+Finally structure the module the following way. The module should have the title "VBL Unit: Hash Values" and start with the text page, followed by the question which is then followed by the video.
+</p>
+
+}
