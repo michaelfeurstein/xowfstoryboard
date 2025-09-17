@@ -162,6 +162,28 @@ namespace eval ::xowiki::formfield {
 					return { suggestions: suggestions };
 				}
 			});
+			//
+			// Tool Feature: Template Inserter
+			//
+			// Sources:
+			// (1) insert into monaco:
+			//		a) editor content is ignored: https://stackoverflow.com/a/41667840
+			//		b) insert text at cursor: https://stackoverflow.com/a/65797991
+			// (2) js newline char: https://stackoverflow.com/a/1156388
+			function insert_kv_video() {
+				//var line = xowf.monaco.editors[xowf.monaco.editors.length-1].getPosition();
+				//var range = new monaco.Range(line.lineNumber, 1, line.Number, 1);
+				//var id = { major: 1, minor: 1 };
+				//var text = "FOO";
+				//var op = {identifier: id, range: range, text: text, forceMoveMarkers: true};
+				//xowf.monaco.editors[xowf.monaco.editors.length-1].executeEdits("mySource", [op]);
+				xowf.monaco.editors[xowf.monaco.editors.length-1].trigger('keyboard', 'type', {text: "video myVideo URL http://..."});
+			}
+
+			function insert_kv_video_with_two_timestamps() {
+				xowf.monaco.editors[xowf.monaco.editors.length-1].trigger('keyboard', 'type', {text: "video myVideo URL http://...\nvideo myVideo timestamp (ts1, ts2)\n\ntimestamp ts1 title \"Some title\"\ntimestamp ts1 time 63\n\ntimestamp ts2 title \"Enter your title\"\ntimestamp ts2 time 148"});
+			}
+
 		}]
 	}
 

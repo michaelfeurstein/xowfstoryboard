@@ -195,6 +195,8 @@ namespace eval ::xowfstoryboard {
 
 		append help_content [subst {<b>Commands:</b><br>}]
 		append help_content [generate_buttons $storyboard_elements $reference_prefix]
+		append help_content [subst {<br><b>Templates:</b><br>}]
+		append help_content [generate_template_buttons]
 	} elseif {$notation eq "natural-language"} {
 		set syntax_nl_keywords [Helper getNaturalLanguageKeywords]
 		set reference_prefix "en:reference_nl_"
@@ -324,6 +326,20 @@ namespace eval ::xowfstoryboard {
 		};# --> foreach end
 
 		return $help_content
+  }
+
+  #
+  # generate template inserter buttons
+  #
+  # buttons with calls to javascript functions
+  # inserting template code into monaco editor
+  #
+  ad_proc generate_template_buttons {} {
+	set template_content ""
+
+	append template_content [subst -nocommands {<a class="helperbtn btn btn-info" role="button" href="javascript:insert_kv_video()">Insert video</a> <a class="helperbtn btn btn-info" role="button" href="javascript:insert_kv_video_with_two_timestamps()">Insert video with timestamps</a>}]
+
+	return $template_content
   }
 
   #
