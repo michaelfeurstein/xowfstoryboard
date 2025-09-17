@@ -19,12 +19,5 @@
 <p><u>Example:</u></p>
 <code class="example">video tutorialVideo URL https://www.youtube.com/embed/gNYbvsruKHs<br>video tutorialVideo timestamp (ts01, ts02)</code>
 
-<p id="inserter" onclick="myFunction()">Insert</p>
-
-<script>
-function myFunction() {
-	document.getElementById("inserter").innerHTML = "WORKS";
-}
-</script>
 } \
 	-description {Video}
