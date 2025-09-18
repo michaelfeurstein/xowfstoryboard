@@ -129,39 +129,221 @@ namespace eval ::xowiki::formfield {
 				}
 			});
 
+			function createCreateProposals(range) {
+				return [
+					{
+					  label: 'module',
+					  kind: monaco.languages.CompletionItemKind.Text,
+					  insertText: 'module',
+					  range: range
+					},
+					{
+					  label: 'video',
+					  kind: monaco.languages.CompletionItemKind.Text,
+					  insertText: 'video',
+					  range: range
+					},
+					{
+					  label: 'question',
+					  kind: monaco.languages.CompletionItemKind.Text,
+					  insertText: 'question',
+					  range: range
+					},
+					{
+					  label: 'textpage',
+					  kind: monaco.languages.CompletionItemKind.Text,
+					  insertText: 'textpage',
+					  range: range
+					},
+					{
+					  label: 'timestamp',
+					  kind: monaco.languages.CompletionItemKind.Text,
+					  insertText: 'timestamp',
+					  range: range
+					},
+
+				];
+			}
+
+			function createSetProposals(range) {
+				return [
+					{
+					  label: 'structure',
+					  kind: monaco.languages.CompletionItemKind.Text,
+					  insertText: 'structure',
+					  range: range
+					},
+					{
+					  label: 'title',
+					  kind: monaco.languages.CompletionItemKind.Text,
+					  insertText: 'title',
+					  range: range
+					},
+					{
+					  label: 'URL',
+					  kind: monaco.languages.CompletionItemKind.Text,
+					  insertText: 'URL',
+					  range: range
+					},
+					{
+					  label: 'type',
+					  kind: monaco.languages.CompletionItemKind.Text,
+					  insertText: 'type',
+					  range: range
+					},
+					{
+					  label: 'question',
+					  kind: monaco.languages.CompletionItemKind.Text,
+					  insertText: 'question',
+					  range: range
+					},
+					{
+					  label: 'answer',
+					  kind: monaco.languages.CompletionItemKind.Text,
+					  insertText: 'answer',
+					  range: range
+					},
+					{
+					  label: 'feedback',
+					  kind: monaco.languages.CompletionItemKind.Text,
+					  insertText: 'feedback',
+					  range: range
+					},
+					{
+					  label: 'body',
+					  kind: monaco.languages.CompletionItemKind.Text,
+					  insertText: 'body',
+					  range: range
+					},
+					{
+					  label: 'time',
+					  kind: monaco.languages.CompletionItemKind.Text,
+					  insertText: 'time',
+					  range: range
+					},
+
+				];
+			}
+
+			function createAddProposals(range) {
+				return [
+					{
+					  label: 'timestamp',
+					  kind: monaco.languages.CompletionItemKind.Text,
+					  insertText: 'timestamp',
+					  range: range
+					},
+					{
+					  label: 'timestamps',
+					  kind: monaco.languages.CompletionItemKind.Text,
+					  insertText: 'timestamps',
+					  range: range
+					},
+				];
+			}
+
 			// Register a completion item provider for storyboard-language
 			monaco.languages.registerCompletionItemProvider('storyboard-language', {
-				provideCompletionItems: () => {
-					var suggestions = [
+				provideCompletionItems: (model, position) => {
+					var textUntilPosition = model.getValueInRange({
+						startLineNumber: position.lineNumber,
+						startColumn: 1,
+						endLineNumber: position.lineNumber,
+						endColumn: position.column,
+					});
+
+					var matchCreate = textUntilPosition.match(
+						/Create/
+					);
+
+					var matchSet = textUntilPosition.match(
+						/Set/
+					);
+
+					var matchAdd = textUntilPosition.match(
+						/Add/
+					);
+
+
+					var word = model.getWordUntilPosition(position);
+					var range = {
+						startLineNumber: position.lineNumber,
+						endLineNumber: position.lineNumber,
+						startColumn: word.startColumn,
+						endColumn: word.endColumn,
+					};
+
+					var defaultSuggestions = [
 						{
-							label: 'module',
-							kind: monaco.languages.CompletionItemKind.Text,
-							insertText: 'module'
+							label: 'Template: Module',
+							kind: monaco.languages.CompletionItemKind.Function,
+							insertText: 'Create module with title \"${1:your module title}\"\nSet structure of module to (${2:element type ID},${3:element type ID},${4:element type ID})',
+							documentation: 'Inserts a generic template for a module.',
+							insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
 						},
 						{
-							label: 'textpage',
+							label: 'Template: Question',
 							kind: monaco.languages.CompletionItemKind.Text,
-							insertText: 'textpage'
+							insertText: 'Create question with id q1\nSet title of q1 to \"${1:question title}\"\nSet type of q1 to singleChoice\nSet question of q1 to \"${2:instruction text}\"\nSet answer of q1 to \"${3:first answer option}\" which is wrong\nSet answer of q1 to \"${4:second answer option}\" which is wrong\nSet answer of q1 to \"${5:third answer option}\" which is correct',
+							documentation: 'Inserts a generic template for a question.',
+							insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
 						},
 						{
-							label: 'video',
+							label: 'Create',
 							kind: monaco.languages.CompletionItemKind.Text,
-							insertText: 'video'
+							insertText: 'Create'
 						},
 						{
-							label: 'timestamp',
+							label: 'Set',
 							kind: monaco.languages.CompletionItemKind.Text,
-							insertText: 'timestamp'
+							insertText: 'Set'
 						},
 						{
-							label: 'question',
+							label: 'Add',
 							kind: monaco.languages.CompletionItemKind.Text,
-							insertText: 'question'
-						}
+							insertText: 'Add'
+						},
 					];
-					return { suggestions: suggestions };
+
+					if (matchCreate) {
+						return { suggestions: createCreateProposals(range) };
+					} else if (matchSet) {
+						return { suggestions: createSetProposals(range)  };
+					} else if (matchAdd) {
+						return {suggestions: createAddProposals(range) };
+					} else {
+						return { suggestions: defaultSuggestions };
+					}
 				}
 			});
+
+			// Register a hover provider for storyboard-language
+			monaco.languages.registerHoverProvider('storyboard-language', {
+					provideHover: function(model, position) {
+					const word = model.getWordAtPosition(position);
+					switch (word?.word) {
+						case "module":
+							return {
+								contents: [
+									{ value: '**Element Type: Module**\n\nThe element type **module** has the following attributes:\n\n*ATTRIBUTE:* **title** *value:* string inside quotes\n*ATTRIBUTE:* **structure** *value:* comma separated list of element type ids' }
+								]
+							}
+						case "Create":
+							return {
+								contents: [
+									{ value: '**Command: Create**\n\nThe **Create** command lets you setup element types, such as modules, videos or timestamps.\n\n**Create** *ELEMENT_TYPE* **with** *ATTRIBUTE* value' }
+								]
+							}
+						case "Set":
+							return {
+								contents: [
+									{ value: '**Command: Set**\n\nUse the **Set** command to define attributes of element types.\n\n**Set** *ATTRIBUTE* **of** *id* **to** *value*' }
+								]
+							}
+					}
+				}
+			});
+
 			//
 			// Tool Feature: Template Inserter
 			//
