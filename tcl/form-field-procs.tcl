@@ -161,7 +161,6 @@ namespace eval ::xowiki::formfield {
 					  insertText: 'timestamp',
 					  range: range
 					},
-
 				];
 			}
 
@@ -221,7 +220,6 @@ namespace eval ::xowiki::formfield {
 					  insertText: 'time',
 					  range: range
 					},
-
 				];
 			}
 
@@ -242,6 +240,40 @@ namespace eval ::xowiki::formfield {
 				];
 			}
 
+			function createDefaultProposals(range) {
+				return [
+					{
+						label: 'Template: Module',
+						kind: monaco.languages.CompletionItemKind.Function,
+						insertText: 'Create module with title \"${1:your module title}\"\nSet structure of module to (${2:element type ID},${3:element type ID},${4:element type ID})',
+						documentation: 'Inserts a generic template for a module.',
+						insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+					},
+					{
+						label: 'Template: Question',
+						kind: monaco.languages.CompletionItemKind.Text,
+						insertText: 'Create question with id q1\nSet title of q1 to \"${1:question title}\"\nSet type of q1 to singleChoice\nSet question of q1 to \"${2:instruction text}\"\nSet answer of q1 to \"${3:first answer option}\" which is wrong\nSet answer of q1 to \"${4:second answer option}\" which is wrong\nSet answer of q1 to \"${5:third answer option}\" which is correct',
+						documentation: 'Inserts a generic template for a question.',
+						insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+						},
+					{
+						label: 'Create',
+						kind: monaco.languages.CompletionItemKind.Text,
+						insertText: 'Create'
+					},
+					{
+						label: 'Set',
+						kind: monaco.languages.CompletionItemKind.Text,
+						insertText: 'Set'
+					},
+					{
+						label: 'Add',
+						kind: monaco.languages.CompletionItemKind.Text,
+						insertText: 'Add'
+					},
+				];
+			}
+
 			// Register a completion item provider for storyboard-language
 			monaco.languages.registerCompletionItemProvider('storyboard-language', {
 				provideCompletionItems: (model, position) => {
@@ -252,18 +284,9 @@ namespace eval ::xowiki::formfield {
 						endColumn: position.column,
 					});
 
-					var matchCreate = textUntilPosition.match(
-						/Create/
-					);
-
-					var matchSet = textUntilPosition.match(
-						/Set/
-					);
-
-					var matchAdd = textUntilPosition.match(
-						/Add/
-					);
-
+					var matchCreate = textUntilPosition.match(/Create/);
+					var matchSet = textUntilPosition.match(/Set/);
+					var matchAdd = textUntilPosition.match(/Add/);
 
 					var word = model.getWordUntilPosition(position);
 					var range = {
@@ -273,38 +296,6 @@ namespace eval ::xowiki::formfield {
 						endColumn: word.endColumn,
 					};
 
-					var defaultSuggestions = [
-						{
-							label: 'Template: Module',
-							kind: monaco.languages.CompletionItemKind.Function,
-							insertText: 'Create module with title \"${1:your module title}\"\nSet structure of module to (${2:element type ID},${3:element type ID},${4:element type ID})',
-							documentation: 'Inserts a generic template for a module.',
-							insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
-						},
-						{
-							label: 'Template: Question',
-							kind: monaco.languages.CompletionItemKind.Text,
-							insertText: 'Create question with id q1\nSet title of q1 to \"${1:question title}\"\nSet type of q1 to singleChoice\nSet question of q1 to \"${2:instruction text}\"\nSet answer of q1 to \"${3:first answer option}\" which is wrong\nSet answer of q1 to \"${4:second answer option}\" which is wrong\nSet answer of q1 to \"${5:third answer option}\" which is correct',
-							documentation: 'Inserts a generic template for a question.',
-							insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
-						},
-						{
-							label: 'Create',
-							kind: monaco.languages.CompletionItemKind.Text,
-							insertText: 'Create'
-						},
-						{
-							label: 'Set',
-							kind: monaco.languages.CompletionItemKind.Text,
-							insertText: 'Set'
-						},
-						{
-							label: 'Add',
-							kind: monaco.languages.CompletionItemKind.Text,
-							insertText: 'Add'
-						},
-					];
-
 					if (matchCreate) {
 						return { suggestions: createCreateProposals(range) };
 					} else if (matchSet) {
@@ -312,7 +303,7 @@ namespace eval ::xowiki::formfield {
 					} else if (matchAdd) {
 						return {suggestions: createAddProposals(range) };
 					} else {
-						return { suggestions: defaultSuggestions };
+						return { suggestions: createDefaultProposals(range) };
 					}
 				}
 			});
