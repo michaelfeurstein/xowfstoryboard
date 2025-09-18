@@ -316,7 +316,7 @@ namespace eval ::xowiki::formfield {
 						case "module":
 							return {
 								contents: [
-									{ value: '**Element Type: Module**\n\nThe element type **module** has the following attributes:\n\n*ATTRIBUTE:* **title** *value:* string inside quotes\n*ATTRIBUTE:* **structure** *value:* comma separated list of element type ids' }
+									{ value: '**Element Type: Module**\n\nThe element type **module** has the following attributes:\n\n*ATTRIBUTE:* **title** *value:* string inside quotes\n\n*ATTRIBUTE:* **structure** *value:* comma separated list of element type ids' }
 								]
 							}
 						case "Create":
