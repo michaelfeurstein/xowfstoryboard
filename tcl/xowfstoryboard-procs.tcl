@@ -99,6 +99,23 @@ namespace eval ::xowfstoryboard {
 	}
   }
 
+  ad_proc -private global_node {} {
+	Gets the global xowfstoryboard instance site node
+  } {
+	set key ::xowfstoryboard::global_node
+	if {![info exists $key]} {
+	  set $key [site_node::get_from_url -url /xowfstoryboard -exact]
+	}
+	return [set $key]
+  }
+
+  ad_proc global_package_id {} {
+	Get the global xowfstoryboard instance
+  } {
+	set node [global_node]
+	return [dict get $node object_id]
+  }
+
   #
   # check if we are admin
   # set value accordingly
@@ -106,9 +123,9 @@ namespace eval ::xowfstoryboard {
   #
 
   ad_proc am_i_admin {} {
-	set package_id [::xo::cc set package_id]
+	set package_id [global_package_id]
     set amiadmin [permission::permission_p \
-                      -party_id [::xo::cc user_id] \
+                      -party_id [ad_conn user_id] \
                       -object_id $package_id \
                       -privilege "admin"]
 	set ::xowfstoryboard::am_i_admin $amiadmin
